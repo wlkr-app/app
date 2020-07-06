@@ -18,13 +18,13 @@ router.post("/signup", (req, res, next) => {
 
   if (username == '' || password == '') {
     res.render('auth/signup', {
-      errorMessage: 'Please fill up both fileds.'
+      message: 'Please fill up both fields.'
     });
     return;
   }
   if (password.length < 8) {
     res.render('auth/signup', {
-      errorMessage: 'Your password has to be at least 8 characters long.'
+      message: 'Your password has to be at least 8 characters long.'
     });
     return;
   }
@@ -51,13 +51,10 @@ router.post("/signup", (req, res, next) => {
       salt
     })
     .then((user) => { 
-          // passport - login the user
       req.login(user, err => {
         if (err) next(err);
         else res.redirect('/dogs/cards');
       });
-
-      // redirect to login
       res.redirect('/login')
     })
     .catch(error => {
@@ -66,23 +63,19 @@ router.post("/signup", (req, res, next) => {
 
 });
 
-
-router.get("/login", (req, res, next) => {
-  // if (!req.session.user) {
-  //     res.render('auth/signup', { errorMessage: 'You must login first.' });
-  // } else {
-  res.render("auth/login")
+router.get('/login', (req, res) => {
+  res.render('auth/login', { message: req.flash('Invalid credentials.')});
 });
 
-router.post('/login', 
-  passport.authenticate('local', { successRedirect: '/dogs/cards',
-  failureRedirect: '/login',
-  failureFlash: 'Invalid username or password.' }),
-  function(req, res) {
-    console.log('this is req: ', req);
-    console.log('this is response: ', res);
-    res.redirect('/dogs/cards');
-  });
+router.post(
+  '/login',
+  passport.authenticate('local', {
+    successRedirect: '/dogs/cards',
+    failureRedirect: '/login',
+    failureFlash: true,
+    passReqToCallback: true
+  })
+)
 
 router.get("/logout", (req, res) => {
   req.logout();

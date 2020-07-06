@@ -8,7 +8,6 @@ const hbs = require('hbs');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
-
 const bcrypt = require('bcrypt');
 const flash = require('connect-flash');
 
@@ -63,12 +62,10 @@ const User = require('./models/User');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-// we serialize only the `_id` field of the user to keep the information stored minimum
 passport.serializeUser((user, done) => {
   done(null, user._id);
 });
 
-// when we need the information for the user, the deserializeUser function is called with the id that we previously serialized to fetch the user from the database
 passport.deserializeUser((id, done) => {
   User.findById(id)
     .then(dbUser => {
@@ -78,8 +75,6 @@ passport.deserializeUser((id, done) => {
       done(err);
     });
 });
-
-app.use(flash());
 
 passport.use(
   new LocalStrategy((username, password, done) => {
@@ -99,7 +94,7 @@ passport.use(
   })
 );
 
-
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
