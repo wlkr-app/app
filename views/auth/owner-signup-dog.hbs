@@ -1,1 +1,46 @@
+
+
+{{#with user}}
 <img src="{{imgPath}}" alt=""> HELLOOOO
+{{/with}}
+
+<div class="default">
+
+
+<form action="/ownersignup-dog" method="post" enctype="multipart/form-data">
+
+  <label>Pic</label>
+  <input type="file" name="photo">
+
+  <label for="name">Name:</label>
+  <input type="text" name="name">
+
+  <label for="age">Age:</label>
+  <input type="text" name="age">
+
+  <p>
+    <input type="radio" name="gender" value="male">
+    <label for="male">Male</label><br>
+    <input type="radio" name="gender" value="female">
+    <label for="female">Female</label><br>
+  </p>
+
+  <label for="breed">Breed:</label>
+  <select name="breed">
+    <option value=""></option>
+    {{#each list}}
+    <option value="{{this.name}}">{{this.name}}</option>
+    {{/each}}
+    <option value="Other">Other / Mixed / Mutt</option>
+  </select>
+
+  <label for="description">Description:</label>
+  <textarea name="description" rows="4" cols="50">Type here stuff :D</textarea>
+
+   {{!-- <label for="time">Time:</label>
+  <input type="text" id="walktime" name="time"> --}}
+
+ <input type="submit" value="SAVE">
+</form>
+
+</div>

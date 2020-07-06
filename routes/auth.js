@@ -4,11 +4,15 @@ const passport = require("passport");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
+const axios = require('axios');
 const {
   uploader,
   cloudinary
 } = require("../config/cloudinary.js");
+
 const User = require("../models/user");
+const Dog = require("../models/dog");
+
 
 // function ensureAuthenticated(req, res, next) {
 //   if (req.isAuthenticated()) {
@@ -140,13 +144,64 @@ router.post('/ownersignup/:id', uploader.single("photo"), (req, res, next) => {
 // OWNER SIGNUP [second page] - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get("/ownersignup-dog", (req, res, next) => {
-  console.log(req.user)
   const id = req.user.id;
-  User.findById(id)
-    .then(user => {
-      res.render("auth/owner-signup-dog", user)
+  axios.get('https://api.thedogapi.com/v1/breeds')
+    .then(response => {
+      const list = response.data;
+      User.findById(id)
+        .then(user => {
+          res.render("auth/owner-signup-dog", {
+            user,
+            list
+          })
+        })
+    })
+  // console.log(req.user)
+});
+
+router.post("/ownersignup-dog", uploader.single("photo"), (req, res, next) => {
+  // console.log(req.file);
+  const {
+    name,
+    age,
+    gender,
+    breed,
+    description
+  } = req.body;
+  const owner = req.user._id;
+  const imgPath = req.file.url;
+  const imgName = req.file.originalname;
+  const imgPublicId = req.file.public_id;
+
+  // if statements for the form completion
+
+  Dog.create({
+      name,
+      age,
+      gender,
+      breed,
+      description,
+      owner,
+      imgPath,
+      imgName,
+      imgPublicId
+    })
+    .then(() => {
+      res.redirect("/ownersignup-done");
+    })
+    .catch(error => {
+      console.log(error);
     })
 });
+
+
+
+// OWNER SIGNUP [third page] - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+router.get("/ownersignup-done", (req, res, next) => {
+  res.render("auth/owner-signup-done")
+});
+
 
 
 
