@@ -1,14 +1,8 @@
 const express = require("express");
 const router = express.Router();
-
 const passport = require("passport");
-
 const bcrypt = require("bcrypt");
-const saltRounds = 10;
-const salt = bcrypt.genSaltSync(saltRounds);
-
-
-const User = require("../models/user");
+const User = require("../models/User");
 
 
 router.get("/signup", (req, res, next) => {
@@ -17,6 +11,7 @@ router.get("/signup", (req, res, next) => {
 
 router.post("/signup", (req, res, next) => {
   const {
+    type,
     username,
     password
   } = req.body;
@@ -45,15 +40,25 @@ router.post("/signup", (req, res, next) => {
         return;
       }
     });
-
+  
+  const salt = bcrypt.genSaltSync();
   const hashPass = bcrypt.hashSync(password, salt);
 
   User.create({
+      type,
       username,
-      password: hashPass
+      password: hashPass,
+      salt
     })
-    .then(() => { 
-      res.redirect("dogs/cards");
+    .then((user) => { 
+          // passport - login the user
+      req.login(user, err => {
+        if (err) next(err);
+        else res.redirect('/dogs/cards');
+      });
+
+      // redirect to login
+      res.redirect('/login')
     })
     .catch(error => {
       console.log(error);
@@ -66,17 +71,18 @@ router.get("/login", (req, res, next) => {
   // if (!req.session.user) {
   //     res.render('auth/signup', { errorMessage: 'You must login first.' });
   // } else {
-  res.render("auth/login", {
-    "message": req.flash("error")
-  });
+  res.render("auth/login")
 });
 
-router.post("/login", passport.authenticate("local", {
-  successRedirect: "/dogs/cards",
-  failureRedirect: "/login",
-  failureFlash: true,
-  passReqToCallback: true
-}));
+router.post('/login', 
+  passport.authenticate('local', { successRedirect: '/dogs/cards',
+  failureRedirect: '/login',
+  failureFlash: 'Invalid username or password.' }),
+  function(req, res) {
+    console.log('this is req: ', req);
+    console.log('this is response: ', res);
+    res.redirect('/dogs/cards');
+  });
 
 router.get("/logout", (req, res) => {
   req.logout();

@@ -2,14 +2,20 @@
 <h2>Signup</h2>
  
 <form action="/signup" method="POST" id="form-container">
-  <label for="username">Email</label>
-  <input id="username" type="text" name="username" placeholder="Your email">
+  <label for="email">Email</label>
+  <input id="email" type="text" name="username" placeholder="Your email">
   <br><br>
   <label for="password">Password</label>
   <input id="password" type="password" name="password" placeholder="Your password">
+  <label for="type">Dog Owner or Dog Walker? </label>
+  <select name ="type">
+    <option value="">--Please choose an option--</option>
+    <option value="dog-walker">Dog Walker</option>
+    <option value="dog-owner">Dog Owner</option>
+  </select>
  
-  {{#if errorMessage}}
-    <div class="error-message">{{ errorMessage }}</div>
+  {{#if message}}
+    <div class="error-message">{{ message }}</div>
   {{/if}}
   <br><br>
  
