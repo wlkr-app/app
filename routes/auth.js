@@ -11,8 +11,6 @@ const salt = bcrypt.genSaltSync(saltRounds);
 const User = require("../models/user");
 
 
-
-
 router.get("/signup", (req, res, next) => {
   res.render("auth/signup");
 });
@@ -55,7 +53,7 @@ router.post("/signup", (req, res, next) => {
       password: hashPass
     })
     .then(() => { 
-      res.redirect("/dogs/cards");
+      res.redirect("dogs/cards");
     })
     .catch(error => {
       console.log(error);
@@ -79,54 +77,6 @@ router.post("/login", passport.authenticate("local", {
   failureFlash: true,
   passReqToCallback: true
 }));
-
-// router.post("/login", (req, res, next) => {
-//   const {
-//     username,
-//     password
-//   } = req.body;
-
-//   if (username === "" || password === "") {
-//     res.render("auth/login", {
-//       errorMessage: "Please enter both username and password."
-//     });
-//     return;
-//   }
-
-//   User.findOne({
-//       username: username
-//     })
-//     .then(user => {
-//       if (!user) {
-//         res.render("auth/login", {
-//           errorMessage: "The username doesn't exist."
-//         });
-//         return;
-//       }
-//       if (bcrypt.compareSync(password, user.password)) {
-//         req.session.user = user; // this grabs the login information and stores it. but why?
-//         // console.log(req.session.user)
-//         res.redirect("/dogs/cards");
-//       } else {
-//         res.render("auth/login", {
-//           errorMessage: "Incorrect password."
-//         });
-//       }
-//     })
-//     .catch(error => {
-//       next(error);
-//     })
-// });
-
-// router.get('/logout', (req, res, next) => {
-//   req.session.destroy(err => {
-//     if (err) {
-//       next(err);
-//     } else {
-//       res.redirect('/');
-//     }
-//   })
-// });
 
 router.get("/logout", (req, res) => {
   req.logout();

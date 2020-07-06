@@ -10,7 +10,7 @@ cloudinary.config({
 
 const storage = cloudinaryStorage({
   cloudinary,
-  folder: 'dogapp',
+  folder: 'walkr-app',
   allowedFormats: ['jpg', 'png'],
   filename: function (req, res, cb) {
     cb(null, res.originalname);

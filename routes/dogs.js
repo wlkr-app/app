@@ -46,8 +46,7 @@ router.get('/dogs/add', ensureAuthenticated, (req, res, next) => {
       // console.log(response.data);
       const list = response.data;
       res.render('dogs/add', {
-        list,
-        flatpickr
+        list
       });
     })
     .catch(err => {
