@@ -1,0 +1,24 @@
+<nav>
+  {{#with user}}
+  <a href="/"><p>🐕</p></a>
+  <a href="/users/{{this._id}}/edit"><p>👨</p></a>
+  {{/with}}
+</nav>
+
+<div class="default">
+
+  <h1>DOGS!</h1>
+  <div class="grid">
+    {{#each dogs}}
+    <div style="background-image: url('{{this.imgPath}}')" class="doggrid">{{this.name}}</div>
+    <a href="/dogs/delete/{{this._id}}">❌</a>
+    {{else}}
+    <p>There are no dogs yet! :(</p>
+    {{/each}}
+  </div>
+
+  <a href="/dogs/add">Add dog</a>
+
+
+
+</div>

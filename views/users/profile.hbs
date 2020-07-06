@@ -1,0 +1,38 @@
+<nav>
+  <a href="/">
+    <p>🐕</p>
+  </a>
+  <a href="/users/{{this._id}}/edit">
+    <p>👨</p>
+  </a>
+</nav>
+
+
+<div class="default">
+
+  HELO
+
+  This is {{this.username}}
+
+
+  <h2>Edit Profile</h2>
+
+  <form action="/users/{{this._id}}/edit" method="post" enctype="multipart/form-data">
+
+    <label>Pic</label>
+    <input type="file" name="photo">
+
+    <label for="">Name:</label>
+    <input type="text" name="name" value="{{name}}">
+
+    <label for="">District:</label>
+    <input type="text" name="district" value="{{district}}">
+
+    <label for="">City: </label>
+    <input type="text" name="city" value="{{city}}">
+
+    <input type="submit" value="SAVE">
+  </form>
+
+
+</div>
