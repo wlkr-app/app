@@ -4,9 +4,6 @@ const router = express.Router();
 const User = require("../models/user");
 
 
-
-// authentication check - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -15,6 +12,9 @@ function ensureAuthenticated(req, res, next) {
   }
 }
 
+
+
+// EDIT USER - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get('/users/:id/edit', ensureAuthenticated, (req, res, next) => {
   // console.log('body' + req.body)

@@ -10,7 +10,6 @@ const Dog = require("../models/dog");
 const User = require("../models/user");
 
 
-// authentication check - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -20,8 +19,9 @@ function ensureAuthenticated(req, res, next) {
   }
 }
 
-// dog cards view  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+
+// DOG CARDS VIEW - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get('/dogs/cards', ensureAuthenticated, (req, res, next) => {
 
@@ -38,7 +38,8 @@ router.get('/dogs/cards', ensureAuthenticated, (req, res, next) => {
 });
 
 
-// dog add view  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// ADD DOG - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get('/dogs/add', ensureAuthenticated, (req, res, next) => {
   axios.get('https://api.thedogapi.com/v1/breeds')
@@ -90,7 +91,9 @@ router.post("/dogs/add", ensureAuthenticated, uploader.single("photo"), (req, re
 
 });
 
-// dog delete  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+// DELETE DOG - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get('/dogs/delete/:id', (req, res, next) => {
   Dog.findByIdAndDelete(req.params.id)
@@ -106,8 +109,6 @@ router.get('/dogs/delete/:id', (req, res, next) => {
       console.log(err);
     });
 });
-
-
 
 
 module.exports = router;

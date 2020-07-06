@@ -1,29 +1,26 @@
 const express = require("express");
 const router = express.Router();
-
 const passport = require("passport");
-
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+const salt = bcrypt.genSaltSync(saltRounds);
 const {
   uploader,
   cloudinary
 } = require("../config/cloudinary.js");
-
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
-const salt = bcrypt.genSaltSync(saltRounds);
-
-
 const User = require("../models/user");
 
+// function ensureAuthenticated(req, res, next) {
+//   if (req.isAuthenticated()) {
+//     return next();
+//   } else {
+//     res.redirect('/login')
+//   }
+// }
 
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    res.redirect('/login')
-  }
-}
+
+// SIGNUP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get("/signup", (req, res, next) => {
   res.render("auth/signup");
@@ -79,6 +76,10 @@ router.post("/signup", (req, res, next) => {
 
 });
 
+
+
+// OWNER SIGNUP [first page] - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 router.get("/ownersignup", (req, res, next) => {
   console.log(req.session)
   console.log(req.user)
@@ -98,7 +99,7 @@ router.get("/ownersignup", (req, res, next) => {
 router.post('/ownersignup/:id', uploader.single("photo"), (req, res, next) => {
   const id = req.user.id;
   const {
-    name,
+    name, // address is not working, doesn't register on database
     street,
     houseNumber,
     zip,
@@ -135,6 +136,9 @@ router.post('/ownersignup/:id', uploader.single("photo"), (req, res, next) => {
 });
 
 
+
+// OWNER SIGNUP [second page] - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 router.get("/ownersignup-dog", (req, res, next) => {
   console.log(req.user)
   const id = req.user.id;
@@ -146,16 +150,7 @@ router.get("/ownersignup-dog", (req, res, next) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
+// LOGIN - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get("/login", (req, res, next) => {
   // if (!req.session.user) {
@@ -166,25 +161,16 @@ router.get("/login", (req, res, next) => {
   });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 router.post("/login", passport.authenticate("local", {
   successRedirect: "/dogs/cards",
   failureRedirect: "/login",
   failureFlash: true,
   passReqToCallback: true
 }));
+
+
+
+// LOGOUT - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get("/logout", (req, res) => {
   req.logout();
