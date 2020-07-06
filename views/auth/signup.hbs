@@ -7,6 +7,15 @@
   <br><br>
   <label for="password">Password</label>
   <input id="password" type="password" name="password" placeholder="Your password">
+
+
+  <p>
+    <input type="radio" name="type" value="dog-owner">
+    <label for="dog-owner">I have a dog</label><br>
+    <input type="radio" name="type" value="dog-walker">
+    <label for="dog-walker">I want to walk a dog</label><br>
+  </p>
+  
  
   {{#if errorMessage}}
     <div class="error-message">{{ errorMessage }}</div>

@@ -3,6 +3,11 @@ const router = express.Router();
 
 const passport = require("passport");
 
+const {
+  uploader,
+  cloudinary
+} = require("../config/cloudinary.js");
+
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
@@ -11,6 +16,15 @@ const salt = bcrypt.genSaltSync(saltRounds);
 const User = require("../models/user");
 
 
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    res.redirect('/login')
+  }
+}
+
 router.get("/signup", (req, res, next) => {
   res.render("auth/signup");
 });
@@ -18,7 +32,8 @@ router.get("/signup", (req, res, next) => {
 router.post("/signup", (req, res, next) => {
   const {
     username,
-    password
+    password,
+    type
   } = req.body;
 
   if (username == '' || password == '') {
@@ -50,16 +65,96 @@ router.post("/signup", (req, res, next) => {
 
   User.create({
       username,
-      password: hashPass
+      password: hashPass,
+      type
     })
-    .then(() => { 
-      res.redirect("dogs/cards");
+    .then(() => { // redirect to signup for owners or for walkers
+      passport.authenticate('local')(req, res, function () {
+        res.redirect("/ownersignup");
+      })
     })
     .catch(error => {
       console.log(error);
     })
 
 });
+
+router.get("/ownersignup", (req, res, next) => {
+  console.log(req.session)
+  console.log(req.user)
+
+  const id = req.user.id;
+  User.findById(id)
+    .then(user => {
+      res.render('auth/owner-signup-info', user)
+    })
+    .catch(error => {
+      console.log('Error: ', error);
+      next();
+    });
+
+});
+
+router.post('/ownersignup/:id', uploader.single("photo"), (req, res, next) => {
+  const id = req.user.id;
+  const {
+    name,
+    street,
+    houseNumber,
+    zip,
+    city
+  } = req.body;
+  const imgPath = req.file.url;
+  const imgName = req.file.originalname;
+  const imgPublicId = req.file.public_id;
+  User.update({
+      _id: id
+    }, {
+      $set: {
+        name,
+        adress: {
+          street,
+          houseNumber,
+          zip,
+          city
+        },
+        imgPath,
+        imgName,
+        imgPublicId
+      }
+    }, {
+      new: true
+    })
+    .then(() => {
+      res.redirect('/ownersignup-dog');
+    })
+    .catch((error) => {
+      res.render('/');
+      console.log(error);
+    })
+});
+
+
+router.get("/ownersignup-dog", (req, res, next) => {
+  console.log(req.user)
+  const id = req.user.id;
+  User.findById(id)
+    .then(user => {
+      res.render("auth/owner-signup-dog", user)
+    })
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 router.get("/login", (req, res, next) => {
@@ -70,6 +165,19 @@ router.get("/login", (req, res, next) => {
     "message": req.flash("error")
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 router.post("/login", passport.authenticate("local", {
   successRedirect: "/dogs/cards",

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
 
 const User = require("../models/user");
 
@@ -24,7 +23,7 @@ router.get('/users/:id/edit', ensureAuthenticated, (req, res, next) => {
   const id = req.user.id;
   User.findById(id)
     .then(user => {
-      console.log('user is' + user)
+      // console.log('user is' + user)
 
       res.render('users/profile', user)
     })
@@ -67,6 +66,10 @@ router.post('/users/:id/edit', (req, res, next) => {
       console.log(error);
     })
 });
+
+
+
+
 
 
 
