@@ -11,10 +11,8 @@ const { ensureAuthenticated } = require('./middlewares');
 // EDIT USER - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get('/users/:id/edit', (req, res, next) => {
-  // console.log('body' + req.body)
-  // console.log('user' + req.user)
-
   const id = req.user.id;
+  if(id !== req.params.id) res.redirect("/login");
   User.findById(id).populate('dog')
     .then(user => {
       console.log('user is' + req.user);
@@ -28,10 +26,8 @@ router.get('/users/:id/edit', (req, res, next) => {
 })
 
 router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
-  // console.log(req.body)
-  // console.log(req.user)
   const id = req.user.id;
-
+  if(id !== req.params.id) res.redirect("/login");
   const {
     name,
     street,
