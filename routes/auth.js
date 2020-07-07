@@ -22,7 +22,7 @@ router.post("/signup", (req, res, next) => {
     type,
     username,
     password
-    } = req.body;
+  } = req.body;
 
   if (username == '' || password == '') {
     res.render('auth/signup', {
@@ -56,8 +56,8 @@ router.post("/signup", (req, res, next) => {
         .then(dbUser => {
           req.login(dbUser, err => {
             if (err) next(err);
-            if(dbUser.type === 'dog-owner') res.redirect('/ownersignup');
-            else res.redirect('/dogs/cards');
+            if (dbUser.type === 'dog-owner') res.redirect('/ownersignup');
+            else res.redirect('/walkersignup');
           });
           res.redirect('login');
         })
@@ -73,21 +73,61 @@ router.post("/signup", (req, res, next) => {
 
 router.get("/login", (req, res, next) => {
   res.render("auth/login", {
-      "errorMessage": req.flash("error")
-    })
+    "errorMessage": req.flash("error")
+  })
 
 });
 
 
-router.post(
-  '/login',
-  passport.authenticate('local', {
-    successRedirect: '/dogs/cards',
-    failureRedirect: '/login',
-    failureFlash: true,
-    passReqToCallback: true
-  })
-)
+// router.post(
+//   '/login',
+//   passport.authenticate('local', {
+//     successRedirect: '/dogs/cards',
+//     failureRedirect: '/login',
+//     failureFlash: true,
+//     passReqToCallback: true
+//   })
+// )
+
+
+// app.get('/login', function(req, res, next) {
+//   passport.authenticate('local', function(err, user, info) {
+//     if (err) { return next(err); }
+//     if (!user) { return res.redirect('/login'); }
+//     req.logIn(user, function(err) {
+//       if (err) { return next(err); }
+//       return res.redirect('/users/' + user.username);
+//     });
+//   })(req, res, next);
+// });
+
+
+router.post('/login', function (req, res, next) {
+  const id = req.user.id;
+  passport.authenticate('local', function (err, user, info) {
+    req.session.currentUser = user;
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.redirect('/login');
+    }
+    req.logIn(user, function (err) {
+      if (err) {
+        return next(err);
+      }
+      if (user.type === 'dog-walker') {
+        res.redirect('/dogs/cards/')
+      }
+      if (user.type === 'dog-owner') {
+        res.redirect('/users/:id/edit')
+      }
+    });
+  })(req, res, next);
+});
+
+
+
 
 
 

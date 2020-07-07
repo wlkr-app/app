@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const User = require("../models/User");
+const {
+  uploader,
+  cloudinary
+} = require("../config/cloudinary.js");
 
 
 // function ensureAuthenticated(req, res, next) {
@@ -21,36 +25,57 @@ router.get('/users/:id/edit', (req, res, next) => {
   // console.log('user' + req.user)
 
   const id = req.user.id;
-  User.findById(id)
+  User.findById(id).populate('dog')
     .then(user => {
+      console.log('user is' + req.user);
       // console.log('user is' + user)
-
       res.render('users/profile', user)
     })
-
     .catch(error => {
       console.log('Error: ', error);
       next();
     });
 })
 
-router.post('/users/:id/edit', (req, res, next) => {
+router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
+  // console.log(req.body)
+  // console.log(req.user)
   const id = req.user.id;
+
   const {
     name,
-    district,
+    street,
+    houseNumber,
+    zip,
     city
   } = req.body;
-  const imgPath = req.file.url;
-  const imgName = req.file.originalname;
-  const imgPublicId = req.file.public_id;
+
+
+  let imgPath;
+  let imgName;
+  let imgPublicId;
+
+  if (req.file == true) {
+     imgPath = req.file.url;
+     imgName = req.file.originalname;
+     imgPublicId = req.file.public_id;
+  } else {
+     imgPath = req.user.imgPath;
+     imgName = req.user.imgName;
+     imgPublicId = req.user.imgPublicId;
+  }
+
   User.update({
       _id: id
     }, {
       $set: {
         name,
-        district,
-        city,
+        address: {
+          street,
+          houseNumber,
+          zip,
+          city
+        },
         imgPath,
         imgName,
         imgPublicId
@@ -66,6 +91,27 @@ router.post('/users/:id/edit', (req, res, next) => {
       console.log(error);
     })
 });
+
+
+
+// router.get('/dash', ensureAuthenticated(), (req, res, next) => {
+
+//   Dog.findById(id)
+  
+  
+  
+  
+//   Dog.find().then(allDogs => {
+//     const id = req.user.id;
+//     User.findById(id)
+//       .then(user => {
+//         res.render('dogs/cards', {
+//           dogs: allDogs,
+//           user: req.user
+//         })
+//       })
+//   })
+// });
 
 
 

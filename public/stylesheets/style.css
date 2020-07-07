@@ -121,12 +121,16 @@ div.default {
 
 div.grid {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 div.doggrid {
+  border-radius: 1rem;
   margin: 0.5rem;
-  width: 10vw;
-  height: 10vw;
+  width: 20vw;
+  height: 20vw;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -273,10 +277,13 @@ p.home {
 
 div.radio {
   margin: 3rem 0 0 0;
+  display: flex;
+  justify-content: center;
   -webkit-tap-highlight-color: transparent;
 }
 
-label {
+.radio label {
+  margin: 0 0.5rem 0 0.5rem;
   outline: none;
   display: -webkit-box;
   display: flex;
@@ -284,6 +291,10 @@ label {
   position: relative;
   overflow: hidden;
   margin-bottom: 0.2rem;
+}
+
+.vertical {
+  flex-direction: column;
 }
 
 label input {
@@ -343,6 +354,8 @@ label span:before {
   border-radius: 50rem;
   opacity:0;
 }
+
+
 
 
 
