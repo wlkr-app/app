@@ -11,21 +11,21 @@ const User = require("../models/User");
 
 
 
-const ensureAuthenticated = () => {
-  return (req, res, next) => {
-    if (req.isAuthenticated()) {
-      next();
-    } else {
-      res.redirect('/login');
-    }
-  };
-};
+// const ensureAuthenticated = () => {
+//   return (req, res, next) => {
+//     if (req.isAuthenticated()) {
+//       next();
+//     } else {
+//       res.redirect('/login');
+//     }
+//   };
+// };
 
 
 
 // DOG CARDS VIEW - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-router.get('/dogs/cards', ensureAuthenticated(), (req, res, next) => {
+router.get('/dogs/cards', (req, res, next) => {
   Dog.find().then(allDogs => {
     const id = req.user.id;
     User.findById(id)
@@ -42,7 +42,7 @@ router.get('/dogs/cards', ensureAuthenticated(), (req, res, next) => {
 
 // ADD DOG - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-router.get('/dogs/add', ensureAuthenticated(), (req, res, next) => {
+router.get('/dogs/add', (req, res, next) => {
   axios.get('https://api.thedogapi.com/v1/breeds')
     .then(response => {
       // console.log(response.data);
@@ -56,7 +56,7 @@ router.get('/dogs/add', ensureAuthenticated(), (req, res, next) => {
     })
 });
 
-router.post("/dogs/add", ensureAuthenticated(), uploader.single("photo"), (req, res, next) => {
+router.post("/dogs/add", uploader.single("photo"), (req, res, next) => {
   // console.log(req.file);
   const {
     name,

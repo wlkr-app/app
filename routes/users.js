@@ -4,19 +4,19 @@ const axios = require('axios');
 const User = require("../models/User");
 
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    res.redirect('/login')
-  }
-}
+// function ensureAuthenticated(req, res, next) {
+//   if (req.isAuthenticated()) {
+//     return next();
+//   } else {
+//     res.redirect('/login')
+//   }
+// }
 
 
 
 // EDIT USER - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-router.get('/users/:id/edit', ensureAuthenticated(), (req, res, next) => {
+router.get('/users/:id/edit', (req, res, next) => {
   // console.log('body' + req.body)
   // console.log('user' + req.user)
 

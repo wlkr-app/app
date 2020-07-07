@@ -32,9 +32,8 @@ router.post("/signup", (req, res, next) => {
   const {
     type,
     username,
-    password,
-    type
-  } = req.body;
+    password
+    } = req.body;
 
   if (username == '' || password == '') {
     res.render('auth/signup', {
@@ -88,9 +87,6 @@ router.get("/login", (req, res, next) => {
   res.render("auth/login", {
       "errorMessage": req.flash("error")
     })
-    .catch(error => {
-      console.log(error);
-    });
 
 });
 
