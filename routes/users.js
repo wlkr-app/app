@@ -27,13 +27,14 @@ router.get('/users/:id/edit', (req, res, next) => {
 
 router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
   const id = req.user.id;
-  if(id !== req.params.id) res.redirect("/login");
+  // if(id !== req.params.id) res.redirect("/login");
   const {
     name,
     street,
     houseNumber,
     zip,
-    city
+    city,
+    description
   } = req.body;
 
 
@@ -62,6 +63,7 @@ router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
           zip,
           city
         },
+        description,
         imgPath,
         imgName,
         imgPublicId
@@ -70,7 +72,7 @@ router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
       new: true
     })
     .then(() => {
-      res.redirect('/users/:id/edit');
+      res.redirect('/users/' + req.user.id);
     })
     .catch((error) => {
       res.render('/users/:id/edit');
