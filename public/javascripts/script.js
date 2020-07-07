@@ -1,5 +1,10 @@
+import flatpickr from "flatpickr";
+
 $(document).ready(() => {
 
+
+
+  
   document.addEventListener('DOMContentLoaded', () => {
     console.log('Yay, loaded :)');
   }, false);

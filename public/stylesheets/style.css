@@ -273,10 +273,13 @@ p.home {
 
 div.radio {
   margin: 3rem 0 0 0;
+  display: flex;
+  justify-content: center;
   -webkit-tap-highlight-color: transparent;
 }
 
-label {
+.radio label {
+  margin: 0 0.5rem 0 0.5rem;
   outline: none;
   display: -webkit-box;
   display: flex;

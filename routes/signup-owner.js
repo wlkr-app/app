@@ -5,7 +5,6 @@ const {
   uploader,
   cloudinary
 } = require("../config/cloudinary.js");
-
 const User = require("../models/User");
 const Dog = require("../models/Dog");
 
