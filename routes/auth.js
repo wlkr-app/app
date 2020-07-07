@@ -29,38 +29,25 @@ router.post("/signup", (req, res, next) => {
     return;
   }
 
-  User.findOne({
-      username
-    })
-    .then(user => {
-      if (user !== null) {
-        res.render("auth/signup", {
-          message: "The username already exists"
+  User.findOne({ username: username }).then(found => {
+    if (found !== null) {
+      res.render('auth/login', { message: 'Account alredy exists' });
+    } else {
+      const salt = bcrypt.genSaltSync();
+      const hash = bcrypt.hashSync(password, salt);
+      User.create({ username: username, password: hash })
+        .then(dbUser => {
+          req.login(dbUser, err => {
+            if (err) next(err);
+            else res.redirect('/dogs/cards');
+          });
+          res.redirect('login');
+        })
+        .catch(err => {
+          next(err);
         });
-        return;
       }
-    });
-  
-  const salt = bcrypt.genSaltSync();
-  const hashPass = bcrypt.hashSync(password, salt);
-
-  User.create({
-      type,
-      username,
-      password: hashPass,
-      salt
-    })
-    .then((user) => { 
-      req.login(user, err => {
-        if (err) next(err);
-        else res.redirect('/dogs/cards');
-      });
-      res.redirect('/login')
-    })
-    .catch(error => {
-      console.log(error);
-    })
-
+  });
 });
 
 router.get('/login', (req, res) => {
