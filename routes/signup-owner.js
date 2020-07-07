@@ -114,8 +114,23 @@ router.post("/ownersignup-dog", uploader.single("photo"), (req, res, next) => {
       imgName,
       imgPublicId
     })
-    .then(() => {
-      res.redirect("/ownersignup-done");
+    .then(dog => {
+      User.update({
+          _id: owner
+        }, {
+          $set: {
+            dog: dog._id
+          }
+        }, {
+          new: true
+        })
+        .then(() => {
+          res.redirect("/ownersignup-done");
+        })
+        .catch((error) => {
+          res.render('/users/:id/edit');
+          console.log(error);
+        })
     })
     .catch(error => {
       console.log(error);
@@ -127,17 +142,17 @@ router.post("/ownersignup-dog", uploader.single("photo"), (req, res, next) => {
 // OWNER SIGNUP [third page] - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get("/ownersignup-done", (req, res, next) => {
-  console.log(req.user)
+  // console.log(req.user)
   const id = req.user.id;
   User.findById(id)
-  .then(user => {
-    res.render("auth/owner-signup-done", user)
-  })
+    .then(user => {
+      res.render("auth/owner-signup-done", user)
+    })
 
-  .catch(error => {
-    console.log('Error: ', error);
-    next();
-  });
+    .catch(error => {
+      console.log('Error: ', error);
+      next();
+    });
 });
 
 
