@@ -6,8 +6,8 @@ const {
   cloudinary
 } = require("../config/cloudinary.js");
 
-const User = require("../models/user");
-const Dog = require("../models/dog");
+const User = require("../models/User");
+const Dog = require("../models/Dog");
 
 
 

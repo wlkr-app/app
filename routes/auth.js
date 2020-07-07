@@ -32,9 +32,8 @@ router.post("/signup", (req, res, next) => {
   const {
     type,
     username,
-    password,
-    type
-  } = req.body;
+    password
+    } = req.body;
 
   if (username == '' || password == '') {
     res.render('auth/signup', {
@@ -50,13 +49,20 @@ router.post("/signup", (req, res, next) => {
     return;
   }
 
-  User.findOne({ username: username }).then(found => {
+  User.findOne({
+    username: username
+  }).then(found => {
     if (found !== null) {
-      res.render('auth/login', { errorMessage: 'Account already exists' });
+      res.render('auth/login', {
+        errorMessage: 'Account already exists'
+      });
     } else {
       const salt = bcrypt.genSaltSync();
       const hash = bcrypt.hashSync(password, salt);
-      User.create({ username: username, password: hash })
+      User.create({
+          username: username,
+          password: hash
+        })
         .then(dbUser => {
           req.login(dbUser, err => {
             if (err) next(err);
@@ -67,9 +73,9 @@ router.post("/signup", (req, res, next) => {
         .catch(err => {
           next(err);
         });
-      }
-
-});
+    }
+  });
+})
 
 
 // LOGIN - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -79,11 +85,8 @@ router.get("/login", (req, res, next) => {
   //     res.render('auth/signup', { errorMessage: 'You must login first.' });
   // } else {
   res.render("auth/login", {
-    "errorMessage": req.flash("error")
-  })
-  .catch(error => {
-    console.log(error);
-  });
+      "errorMessage": req.flash("error")
+    })
 
 });
 
