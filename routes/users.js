@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const User = require("../models/User");
+const {
+  uploader,
+  cloudinary
+} = require("../config/cloudinary.js");
 
 
 // function ensureAuthenticated(req, res, next) {
@@ -36,9 +40,11 @@ router.get('/users/:id/edit', (req, res, next) => {
 
 
 
-router.post('/users/:id/edit', (req, res, next) => {
+router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
   console.log(req.body)
   console.log(req.user)
+  const id = req.user.id;
+
   const {
     name,
     street,
@@ -62,14 +68,16 @@ router.post('/users/:id/edit', (req, res, next) => {
   // }
 
   User.update({
-      _id: req.params.id
+      _id: id
     }, {
       $set: {
         name,
-        street,
-        houseNumber,
-        zip,
-        city,
+        adress: {
+          street,
+          houseNumber,
+          zip,
+          city
+        },
         imgPath,
         imgName,
         imgPublicId

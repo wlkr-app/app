@@ -45,7 +45,7 @@ router.post('/ownersignup/:id', uploader.single("photo"), (req, res, next) => {
     }, {
       $set: {
         name,
-        adress: {
+        address: {
           street,
           houseNumber,
           zip,

@@ -79,39 +79,55 @@ router.get("/login", (req, res, next) => {
 });
 
 
-router.post(
-  '/login',
-  passport.authenticate('local', {
-    successRedirect: '/dogs/cards',
-    failureRedirect: '/login',
-    failureFlash: true,
-    passReqToCallback: true
-  })
-)
+// router.post(
+//   '/login',
+//   passport.authenticate('local', {
+//     successRedirect: '/dogs/cards',
+//     failureRedirect: '/login',
+//     failureFlash: true,
+//     passReqToCallback: true
+//   })
+// )
 
 
-// router.post('/login', function (req, res, next) {
-//   passport.authenticate('local', function (err, user, info) {
-//     req.session.currentUser = user;
-//     if (err) {
-//       return next(err);
-//     }
-//     if (!user) {
-//       return res.redirect('/login');
-//     }
-//     req.logIn(user, function (err) {
-//       if (err) {
-//         return next(err);
-//       }
-//       if (user.type === 'dog-walker') {
-//         res.redirect('/dogs/cards/', user)
-//       }
-//       if (user.type === 'dog-owner') {
-//         res.redirect('/dogs/cards/', user)
-//       }
+// app.get('/login', function(req, res, next) {
+//   passport.authenticate('local', function(err, user, info) {
+//     if (err) { return next(err); }
+//     if (!user) { return res.redirect('/login'); }
+//     req.logIn(user, function(err) {
+//       if (err) { return next(err); }
+//       return res.redirect('/users/' + user.username);
 //     });
 //   })(req, res, next);
 // });
+
+
+router.post('/login', function (req, res, next) {
+  passport.authenticate('local', function (err, user, info) {
+    req.session.currentUser = user;
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.redirect('/login');
+    }
+    req.logIn(user, function (err) {
+      if (err) {
+        console.log("ERR")
+        return next(err);
+      }
+      if (user.type === 'dog-walker') {
+        console.log("HERE", user);
+        res.redirect('/dogs/cards/')
+      }
+      if (user.type === 'dog-owner') {
+        console.log("HERE2", user);
+
+        res.redirect('/')
+      }
+    });
+  })(req, res, next);
+});
 
 
 
