@@ -3,7 +3,7 @@
 :root {
   font-size: 16px;
   font-family: 'Nunito', sans-serif;
-  
+
 }
 
 body {
@@ -42,6 +42,14 @@ h4 {
   font-size: 1rem;
   font-weight: 700;
   margin: 3rem 0 2rem 0;
+}
+
+h5 {
+  text-transform: uppercase;
+  color: #FF7D99;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 1rem 0 0.5rem 0;
 }
 
 a {
@@ -101,6 +109,23 @@ div.index {
   margin: 2rem 0 3rem 0;
 }
 
+.bt-edit {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 1rem 3rem 1rem 3rem;
+  margin: 0.5rem;
+  border-radius: 3rem;
+  color: #FF7D99;
+  border: 2px solid #FF7D99;
+  background-color: transparent;
+  text-transform: uppercase;
+  outline: none;
+  min-width: 15rem;
+  margin: 2rem 0 3rem 0;
+}
+
+
 a {
   color: #7447FA;
 }
@@ -141,13 +166,15 @@ div.doggrid {
   margin: 0.5rem;
   width: 20vw;
   height: 20vw;
+  min-width: 150px;
+  min-height: 200px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 p.account {
-  margin: 2rem 0 0 0;
+  margin: 0rem 0 0 0;
   text-align: center;
   color: #C4C4C4;
   font-size: 0.9rem;
@@ -171,12 +198,42 @@ p.home {
   border-radius: 10rem;
 }
 
+.profilepic.main {
+  margin: 3rem 0 0rem 0;
+  width: 200px;
+  border-radius: 10rem;
+}
+
 .dogprofilepic {
   margin: 0rem 0 1rem 0;
   width: 70px;
   border-radius: 10rem;
 }
 
+.address {
+  margin: 0;
+  color: #C4C4C4;
+  font-size: 0.8rem;
+}
+
+.address img {
+  height: 15px;
+  margin: 0 5px 0 0;
+  vertical-align: middle;
+}
+
+.profhead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 80%vw;
+}
+
+.description {
+  margin: 3rem 0 2rem 0;
+  line-height: 1.5;
+  max-width: 80vw;;
+}
 
 
 
@@ -205,7 +262,6 @@ p.home {
 }
 
 .card .input-container {
-  /* z-index: -1; */
   z-index: 1;
   position: relative;
   margin: 1rem 0 1rem 0;
@@ -285,8 +341,8 @@ p.home {
   padding: 12px 0 0;
   position: relative;
   margin: 1rem 0 0.3rem 0;
-  border:0px;
-  outline:0px;
+  border: 0px;
+  outline: 0px;
 }
 
 
@@ -352,6 +408,19 @@ label span:before {
 
 /* PICTURE - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#output_image {
+  position: absolute;
+  z-index: 1;
+  left: 30%;
+  width: 100px;
+  height: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60px;
+  border-radius: 50rem;
+  pointer-events: none;
+}
+
 
 .uploadpic {
   position: relative;
@@ -359,8 +428,8 @@ label span:before {
   width: 100px;
   height: 100px;
   background-image: url(../images/cameraadd.svg);
-  background-position: center; 
-  background-repeat: no-repeat; 
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: 60px;
   background-color: #C4C4C4;
   border-radius: 50rem;
@@ -370,18 +439,5 @@ label span:before {
   width: 100px;
   height: 100px;
   border-radius: 50rem;
-  opacity:0;
+  opacity: 0;
 }
-
-.dog-profile-pic {
-  width: 300px;
-}
-
-
-
-
-
-
-
-
-

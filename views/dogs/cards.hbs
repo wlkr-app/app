@@ -9,29 +9,31 @@
 </nav>
 
 
-<div class="default">
-
-  <h1>DOGS!</h1>
+<div class="container">
+  <div class="card">
+ <h1>DOGS!</h1>
   <div class="grid">
     {{#each dogs}}
-    <div style="background-image: url('{{this.imgPath}}')" class="doggrid">
-      {{this.name}}
-      <a href="/dogs/{{this._id}}">info</a>
-      <a href="/dogs/delete/{{this._id}}">❌</a>
-    </div>
-
-
-
-
-
-    {{else}}
-    <p>There are no dogs yet! :(</p>
-    {{/each}}
-  </div>
-
-  {{!-- <a href="/dogs/add">Add dog</a> --}}
-  <a href="/logout">Log Out</a>
-
-
-
+    
+      <div style="background-image: url('{{this.imgPath}}')" class="doggrid" />
+   <a href="/dogs/{{this._id}}"> {{this.name}}    </a>
 </div>
+
+    {{!-- <a href="/dogs/delete/{{this._id}}">❌</a> --}}
+
+
+
+
+
+  {{else}}
+  <p>There are no dogs yet! :(</p>
+  {{/each}}
+
+{{!-- <a href="/dogs/add">Add dog</a> --}}
+<a href="/logout">Log Out</a>
+
+  </div>
+</div>
+
+ 
+
