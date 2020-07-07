@@ -33,8 +33,7 @@ router.post("/signup", (req, res, next) => {
   }
   if (password.length < 8) {
     res.render('auth/signup', {
-
-      message: 'Your password has to be at least 8 characters long.'
+      errorMessage: 'Your password has to be at least 8 characters long.'
     });
     return;
   }
@@ -79,32 +78,7 @@ router.get("/login", (req, res, next) => {
 
 });
 
-
-// router.post(
-//   '/login',
-//   passport.authenticate('local', {
-//     successRedirect: '/dogs/cards',
-//     failureRedirect: '/login',
-//     failureFlash: true,
-//     passReqToCallback: true
-//   })
-// )
-
-
-// app.get('/login', function(req, res, next) {
-//   passport.authenticate('local', function(err, user, info) {
-//     if (err) { return next(err); }
-//     if (!user) { return res.redirect('/login'); }
-//     req.logIn(user, function(err) {
-//       if (err) { return next(err); }
-//       return res.redirect('/users/' + user.username);
-//     });
-//   })(req, res, next);
-// });
-
-
 router.post('/login', function (req, res, next) {
-  // const id = req.user.id;
   passport.authenticate('local', function (err, user, info) {
     req.session.currentUser = user;
     if (err) {
