@@ -9,7 +9,10 @@
 
 <div class="container">
 
+
   <div class="card">
+    <h4>Your profile</h4>
+
     <form action="/users/{{this._id}}/edit" method="post" enctype="multipart/form-data" id="form-container">
 
 
@@ -53,8 +56,13 @@
         {{/if}}
       </div>
 
+      <h4>Your dogs</h4>
 
-      {{this.dog}}
+
+
+      {{#each this.dog}}
+      <img src="{{imgPath}}" class="dogprofilepic" alt="">      
+      {{/each}}
 
       <div class="button-container">
         <button class="bt-signup" type="submit"><span>Save</span></button>
