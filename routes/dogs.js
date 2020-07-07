@@ -6,25 +6,26 @@ const {
   cloudinary
 } = require("../config/cloudinary.js");
 
-const Dog = require("../models/dog");
-const User = require("../models/user");
+const Dog = require("../models/Dog");
+const User = require("../models/User");
 
 
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    res.redirect('/login')
-  }
-}
+const ensureAuthenticated = () => {
+  return (req, res, next) => {
+    if (req.isAuthenticated()) {
+      next();
+    } else {
+      res.redirect('/login');
+    }
+  };
+};
 
 
 
 // DOG CARDS VIEW - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-router.get('/dogs/cards', ensureAuthenticated, (req, res, next) => {
-
+router.get('/dogs/cards', ensureAuthenticated(), (req, res, next) => {
   Dog.find().then(allDogs => {
     const id = req.user.id;
     User.findById(id)
@@ -41,7 +42,7 @@ router.get('/dogs/cards', ensureAuthenticated, (req, res, next) => {
 
 // ADD DOG - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-router.get('/dogs/add', ensureAuthenticated, (req, res, next) => {
+router.get('/dogs/add', ensureAuthenticated(), (req, res, next) => {
   axios.get('https://api.thedogapi.com/v1/breeds')
     .then(response => {
       // console.log(response.data);
@@ -55,7 +56,7 @@ router.get('/dogs/add', ensureAuthenticated, (req, res, next) => {
     })
 });
 
-router.post("/dogs/add", ensureAuthenticated, uploader.single("photo"), (req, res, next) => {
+router.post("/dogs/add", ensureAuthenticated(), uploader.single("photo"), (req, res, next) => {
   // console.log(req.file);
   const {
     name,

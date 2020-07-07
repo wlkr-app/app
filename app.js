@@ -8,105 +8,95 @@ const hbs = require('hbs');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
+const bcrypt = require('bcrypt');
+const flash = require('connect-flash');
 
-const session = require("express-session");
-const bcrypt = require("bcrypt");
-const passport = require("passport");
-const flash = require("connect-flash");
-const LocalStrategy = require("passport-local").Strategy;
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
 
-const app_name = require('./package.json').name;
-const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
-
-const app = express();
-
-const User = require("./models/user");
-
-
-// mongoose - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-mongoose.Promise = Promise;
 mongoose
-  .connect('mongodb://localhost/dogwalk', {
-    useNewUrlParser: true
-  })
+  .connect('mongodb://localhost/dogwalk', { useNewUrlParser: true })
   .then(x => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+    console.log(
+      `Connected to Mongo! Database name: '${x.connections[0].name}'`
+    );
   })
   .catch(err => {
-    console.error('Error connecting to mongo', err)
+    console.error('Error connecting to mongo', err);
   });
 
-// bcrypt
-// const bcrypt = require("bcrypt");
-// const saltRounds = 10;
-// const salt = bcrypt.genSaltSync(saltRounds);
+const app_name = require('./package.json').name;
+const debug = require('debug')(
+  `${app_name}:${path.basename(__filename).split('.')[0]}`
+);
 
-// passport - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-app.use(session({
-  secret: "our-passport-local-strategy-app",
-  resave: true,
-  saveUninitialized: true,
-  cookie: {
-    maxAge: 30 * 30 * 1000 * 30
-}
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.serializeUser((user, cb) => {
-  cb(null, user._id);
-});
-
-passport.deserializeUser((id, cb) => {
-  User.findById(id, (err, user) => {
-    if (err) {
-      return cb(err);
-    }
-    cb(null, user);
-  });
-});
-
-app.use(flash());
-passport.use(new LocalStrategy({
-  passReqToCallback: true
-}, (req, username, password, next) => {
-  User.findOne({ username }, (err, user) => {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      return next(null, false, {
-        message: "Username doesn't exist"
-      });
-    }
-    if (!bcrypt.compareSync(password, user.password)) {
-      return next(null, false, {
-        message: "Incorrect password"
-      });
-    }
-
-    return next(null, user);
-  });
-}));
-
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    res.redirect('/login')
-  }
-}
+const app = express();
 
 // Middleware Setup
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    cookie: { maxAge: 24 * 60 * 60 * 1000 },
+    saveUninitialized: false,
+    resave: false,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      ttl: 24 * 60 * 60 * 1000
+    })
+  })
+);
+
+
+// Passport Setup
+const User = require('./models/User');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id)
+    .then(dbUser => {
+      done(null, dbUser);
+    })
+    .catch(err => {
+      done(err);
+    });
+});
+
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    User.findOne({ username: username })
+      .then(found => {
+        if (found === null) {
+          done(null, false, { errorMessage: 'Wrong credentials' });
+        } else if (!bcrypt.compareSync(password, found.password)) {
+          done(null, false, { errorMessage: 'Wrong credentials' });
+        } else {
+          done(null, found);
+        }
+      })
+      .catch(err => {
+        done(err, false);
+      });
+  })
+);
+
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Express View engine setup
 

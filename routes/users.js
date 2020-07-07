@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-
-const User = require("../models/user");
+const axios = require('axios');
+const User = require("../models/User");
 
 
 function ensureAuthenticated(req, res, next) {
@@ -16,7 +16,7 @@ function ensureAuthenticated(req, res, next) {
 
 // EDIT USER - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-router.get('/users/:id/edit', ensureAuthenticated, (req, res, next) => {
+router.get('/users/:id/edit', ensureAuthenticated(), (req, res, next) => {
   // console.log('body' + req.body)
   // console.log('user' + req.user)
 

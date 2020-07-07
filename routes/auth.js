@@ -2,16 +2,14 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const bcrypt = require("bcrypt");
-const saltRounds = 10;
-const salt = bcrypt.genSaltSync(saltRounds);
 const axios = require('axios');
 const {
   uploader,
   cloudinary
 } = require("../config/cloudinary.js");
 
-const User = require("../models/user");
-const Dog = require("../models/dog");
+const User = require("../models/User");
+const Dog = require("../models/Dog");
 
 
 // function ensureAuthenticated(req, res, next) {
@@ -32,6 +30,7 @@ router.get("/signup", (req, res, next) => {
 
 router.post("/signup", (req, res, next) => {
   const {
+    type,
     username,
     password,
     type
@@ -40,46 +39,35 @@ router.post("/signup", (req, res, next) => {
   if (username == '' || password == '') {
     res.render('auth/signup', {
       errorMessage: 'Please fill up both fields.'
+
     });
     return;
   }
   if (password.length < 8) {
     res.render('auth/signup', {
-      errorMessage: 'Your password has to be at least 8 characters long.'
+      message: 'Your password has to be at least 8 characters long.'
     });
     return;
   }
 
-  User.findOne({
-      username
-    })
-    .then(user => {
-      if (user !== null) {
-        res.render("auth/signup", {
-          errorMessage: "The username already exists."
+  User.findOne({ username: username }).then(found => {
+    if (found !== null) {
+      res.render('auth/login', { errorMessage: 'Account already exists' });
+    } else {
+      const salt = bcrypt.genSaltSync();
+      const hash = bcrypt.hashSync(password, salt);
+      User.create({ username: username, password: hash })
+        .then(dbUser => {
+          req.login(dbUser, err => {
+            if (err) next(err);
+            else res.redirect('/ownersignup');
+          });
+          res.redirect('login');
+        })
+        .catch(err => {
+          next(err);
         });
-        return;
       }
-    })
-    .catch(error => {
-      console.log(error);
-    });
-
-  const hashPass = bcrypt.hashSync(password, salt);
-
-  User.create({
-      username,
-      password: hashPass,
-      type
-    })
-    .then(() => { // redirect to signup for owners or for walkers
-      passport.authenticate('local')(req, res, function () {
-        res.redirect("/ownersignup");
-      })
-    })
-    .catch(error => {
-      console.log(error);
-    })
 
 });
 
@@ -96,14 +84,19 @@ router.get("/login", (req, res, next) => {
   .catch(error => {
     console.log(error);
   });
+
 });
 
-router.post("/login", passport.authenticate("local", {
-  successRedirect: "/dogs/cards",
-  failureRedirect: "/login",
-  failureFlash: true,
-  passReqToCallback: true
-}));
+
+router.post(
+  '/login',
+  passport.authenticate('local', {
+    successRedirect: '/dogs/cards',
+    failureRedirect: '/login',
+    failureFlash: true,
+    passReqToCallback: true
+  })
+)
 
 
 
