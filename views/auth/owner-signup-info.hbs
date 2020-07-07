@@ -1,0 +1,52 @@
+<div class="container">
+
+  <div class="card">
+    <h3>Your Infos</h3>
+    <form action="/ownersignup/{{this._id}}" method="post" enctype="multipart/form-data" id="form-container">
+
+
+      <div class="uploadpic">
+        <input type="file" name="photo" required="required" />
+      </div>
+
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="name" required="required" />
+        <label for="name">Name</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="street" required="required" />
+        <label for="street">Street</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="houseNumber" required="required" />
+        <label for="houseNumber">Number</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="zip" required="required" />
+        <label for="zip">PLZ</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="city" required="required" />
+        <label for="city">City</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="errormsg">
+        {{#if errorMessage}}
+        {{ errorMessage }}
+        {{/if}}
+      </div>
+
+      <div class="button-container">
+        <button class="bt-signup"><span>Save</span></button>
+      </div>
+    </form>
+  </div>

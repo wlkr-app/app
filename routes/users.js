@@ -1,12 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const User = require("../models/User");
 
-const User = require("../models/user");
-
-
-
-// authentication check - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -17,14 +13,17 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
-router.get('/users/:id/edit', ensureAuthenticated, (req, res, next) => {
+
+// EDIT USER - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+router.get('/users/:id/edit', ensureAuthenticated(), (req, res, next) => {
   // console.log('body' + req.body)
   // console.log('user' + req.user)
 
   const id = req.user.id;
   User.findById(id)
     .then(user => {
-      console.log('user is' + user)
+      // console.log('user is' + user)
 
       res.render('users/profile', user)
     })
@@ -67,6 +66,10 @@ router.post('/users/:id/edit', (req, res, next) => {
       console.log(error);
     })
 });
+
+
+
+
 
 
 

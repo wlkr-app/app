@@ -1,26 +1,30 @@
+<div class="container">
 
+  <div class="card">
+    <h3>Log In</h3>
+    <form action="/login" method="POST" id="form-container">
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="username" required="required" />
+        <label for="username">E-mail</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="password" id="#{label}" name="password" required="required" />
+        <label for="password">Password</label>
+        <div class="bar"></div>
+      </div>
 
-<div class="default">
-  <h2>Login</h2>
- 
+      <div class="errormsg">
+        {{#if errorMessage}}
+        {{ errorMessage }}
+        {{/if}}
+      </div>
 
-<form action="/login" method="post">
+      <div class="button-container">
+        <button class="bt-signup"><span>Log In</span></button>
 
-  <label for="username">Email:</label>
-  <input type="text" name="username">
-
-  <label for="password">Password:</label>
-  <input type="password" name="password">
-
-  {{#if message}}
-    <div class="error-message">{{ message }}</div>
-  {{/if}}
-
-  <button>Log in</button>
-
-  <p>
-    Don't have an account? <a href="/signup">Sign up</a>
-  </p>
-</form>
-
-</div>
+        <p class="account">
+          Don't have an account? <a href="/signup">Sign up</a>
+      </div>
+    </form>
+  </div>
