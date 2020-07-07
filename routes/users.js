@@ -27,8 +27,6 @@ router.get('/users/:id/edit', (req, res, next) => {
   const id = req.user.id;
   User.findById(id).populate('dog')
     .then(user => {
-      console.log('user is' + req.user);
-      // console.log('user is' + user)
       res.render('users/profile', user)
     })
     .catch(error => {
@@ -38,9 +36,9 @@ router.get('/users/:id/edit', (req, res, next) => {
 })
 
 router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
-  // console.log(req.body)
-  // console.log(req.user)
   const id = req.user.id;
+  console.log('file' + req.file);
+
 
   const {
     name,
@@ -54,6 +52,7 @@ router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
   let imgPath;
   let imgName;
   let imgPublicId;
+
 
   if (req.file == true) {
      imgPath = req.file.url;

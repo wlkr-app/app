@@ -147,7 +147,7 @@ div.doggrid {
 }
 
 p.account {
-  margin: 2rem 0 0 0;
+  margin: 0rem 0 0 0;
   text-align: center;
   color: #C4C4C4;
   font-size: 0.9rem;
@@ -351,6 +351,19 @@ label span:before {
 }
 
 /* PICTURE - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+#output_image {
+  position: absolute;
+  z-index: 1;
+  left: 30%;
+  width: 100px;
+  height: 100px;
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: 60px;
+  border-radius: 50rem;
+  pointer-events: none;
+}
 
 
 .uploadpic {

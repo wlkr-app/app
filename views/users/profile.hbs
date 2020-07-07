@@ -1,3 +1,17 @@
+<script type='text/javascript'>
+  const preview_image = event => {
+    const reader = new FileReader();
+    reader.onload = function () {
+      const output = document.getElementById('output_image');
+      output.src = reader.result;
+      console.log('outputsrc' + output.src)
+
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+</script>
+
+
 <nav>
   <a href="/">
     <p class="home">wlkr.</p>
@@ -15,37 +29,36 @@
 
     <form action="/users/{{this._id}}/edit" method="post" enctype="multipart/form-data" id="form-container">
 
-
       <div class="uploadpic" style="background-image: url({{this.imgPath}}); background-size: cover">
-        <input type="file" name="photo" />
+        <input type="file" name="photo" onchange="preview_image(event)" />
       </div>
 
       <div class="input-container">
-        <input  name="name" required="required" value="{{this.name}}"/>
+        <input name="name" required="required" value="{{this.name}}" />
         <label for="name">Name</label>
         <div class="bar"></div>
       </div>
 
       <div class="input-container">
-        <input  name="street" required="required" value="{{this.address.street}}" />
+        <input name="street" required="required" value="{{this.address.street}}" />
         <label for="street">Street</label>
         <div class="bar"></div>
       </div>
 
       <div class="input-container">
-        <input  name="houseNumber" required="required" value="{{this.address.houseNumber}}" />
+        <input name="houseNumber" required="required" value="{{this.address.houseNumber}}" />
         <label for="houseNumber">Number</label>
         <div class="bar"></div>
       </div>
 
       <div class="input-container">
-        <input  name="zip" required="required" value="{{this.address.zip}}" />
+        <input name="zip" required="required" value="{{this.address.zip}}" />
         <label for="zip">PLZ</label>
         <div class="bar"></div>
       </div>
 
       <div class="input-container">
-        <input  name="city" required="required" value="{{this.address.city}}" />
+        <input name="city" required="required" value="{{this.address.city}}" />
         <label for="city">City</label>
         <div class="bar"></div>
       </div>
@@ -61,7 +74,7 @@
 
 
       {{#each this.dog}}
-      <img src="{{imgPath}}" class="dogprofilepic" alt="">      
+      <img src="{{imgPath}}" class="dogprofilepic" alt="">
       {{/each}}
 
       <div class="button-container">
