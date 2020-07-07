@@ -6,17 +6,7 @@ const {
   uploader,
   cloudinary
 } = require("../config/cloudinary.js");
-
-
-// function ensureAuthenticated(req, res, next) {
-//   if (req.isAuthenticated()) {
-//     return next();
-//   } else {
-//     res.redirect('/login')
-//   }
-// }
-
-
+const { ensureAuthenticated } = require('./middlewares');
 
 // EDIT USER - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

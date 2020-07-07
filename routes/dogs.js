@@ -8,19 +8,10 @@ const {
 
 const Dog = require("../models/Dog");
 const User = require("../models/User");
-
-const ensureAuthenticated = () => {
-  return (req, res, next) => {
-    if (req.isAuthenticated()) {
-      next();
-    } else {
-      res.redirect('/login');
-    }
-  };
-};
+const { ensureAuthenticated } = require('./middlewares');
 
 // EDIT DOGS
-router.get('/dogs/:id/edit', (req, res, next) => {
+router.get('/dogs/:id/edit', ensureAuthenticated(), (req, res, next) => {
   axios.get('https://api.thedogapi.com/v1/breeds').then(breeds =>
   Dog.findById(req.params.id)
     .then(dog => {
@@ -156,7 +147,7 @@ router.post("/dogs/add", ensureAuthenticated(), uploader.single("photo"), (req, 
 
 // DELETE DOG - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-router.get('/dogs/delete/:id', (req, res, next) => {
+router.get('/dogs/delete/:id', ensureAuthenticated(), (req, res, next) => {
   Dog.findByIdAndDelete(req.params.id)
     .then(dog => {
       // if movie has an image then we also want to delete the img on cloudinary
