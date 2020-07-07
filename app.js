@@ -81,9 +81,9 @@ passport.use(
     User.findOne({ username: username })
       .then(found => {
         if (found === null) {
-          done(null, false, { message: 'Wrong credentials' });
+          done(null, false, { errorMessage: 'Wrong credentials' });
         } else if (!bcrypt.compareSync(password, found.password)) {
-          done(null, false, { message: 'Wrong credentials' });
+          done(null, false, { errorMessage: 'Wrong credentials' });
         } else {
           done(null, found);
         }
@@ -113,9 +113,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
-
-app.locals.title = 'DogWalk App';
-
 const index = require('./routes/index');
 app.use('/', index);
 
@@ -127,6 +124,9 @@ app.use('/', dogs);
 
 const users = require('./routes/users');
 app.use('/', users);
+
+const signupOwner = require('./routes/signup-owner');
+app.use('/', signupOwner);
 
 
 module.exports = app;

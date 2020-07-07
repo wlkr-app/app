@@ -2,8 +2,27 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const bcrypt = require("bcrypt");
-const User = require("../models/User");
+const axios = require('axios');
+const {
+  uploader,
+  cloudinary
+} = require("../config/cloudinary.js");
 
+const User = require("../models/User");
+const Dog = require("../models/Dog");
+
+
+// function ensureAuthenticated(req, res, next) {
+//   if (req.isAuthenticated()) {
+//     return next();
+//   } else {
+//     res.redirect('/login')
+//   }
+// }
+
+
+
+// SIGNUP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get("/signup", (req, res, next) => {
   res.render("auth/signup");
@@ -13,12 +32,14 @@ router.post("/signup", (req, res, next) => {
   const {
     type,
     username,
-    password
+    password,
+    type
   } = req.body;
 
   if (username == '' || password == '') {
     res.render('auth/signup', {
-      message: 'Please fill up both fields.'
+      errorMessage: 'Please fill up both fields.'
+
     });
     return;
   }
@@ -31,7 +52,7 @@ router.post("/signup", (req, res, next) => {
 
   User.findOne({ username: username }).then(found => {
     if (found !== null) {
-      res.render('auth/login', { message: 'Account alredy exists' });
+      res.render('auth/login', { errorMessage: 'Account already exists' });
     } else {
       const salt = bcrypt.genSaltSync();
       const hash = bcrypt.hashSync(password, salt);
@@ -39,7 +60,7 @@ router.post("/signup", (req, res, next) => {
         .then(dbUser => {
           req.login(dbUser, err => {
             if (err) next(err);
-            else res.redirect('/dogs/cards');
+            else res.redirect('/ownersignup');
           });
           res.redirect('login');
         })
@@ -47,12 +68,25 @@ router.post("/signup", (req, res, next) => {
           next(err);
         });
       }
-  });
+
 });
 
-router.get('/login', (req, res) => {
-  res.render('auth/login', { message: req.flash('Invalid credentials.')});
+
+// LOGIN - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+router.get("/login", (req, res, next) => {
+  // if (!req.session.user) {
+  //     res.render('auth/signup', { errorMessage: 'You must login first.' });
+  // } else {
+  res.render("auth/login", {
+    "errorMessage": req.flash("error")
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
 });
+
 
 router.post(
   '/login',
@@ -63,6 +97,10 @@ router.post(
     passReqToCallback: true
   })
 )
+
+
+
+// LOGOUT - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get("/logout", (req, res) => {
   req.logout();

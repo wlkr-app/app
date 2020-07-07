@@ -1,23 +1,25 @@
 <nav>
   <a href="/">
-    <p>🐕</p>
+    <p class="home">wlkr.</p>
   </a>
   <a href="/users/{{this._id}}/edit">
     <p>👨</p>
   </a>
 </nav>
 
-
 <div class="default">
 
-  HELO
+ <h2>Profile</h2>
 
-  This is {{this.username}}
+ <img src="{{this.imgPath}}" alt="" class="profilepic">
+
+  Hey {{this.name}}!
 
 
-  <h2>Edit Profile</h2>
+{{!-- <a href="/dogs/delete/{{this._id}}">❌</a> --}}
+ 
 
-  <form action="/users/{{this._id}}/edit" method="post" enctype="multipart/form-data">
+  {{!-- <form action="/users/{{this._id}}/edit" method="post" enctype="multipart/form-data">
 
     <label>Pic</label>
     <input type="file" name="photo">
@@ -32,7 +34,9 @@
     <input type="text" name="city" value="{{city}}">
 
     <input type="submit" value="SAVE">
-  </form>
+  </form> --}}
+  
+  <a href="/logout">Log Out</a>
 
 
 </div>

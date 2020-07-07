@@ -1,29 +1,44 @@
-<div class="default">
-<h2>Signup</h2>
- 
-<form action="/signup" method="POST" id="form-container">
-  <label for="email">Email</label>
-  <input id="email" type="text" name="username" placeholder="Your email">
-  <br><br>
-  <label for="password">Password</label>
-  <input id="password" type="password" name="password" placeholder="Your password">
-  <label for="type">Dog Owner or Dog Walker? </label>
-  <select name ="type">
-    <option value="">--Please choose an option--</option>
-    <option value="dog-walker">Dog Walker</option>
-    <option value="dog-owner">Dog Owner</option>
-  </select>
- 
-  {{#if message}}
-    <div class="error-message">{{ message }}</div>
-  {{/if}}
-  <br><br>
- 
-  <button>Create account</button>
- 
-  <p class="account-message">
-    Do you already have an account?
-    <a href="/login">Login</a>
-  </p>
-</form>
-</div>
+<div class="container">
+
+  <div class="card">
+    <h3>Sign Up</h3>
+    <form action="/signup" method="POST" id="form-container">
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="username" required="required" />
+        <label for="username">E-mail</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="password" id="#{label}" name="password" required="required" />
+        <label for="password">Password</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="radio">
+        <label>
+          <input type="radio" name="type" value="dog-owner" checked />
+          <span>I have a dog</span>
+        </label>
+        <label>
+          <input type="radio" name="type" value="dog-walker" />
+          <span>I want to walk a dog</span>
+        </label>
+      </div>
+
+      <div class="errormsg">
+        {{#if errorMessage}}
+        {{ errorMessage }}
+        {{/if}}
+      </div>
+
+      <div class="button-container">
+        <button class="bt-signup"><span>Create account</span></button>
+
+
+
+        <p class="account">
+          Have an account?
+          <a href="/login">Log In</a>
+      </div>
+    </form>
+  </div>

@@ -1,23 +1,31 @@
 <nav>
   {{#with user}}
-  <a href="/"><p>🐕</p></a>
-  <a href="/users/{{this._id}}/edit"><p>👨</p></a>
+  <a href="/">
+    <p class="home">wlkr.</p>
+  </a> <a href="/users/{{this._id}}/edit">
+    <p>👨</p>
+  </a>
   {{/with}}
 </nav>
+
 
 <div class="default">
 
   <h1>DOGS!</h1>
   <div class="grid">
     {{#each dogs}}
-    <div style="background-image: url('{{this.imgPath}}')" class="doggrid">{{this.name}}</div>
-    <a href="/dogs/delete/{{this._id}}">❌</a>
+    <div style="background-image: url('{{this.imgPath}}')" class="doggrid">
+      {{this.name}}
+      <a href="/dogs/delete/{{this._id}}">❌</a>
+    </div>
+
     {{else}}
     <p>There are no dogs yet! :(</p>
     {{/each}}
   </div>
 
-  <a href="/dogs/add">Add dog</a>
+  {{!-- <a href="/dogs/add">Add dog</a> --}}
+  <a href="/logout">Log Out</a>
 
 
 

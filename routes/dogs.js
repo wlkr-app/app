@@ -10,7 +10,6 @@ const Dog = require("../models/Dog");
 const User = require("../models/User");
 
 
-// authentication check - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 const ensureAuthenticated = () => {
   return (req, res, next) => {
@@ -22,8 +21,9 @@ const ensureAuthenticated = () => {
   };
 };
 
-// dog cards view  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+
+// DOG CARDS VIEW - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get('/dogs/cards', ensureAuthenticated(), (req, res, next) => {
   Dog.find().then(allDogs => {
@@ -39,9 +39,10 @@ router.get('/dogs/cards', ensureAuthenticated(), (req, res, next) => {
 });
 
 
-// dog add view  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-router.get('/dogs/add', ensureAuthenticated, (req, res, next) => {
+// ADD DOG - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+router.get('/dogs/add', ensureAuthenticated(), (req, res, next) => {
   axios.get('https://api.thedogapi.com/v1/breeds')
     .then(response => {
       // console.log(response.data);
@@ -55,7 +56,7 @@ router.get('/dogs/add', ensureAuthenticated, (req, res, next) => {
     })
 });
 
-router.post("/dogs/add", ensureAuthenticated, uploader.single("photo"), (req, res, next) => {
+router.post("/dogs/add", ensureAuthenticated(), uploader.single("photo"), (req, res, next) => {
   // console.log(req.file);
   const {
     name,
@@ -91,7 +92,9 @@ router.post("/dogs/add", ensureAuthenticated, uploader.single("photo"), (req, re
 
 });
 
-// dog delete  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+// DELETE DOG - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get('/dogs/delete/:id', (req, res, next) => {
   Dog.findByIdAndDelete(req.params.id)
@@ -107,8 +110,6 @@ router.get('/dogs/delete/:id', (req, res, next) => {
       console.log(err);
     });
 });
-
-
 
 
 module.exports = router;
