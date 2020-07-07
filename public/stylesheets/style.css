@@ -121,12 +121,16 @@ div.default {
 
 div.grid {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 div.doggrid {
+  border-radius: 1rem;
   margin: 0.5rem;
-  width: 10vw;
-  height: 10vw;
+  width: 20vw;
+  height: 20vw;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -289,6 +293,10 @@ div.radio {
   margin-bottom: 0.2rem;
 }
 
+.vertical {
+  flex-direction: column;
+}
+
 label input {
   position: absolute;
   left: -9999px;
@@ -346,6 +354,8 @@ label span:before {
   border-radius: 50rem;
   opacity:0;
 }
+
+
 
 
 

@@ -7,36 +7,54 @@
   </a>
 </nav>
 
-<div class="default">
+<div class="container">
 
- <h2>Profile</h2>
-
- <img src="{{this.imgPath}}" alt="" class="profilepic">
-
-  Hey {{this.name}}!
+  <div class="card">
+    <form action="/users/{{this._id}}/edit" method="post" enctype="multipart/form-data" id="form-container">
 
 
-{{!-- <a href="/dogs/delete/{{this._id}}">❌</a> --}}
- 
+      <div class="uploadpic" style="background-image: url({{this.imgPath}}); background-size: cover">
+        <input type="file" name="photo" />
+      </div>
 
-  {{!-- <form action="/users/{{this._id}}/edit" method="post" enctype="multipart/form-data">
+      <div class="input-container">
+        <input  name="name" required="required" value="{{this.name}}"/>
+        <label for="name">Name</label>
+        <div class="bar"></div>
+      </div>
 
-    <label>Pic</label>
-    <input type="file" name="photo">
+      <div class="input-container">
+        <input  name="street" required="required" value="{{this.address.street}}" />
+        <label for="street">Street</label>
+        <div class="bar"></div>
+      </div>
 
-    <label for="">Name:</label>
-    <input type="text" name="name" value="{{name}}">
+      <div class="input-container">
+        <input  name="houseNumber" required="required" value="{{this.address.houseNumber}}" />
+        <label for="houseNumber">Number</label>
+        <div class="bar"></div>
+      </div>
 
-    <label for="">District:</label>
-    <input type="text" name="district" value="{{district}}">
+      <div class="input-container">
+        <input  name="zip" required="required" value="{{this.address.zip}}" />
+        <label for="zip">PLZ</label>
+        <div class="bar"></div>
+      </div>
 
-    <label for="">City: </label>
-    <input type="text" name="city" value="{{city}}">
+      <div class="input-container">
+        <input  name="city" required="required" value="{{this.address.city}}" />
+        <label for="city">City</label>
+        <div class="bar"></div>
+      </div>
 
-    <input type="submit" value="SAVE">
-  </form> --}}
-  
-  <a href="/logout">Log Out</a>
+      <div class="errormsg">
+        {{#if errorMessage}}
+        {{ errorMessage }}
+        {{/if}}
+      </div>
 
-
-</div>
+      <div class="button-container">
+        <button class="bt-signup" type="submit"><span>Save</span></button>
+      </div>
+    </form>
+  </div>

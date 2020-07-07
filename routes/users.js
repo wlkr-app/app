@@ -34,22 +34,41 @@ router.get('/users/:id/edit', (req, res, next) => {
     });
 })
 
+
+
 router.post('/users/:id/edit', (req, res, next) => {
-  const id = req.user.id;
+  console.log(req.body)
+  console.log(req.user)
   const {
     name,
-    district,
+    street,
+    houseNumber,
+    zip,
     city
   } = req.body;
-  const imgPath = req.file.url;
-  const imgName = req.file.originalname;
-  const imgPublicId = req.file.public_id;
+
+    imgPath = req.file.url;
+    imgName = req.file.originalname;
+    imgPublicId = req.file.public_id;
+
+  // if (!imgPath || !imgName || imgPublicId) {
+  //   imgPath = req.user.imgPath;
+  //   imgName = req.user.imgName;
+  //   imgPublicId = req.user.imgPublicId;
+  // } else {
+  //   imgPath = req.file.url;
+  //   imgName = req.file.originalname;
+  //   imgPublicId = req.file.public_id;
+  // }
+
   User.update({
-      _id: id
+      _id: req.params.id
     }, {
       $set: {
         name,
-        district,
+        street,
+        houseNumber,
+        zip,
         city,
         imgPath,
         imgName,
@@ -66,6 +85,61 @@ router.post('/users/:id/edit', (req, res, next) => {
       console.log(error);
     })
 });
+
+
+
+
+
+// router.post('/users/:id/edit', (req, res, next) => {
+//   console.log('reqbody is' + req.body.name)
+
+//   const id = req.user.id;
+//   const {
+//     name,
+//     street,
+//     houseNumber,
+//     zip,
+//     city
+//   } = req.body;
+
+//   let imgPath;
+//   let imgName;
+//   let imgPublicId;
+
+//   if (!imgPath || !imgName || imgPublicId) {
+//     imgPath = req.user.imgPath;
+//     imgName = req.user.imgName;
+//     imgPublicId = req.user.imgPublicId;
+//   } else {imgPath = req.file.url;
+//     imgName = req.file.originalname;
+//     imgPublicId = req.file.public_id;}
+
+// console.log(req.user)
+
+//   User.update({
+//       _id: id
+//     }, {
+//       $set: {
+//         name,
+//         street,
+//         houseNumber,
+//         zip,
+//         city,
+//         imgPath,
+//         imgName,
+//         imgPublicId
+//       }
+//     }, {
+//       new: true
+//     })
+//     .then(() => {
+//       res.redirect('/users/:id/edit');
+//     })
+//     .catch((error) => {
+//       res.render('/users/:id/edit');
+//       console.log(error);
+//     })
+// });
 
 
 

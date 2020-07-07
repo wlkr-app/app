@@ -11,17 +11,6 @@ const {
 const User = require("../models/User");
 const Dog = require("../models/Dog");
 
-
-// function ensureAuthenticated(req, res, next) {
-//   if (req.isAuthenticated()) {
-//     return next();
-//   } else {
-//     res.redirect('/login')
-//   }
-// }
-
-
-
 // SIGNUP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get("/signup", (req, res, next) => {
@@ -33,7 +22,7 @@ router.post("/signup", (req, res, next) => {
     type,
     username,
     password
-    } = req.body;
+  } = req.body;
 
   if (username == '' || password == '') {
     res.render('auth/signup', {
@@ -61,12 +50,14 @@ router.post("/signup", (req, res, next) => {
       const hash = bcrypt.hashSync(password, salt);
       User.create({
           username: username,
-          password: hash
+          password: hash,
+          type: type
         })
         .then(dbUser => {
           req.login(dbUser, err => {
             if (err) next(err);
-            else res.redirect('/ownersignup');
+            if (dbUser.type === 'dog-owner') res.redirect('/ownersignup');
+            else res.redirect('/walkersignup');
           });
           res.redirect('login');
         })
@@ -81,12 +72,9 @@ router.post("/signup", (req, res, next) => {
 // LOGIN - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get("/login", (req, res, next) => {
-  // if (!req.session.user) {
-  //     res.render('auth/signup', { errorMessage: 'You must login first.' });
-  // } else {
   res.render("auth/login", {
-      "errorMessage": req.flash("error")
-    })
+    "errorMessage": req.flash("error")
+  })
 
 });
 
@@ -100,6 +88,33 @@ router.post(
     passReqToCallback: true
   })
 )
+
+
+// router.post('/login', function (req, res, next) {
+//   passport.authenticate('local', function (err, user, info) {
+//     req.session.currentUser = user;
+//     if (err) {
+//       return next(err);
+//     }
+//     if (!user) {
+//       return res.redirect('/login');
+//     }
+//     req.logIn(user, function (err) {
+//       if (err) {
+//         return next(err);
+//       }
+//       if (user.type === 'dog-walker') {
+//         res.redirect('/dogs/cards/', user)
+//       }
+//       if (user.type === 'dog-owner') {
+//         res.redirect('/dogs/cards/', user)
+//       }
+//     });
+//   })(req, res, next);
+// });
+
+
+
 
 
 

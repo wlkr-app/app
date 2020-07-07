@@ -29,10 +29,12 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Dog'
   }],
+  description: {
+    type: String,
+  },
   imgName: String,
   imgPath: String,
   imgPublicId: String
-
 });
 
 const User = mongoose.model('User', userSchema);

@@ -35,6 +35,7 @@ const debug = require('debug')(
 const app = express();
 
 // Middleware Setup
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -127,6 +128,9 @@ app.use('/', users);
 
 const signupOwner = require('./routes/signup-owner');
 app.use('/', signupOwner);
+
+const signupWalker = require('./routes/signup-walker');
+app.use('/', signupWalker);
 
 
 module.exports = app;
