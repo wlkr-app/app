@@ -41,6 +41,7 @@ router.get('/dogs/cards', ensureAuthenticated(), (req, res, next) => {
 // ADD DOG - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get('/dogs/add', ensureAuthenticated(), (req, res, next) => {
+  
   axios.get('https://api.thedogapi.com/v1/breeds')
     .then(response => {
       // console.log(response.data);

@@ -53,8 +53,12 @@
         {{/if}}
       </div>
 
+  
 
-      {{this.dog}}
+
+      {{#each this.dog}}
+      <p>{{name}}</p>
+      {{/each}}
 
       <div class="button-container">
         <button class="bt-signup" type="submit"><span>Save</span></button>
