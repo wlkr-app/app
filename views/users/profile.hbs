@@ -2,70 +2,27 @@
   <a href="/">
     <p class="home">wlkr.</p>
   </a>
-  <a href="/users/{{this._id}}/edit">
+  <a href="/users/{{user._id}}">
     <p>👨</p>
   </a>
 </nav>
 
-<div class="container">
 
-
-  <div class="card">
-    <h4>Your profile</h4>
-
-    <form action="/users/{{this._id}}/edit" method="post" enctype="multipart/form-data" id="form-container">
-
-
-      <div class="uploadpic" style="background-image: url({{this.imgPath}}); background-size: cover">
-        <input type="file" name="photo" />
-      </div>
-
-      <div class="input-container">
-        <input  name="name" required="required" value="{{this.name}}"/>
-        <label for="name">Name</label>
-        <div class="bar"></div>
-      </div>
-
-      <div class="input-container">
-        <input  name="street" required="required" value="{{this.address.street}}" />
-        <label for="street">Street</label>
-        <div class="bar"></div>
-      </div>
-
-      <div class="input-container">
-        <input  name="houseNumber" required="required" value="{{this.address.houseNumber}}" />
-        <label for="houseNumber">Number</label>
-        <div class="bar"></div>
-      </div>
-
-      <div class="input-container">
-        <input  name="zip" required="required" value="{{this.address.zip}}" />
-        <label for="zip">PLZ</label>
-        <div class="bar"></div>
-      </div>
-
-      <div class="input-container">
-        <input  name="city" required="required" value="{{this.address.city}}" />
-        <label for="city">City</label>
-        <div class="bar"></div>
-      </div>
-
-      <div class="errormsg">
-        {{#if errorMessage}}
-        {{ errorMessage }}
-        {{/if}}
-      </div>
-
-      <h4>Your dogs</h4>
-
-
-
-      {{#each this.dog}}
-      <img src="{{imgPath}}" class="dogprofilepic" alt="">      
-      {{/each}}
-
-      <div class="button-container">
-        <button class="bt-signup" type="submit"><span>Save</span></button>
-      </div>
-    </form>
+<div class = 'default'>
+  <h3>{{ user.username }}</h3>
+  <p>{{ user.type }}</p>
+  <img src="{{ user.imgPath}}" class = "dog-profile-pic">
+  <div>
+    <p>Address Info</p>
+    <p>Street: {{ user.address.street}}</p>
+    <p>City: {{ user.address.city}}</p>
+    <p>ZIP: {{ user.address.zip}}</p>
+    <p>House No: {{ user.address.houseNumber}}</p>
+    <p>Phone No: {{ user.phoneNumber}}</p>
+    <p>About: {{ user.description}}</p>
   </div>
+
+  <a href="/users/{{ user._id }}/edit">Edit your profile</a>
+</div>
+
+

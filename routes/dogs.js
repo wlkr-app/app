@@ -111,9 +111,9 @@ router.get('/dogs/delete/:id', (req, res, next) => {
 });
 
 router.get('/dogs/:id', (req, res, next) => {
-  let a = req.user.id;
+  let userId = req.user.id;
   Dog.findById(req.params.id).then(dog => {
-    res.render("dogs/profile", { dog ,a })
+    res.render("dogs/profile", { dog, userId })
   })
 })
 
@@ -128,7 +128,7 @@ router.post('/dogs/:id', (req, res, next) => {
   ).then(dog => {
       User.findOneAndUpdate(
         { _id: req.user.id }, 
-        { $push: { walkers: req.params.id } }
+        { $push: { dogsToWalk: req.params.id } }
       ).then(user => {
         res.redirect("/dogs/cards")
       })
