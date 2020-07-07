@@ -1,12 +1,22 @@
-<div class = 'dog-card-container'>
+<nav>
+  <a href="/">
+    <p class="home">wlkr.</p>
+  </a>
+  <a href="/users/{{ userId }}">
+    <p>👨</p>
+  </a>
+</nav>
+
+<br>
+<div class = 'default'>
     <img src="{{dog.imgPath}}" class = "dog-profile-pic">
-    <h3>{{ dog.name }}</h3>
-    <p>{{ dog.breed }}</p>
-    <p>{{ dog.age }}</p>
-    <p>{{ dog.gender }}</p>
-    <p>{{ dog.description }}</p>
+    <h3>Name: {{ dog.name }}</h3>
+    <p>Breed: {{ dog.breed }}</p>
+    <p>Age: {{ dog.age }}</p>
+    <p>Gender: {{ dog.gender }}</p>
+    <p>About: {{ dog.description }}</p>
     {{#each dog.timeslots}}
-    <p>{{ this }}</p>
+    <p>I'm available for a walk: {{ this }}</p>
     {{/each}}
 
     <form action="/dogs/{{dog._id}}" method="POST">
