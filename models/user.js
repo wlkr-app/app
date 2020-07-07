@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// const Dog = require('./Dog');
+const Dog = require('./Dog');
 
 const userSchema = new Schema({
   username: {
@@ -9,17 +9,11 @@ const userSchema = new Schema({
   },
   name: {
     type: String,
-    // required: true
   },
   password: {
     type: String,
-    // required: true
+    required: true
   },
-  // ,
-  // salt: {
-  //   type: String,
-  //   // required: true
-  // },
   address: {
     street: String,
     city: String,
@@ -39,6 +33,7 @@ const userSchema = new Schema({
   imgPath: String,
   imgPublicId: String,
   timeslots: [String]
+
 });
 
 const User = mongoose.model('User', userSchema);
