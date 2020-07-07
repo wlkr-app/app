@@ -38,8 +38,6 @@ router.get('/users/:id/edit', (req, res, next) => {
     });
 })
 
-
-
 router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
   console.log(req.body)
   console.log(req.user)
@@ -53,26 +51,27 @@ router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
     city
   } = req.body;
 
-    imgPath = req.file.url;
-    imgName = req.file.originalname;
-    imgPublicId = req.file.public_id;
 
-  // if (!imgPath || !imgName || imgPublicId) {
-  //   imgPath = req.user.imgPath;
-  //   imgName = req.user.imgName;
-  //   imgPublicId = req.user.imgPublicId;
-  // } else {
-  //   imgPath = req.file.url;
-  //   imgName = req.file.originalname;
-  //   imgPublicId = req.file.public_id;
-  // }
+  let imgPath;
+  let imgName;
+  let imgPublicId;
+
+  if (req.file == true) {
+     imgPath = req.file.url;
+     imgName = req.file.originalname;
+     imgPublicId = req.file.public_id;
+  } else {
+     imgPath = req.user.imgPath;
+     imgName = req.user.imgName;
+     imgPublicId = req.user.imgPublicId;
+  }
 
   User.update({
       _id: id
     }, {
       $set: {
         name,
-        adress: {
+        address: {
           street,
           houseNumber,
           zip,

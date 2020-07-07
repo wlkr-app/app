@@ -103,6 +103,7 @@ router.get("/login", (req, res, next) => {
 
 
 router.post('/login', function (req, res, next) {
+  const id = req.user.id;
   passport.authenticate('local', function (err, user, info) {
     req.session.currentUser = user;
     if (err) {
@@ -113,17 +114,13 @@ router.post('/login', function (req, res, next) {
     }
     req.logIn(user, function (err) {
       if (err) {
-        console.log("ERR")
         return next(err);
       }
       if (user.type === 'dog-walker') {
-        console.log("HERE", user);
         res.redirect('/dogs/cards/')
       }
       if (user.type === 'dog-owner') {
-        console.log("HERE2", user);
-
-        res.redirect('/')
+        res.redirect('/users/:id/edit')
       }
     });
   })(req, res, next);
