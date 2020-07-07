@@ -1,46 +1,65 @@
+<div class="container">
+
+  <div class="card">
+    <h3>Your Dog</h3>
+    <form action="/ownersignup-dog" method="post" enctype="multipart/form-data" id="form-container">
 
 
-{{#with user}}
-<img src="{{imgPath}}" alt=""> HELLOOOO
-{{/with}}
+      <div class="uploadpic">
+        <input type="file" name="photo" required="required" />
+      </div>
 
-<div class="default">
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="name" required="required" />
+        <label for="name">Name</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="age" required="required" />
+        <label for="age">Age</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="radio">
+        <label>
+          <input type="radio" name="type" value="male" checked />
+          <span>Male</span>
+        </label>
+        <label>
+          <input type="radio" name="type" value="female" />
+          <span>Female</span>
+        </label>
+      </div>
 
 
-<form action="/ownersignup-dog" method="post" enctype="multipart/form-data">
+      <div class="input-container">
+        <select name="breed">
+          <option value="" disabled selected hidden id="breed">Breed</option>
+          {{#each list}}
+          <option value="{{this.name}}">{{this.name}}</option>
+          {{/each}}
+          <option value="Other">Other / Mixed / Mutt</option>
+        </select>
+        <div class="bar"></div>
 
-  <label>Pic</label>
-  <input type="file" name="photo">
+      </div>
 
-  <label for="name">Name:</label>
-  <input type="text" name="name">
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="description" required="required" />
+        <label for="description">Description</label>
+        <div class="bar"></div>
+      </div>
 
-  <label for="age">Age:</label>
-  <input type="text" name="age">
+      <div class="errormsg">
+        {{#if errorMessage}}
+        {{ errorMessage }}
+        {{/if}}
+      </div>
 
-  <p>
-    <input type="radio" name="gender" value="male">
-    <label for="male">Male</label><br>
-    <input type="radio" name="gender" value="female">
-    <label for="female">Female</label><br>
-  </p>
+      <div class="button-container">
+        <button class="bt-signup" id="signupdone"><span>Save</span></button>
+      </div>
+    </form>
 
-  <label for="breed">Breed:</label>
-  <select name="breed">
-    <option value=""></option>
-    {{#each list}}
-    <option value="{{this.name}}">{{this.name}}</option>
-    {{/each}}
-    <option value="Other">Other / Mixed / Mutt</option>
-  </select>
-
-  <label for="description">Description:</label>
-  <textarea name="description" rows="4" cols="50">Type here stuff :D</textarea>
-
-   {{!-- <label for="time">Time:</label>
-  <input type="text" id="walktime" name="time"> --}}
-
- <input type="submit" value="SAVE">
-</form>
-
-</div>
+  </div>

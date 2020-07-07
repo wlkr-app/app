@@ -1,25 +1,52 @@
-<h1>Fill in your info</h1>
+<div class="container">
 
-<form action="/ownersignup/{{this._id}}" method="post" enctype="multipart/form-data">
+  <div class="card">
+    <h3>Your Infos</h3>
+    <form action="/ownersignup/{{this._id}}" method="post" enctype="multipart/form-data" id="form-container">
 
-  <label>Pic</label>
-  <input type="file" name="photo">
 
-  <label for="">Name:</label>
-  <input type="text" name="name" value="Your name">
+      <div class="uploadpic">
+        <input type="file" name="photo" required="required" />
+      </div>
 
-  <label for="">Street:</label>
-  <input type="text" name="street" value="Your house street">
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="name" required="required" />
+        <label for="name">Name</label>
+        <div class="bar"></div>
+      </div>
 
-  <label for="">Number:</label>
-  <input type="text" name="houseNumber" value="House street">
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="street" required="required" />
+        <label for="street">Street</label>
+        <div class="bar"></div>
+      </div>
 
-  <label for="">PLZ:</label>
-  <input type="text" name="zip" value="ZIP code">
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="houseNumber" required="required" />
+        <label for="houseNumber">Number</label>
+        <div class="bar"></div>
+      </div>
 
-  <label for="">City:</label>
-  <input type="text" name="city" value="Your city">
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="zip" required="required" />
+        <label for="zip">PLZ</label>
+        <div class="bar"></div>
+      </div>
 
-  <input type="submit" value="SAVE">
-</form>
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="city" required="required" />
+        <label for="city">City</label>
+        <div class="bar"></div>
+      </div>
 
+      <div class="errormsg">
+        {{#if errorMessage}}
+        {{ errorMessage }}
+        {{/if}}
+      </div>
+
+      <div class="button-container">
+        <button class="bt-signup"><span>Save</span></button>
+      </div>
+    </form>
+  </div>

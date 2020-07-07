@@ -1,19 +1,35 @@
-document.addEventListener('DOMContentLoaded', () => {
+$(document).ready(() => {
 
-  console.log(':)');
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('Yay, loaded :)');
+  }, false);
 
-}, false);
+  $('.toggle').on('click', function () {
+    $('.container').stop().addClass('active');
+  });
 
-const flatpickr = require("flatpickr");
+  $('.close').on('click', function () {
+    $('.container').stop().removeClass('active');
+  });
 
-flatpickr("#walktime", {
-  enableTime: true,
-  dateFormat: "F, d Y H:i"
+  document.querySelector('.uploadpic').addEventListener('click', () => {
+    console.log('test')
+  })
+
+  // document.querySelector('#signupdone').addEventListener('click', () => {
+  //   setTimeout(() => {
+  //     alert("Hello");
+  //   }, 1000);
+  //   console.log('test')
+  // })
+
+
+
+
+
+
+
+
+
+
 });
-
-// document.querySelector('#walktime').flatpickr({
-//   enableTime: true,
-//   dateFormat: "F, d Y H:i"
-// });
-
-// console.log('adsasas')
