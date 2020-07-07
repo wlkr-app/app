@@ -1,0 +1,71 @@
+<div class="container">
+
+  <div class="card">
+    <h3>Edit {{ dog.name }}'s Info </h3>
+    <form action="/ownersignup-dog" method="post" enctype="multipart/form-data" id="form-container">
+
+
+      <div class="uploadpic">
+        <input type="file" name="photo" required="required"  value="{{dog.imgPath}}"/>
+      </div>
+
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="name" required="required" value="{{dog.name}}"/>
+        <label for="name">Name</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="age" required="required" value="{{dog.age}}"/>
+        <label for="age">Age</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="radio">
+        <label>
+          <input type="radio" name="gender" value="male" checked />
+          <span>Male</span>
+        </label>
+        <label>
+          <input type="radio" name="gender" value="female" />
+          <span>Female</span>
+        </label>
+      </div>
+
+
+      <div class="input-container">
+        <select name="breed">
+          <option value="" disabled selected hidden id="breed">{{dog.breed}}</option>
+          {{#each breeds }}
+          <option value="{{this.name}}">{{this.name}}</option>
+          {{/each}}
+          <option value="Other">Other / Mixed / Mutt</option>
+        </select>
+        <div class="bar"></div>
+
+      </div>
+
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="description" required="required" value="{{dog.description}}"/>
+        <label for="description">Description</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="timeslots" required="required" value="{{dog.timeslots}}"/>
+        <label for="timeslots">Time Slot</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="errormsg">
+        {{#if errorMessage}}
+        {{ errorMessage }}
+        {{/if}}
+      </div>
+
+      <div class="button-container">
+        <button class="bt-signup" id="signupdone"><span>Save</span></button>
+      </div>
+    </form>
+
+  </div>

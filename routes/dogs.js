@@ -19,7 +19,68 @@ const ensureAuthenticated = () => {
   };
 };
 
+// EDIT DOGS
+router.get('/dogs/:id/edit', (req, res, next) => {
+  axios.get('https://api.thedogapi.com/v1/breeds').then(breeds =>
+  Dog.findById(req.params.id)
+    .then(dog => {
+      res.render('dogs/editProfile', { dog, breeds: breeds.data })
+    })
+    .catch(error => {
+      console.log('Error: ', error);
+      next();
+    }));
+})
 
+router.post('/dogs/:id/edit', uploader.single("photo"), (req, res, next) => {
+  const {
+    name,
+    breed,
+    age,
+    gender,
+    description,
+    timeslots
+  } = req.body;
+
+  let imgPath;
+  let imgName;
+  let imgPublicId;
+
+  if (req.file == true) {
+     imgPath = req.file.url;
+     imgName = req.file.originalname;
+     imgPublicId = req.file.public_id;
+  } else {
+     imgPath = req.user.imgPath;
+     imgName = req.user.imgName;
+     imgPublicId = req.user.imgPublicId;
+  }
+
+  Dog.update({
+      _id: req.params.id
+    }, {
+      $set: {
+        name,
+        breed,
+        age,
+        gender,
+        description,
+        timeslots,
+        imgPath,
+        imgName,
+        imgPublicId
+      }
+    }, {
+      new: true
+    })
+    .then(() => {
+      res.redirect('/dogs/:id/edit');
+    })
+    .catch((error) => {
+      res.render('/dogs/:id/edit');
+      console.log(error);
+    })
+});
 
 // DOG CARDS VIEW - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -121,6 +182,8 @@ router.get('/dogs/:id', (req, res, next) => {
 //   res.send('booked')
 // });
 
+
+// add the walker that can be seen by the owner of the dog
 router.post('/dogs/:id', (req, res, next) => {
   Dog.findOneAndUpdate(
     { _id: req.params.id }, 

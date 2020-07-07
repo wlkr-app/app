@@ -95,7 +95,7 @@ router.post('/login', function (req, res, next) {
         res.redirect('/dogs/cards/')
       }
       if (user.type === 'dog-owner') {
-        res.redirect('/users/:id/edit')
+        res.redirect('/users/' + user._id)
       }
     });
   })(req, res, next);

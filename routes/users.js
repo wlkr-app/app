@@ -93,8 +93,11 @@ router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
 });
 
 router.get('/users/:id', (req, res, next) => {
-  User.findById(req.user.id).then(user => {
-    res.render("users/profile", { user })
+  User.findById(req.user.id).populate('dog').then(user => {
+    // let dogs = user.dog[0];
+    let addressShow = true;
+    if(user.type === 'dog-walker') addressShow = false;
+    res.render("users/profile", { user, addressShow })
   })
 })
 
