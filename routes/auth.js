@@ -11,17 +11,6 @@ const {
 const User = require("../models/User");
 const Dog = require("../models/Dog");
 
-
-// function ensureAuthenticated(req, res, next) {
-//   if (req.isAuthenticated()) {
-//     return next();
-//   } else {
-//     res.redirect('/login')
-//   }
-// }
-
-
-
 // SIGNUP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get("/signup", (req, res, next) => {
@@ -61,12 +50,14 @@ router.post("/signup", (req, res, next) => {
       const hash = bcrypt.hashSync(password, salt);
       User.create({
           username: username,
-          password: hash
+          password: hash,
+          type: type
         })
         .then(dbUser => {
           req.login(dbUser, err => {
             if (err) next(err);
-            else res.redirect('/ownersignup');
+            if(dbUser.type === 'dog-owner') res.redirect('/ownersignup');
+            else res.redirect('/dogs/cards');
           });
           res.redirect('login');
         })
@@ -81,9 +72,6 @@ router.post("/signup", (req, res, next) => {
 // LOGIN - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get("/login", (req, res, next) => {
-  // if (!req.session.user) {
-  //     res.render('auth/signup', { errorMessage: 'You must login first.' });
-  // } else {
   res.render("auth/login", {
       "errorMessage": req.flash("error")
     })

@@ -31,9 +31,7 @@ const userSchema = new Schema({
   }],
   imgName: String,
   imgPath: String,
-  imgPublicId: String,
-  timeslots: [String]
-
+  imgPublicId: String
 });
 
 const User = mongoose.model('User', userSchema);
