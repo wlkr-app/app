@@ -1,0 +1,16 @@
+<div class = 'dog-card-container'>
+    <img src="{{dog.imgPath}}" class = "dog-profile-pic">
+    <h3>{{ dog.name }}</h3>
+    <p>{{ dog.breed }}</p>
+    <p>{{ dog.age }}</p>
+    <p>{{ dog.gender }}</p>
+    <p>{{ dog.description }}</p>
+    {{#each dog.timeslots}}
+    <p>{{ this }}</p>
+    {{/each}}
+
+    <form action="/dogs/{{dog._id}}" method="POST">
+      <button type = "submit">Book a walk</button>
+    </form>
+
+</div>

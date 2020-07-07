@@ -5,7 +5,6 @@ const {
   uploader,
   cloudinary
 } = require("../config/cloudinary.js");
-
 const User = require("../models/User");
 const Dog = require("../models/Dog");
 
@@ -46,7 +45,7 @@ router.post('/ownersignup/:id', uploader.single("photo"), (req, res, next) => {
     }, {
       $set: {
         name,
-        adress: {
+        address: {
           street,
           houseNumber,
           zip,

@@ -109,5 +109,30 @@ router.get('/dogs/delete/:id', (req, res, next) => {
     });
 });
 
+router.get('/dogs/:id', (req, res, next) => {
+  let a = req.user.id;
+  Dog.findById(req.params.id).then(dog => {
+    res.render("dogs/profile", { dog ,a })
+  })
+})
+
+// router.get('/dogs/requested', (req, res, next) => {
+//   res.send('booked')
+// });
+
+router.post('/dogs/:id', (req, res, next) => {
+  Dog.findOneAndUpdate(
+    { _id: req.params.id }, 
+    { $push: { walkers: req.user.id } }
+  ).then(dog => {
+      User.findOneAndUpdate(
+        { _id: req.user.id }, 
+        { $push: { walkers: req.params.id } }
+      ).then(user => {
+        res.redirect("/dogs/cards")
+      })
+  })
+})
+
 
 module.exports = router;

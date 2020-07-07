@@ -1,0 +1,34 @@
+<div class="container">
+
+  <div class="card">
+    <h3>Your (walker) Infos</h3>
+    <form action="/walkersignup/{{this._id}}" method="post" enctype="multipart/form-data" id="form-container">
+
+
+      <div class="uploadpic">
+        <input type="file" name="photo" required="required" />
+      </div>
+
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="name" required="required" />
+        <label for="name">Name</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" name="description" required="required" />
+        <label for="description">Description</label>
+        <div class="bar"></div>
+      </div>
+
+      <div class="errormsg">
+        {{#if errorMessage}}
+        {{ errorMessage }}
+        {{/if}}
+      </div>
+
+      <div class="button-container">
+        <button class="bt-signup"><span>Save</span></button>
+      </div>
+    </form>
+  </div>

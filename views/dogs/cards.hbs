@@ -16,6 +16,7 @@
     {{#each dogs}}
     <div style="background-image: url('{{this.imgPath}}')" class="doggrid">
       {{this.name}}
+      <a href="/dogs/{{this._id}}">info</a>
       <a href="/dogs/delete/{{this._id}}">❌</a>
     </div>
 
