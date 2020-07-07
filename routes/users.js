@@ -94,7 +94,6 @@ router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
 
 router.get('/users/:id', (req, res, next) => {
   User.findById(req.user.id).then(user => {
-    console.log(user)
     res.render("users/profile", { user })
   })
 })
