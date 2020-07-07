@@ -41,13 +41,13 @@ router.get('/dogs/cards', ensureAuthenticated(), (req, res, next) => {
 // ADD DOG - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get('/dogs/add', ensureAuthenticated(), (req, res, next) => {
-  
+  let userId = req.user.id;
   axios.get('https://api.thedogapi.com/v1/breeds')
     .then(response => {
       // console.log(response.data);
       const list = response.data;
       res.render('dogs/add', {
-        list
+        list, userId
       });
     })
     .catch(err => {
@@ -109,6 +109,31 @@ router.get('/dogs/delete/:id', (req, res, next) => {
       console.log(err);
     });
 });
+
+router.get('/dogs/:id', (req, res, next) => {
+  let a = req.user.id;
+  Dog.findById(req.params.id).then(dog => {
+    res.render("dogs/profile", { dog ,a })
+  })
+})
+
+// router.get('/dogs/requested', (req, res, next) => {
+//   res.send('booked')
+// });
+
+router.post('/dogs/:id', (req, res, next) => {
+  Dog.findOneAndUpdate(
+    { _id: req.params.id }, 
+    { $push: { walkers: req.user.id } }
+  ).then(dog => {
+      User.findOneAndUpdate(
+        { _id: req.user.id }, 
+        { $push: { walkers: req.params.id } }
+      ).then(user => {
+        res.redirect("/dogs/cards")
+      })
+  })
+})
 
 
 module.exports = router;

@@ -8,6 +8,7 @@ const dogSchema = new Schema({
       type: String,
       enum: ['female', 'male']
     },
+    walkers: [String],
     description: String,
     timeslots: [String],
     imgName: String,

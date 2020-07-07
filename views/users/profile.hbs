@@ -9,7 +9,10 @@
 
 <div class="container">
 
+
   <div class="card">
+    <h4>Your profile</h4>
+
     <form action="/users/{{this._id}}/edit" method="post" enctype="multipart/form-data" id="form-container">
 
 
@@ -53,11 +56,12 @@
         {{/if}}
       </div>
 
-  
+      <h4>Your dogs</h4>
+
 
 
       {{#each this.dog}}
-      <p>{{name}}</p>
+      <img src="{{imgPath}}" class="dogprofilepic" alt="">      
       {{/each}}
 
       <div class="button-container">

@@ -29,6 +29,7 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Dog'
   }],
+  dogsToWalk: [String],
   description: {
     type: String,
   },

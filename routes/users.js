@@ -117,6 +117,55 @@ router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
 
 
 
+// router.post('/users/:id/edit', (req, res, next) => {
+//   console.log('reqbody is' + req.body.name)
 
+//   const id = req.user.id;
+//   const {
+//     name,
+//     street,
+//     houseNumber,
+//     zip,
+//     city
+//   } = req.body;
+
+//   let imgPath;
+//   let imgName;
+//   let imgPublicId;
+
+//   if (!imgPath || !imgName || imgPublicId) {
+//     imgPath = req.user.imgPath;
+//     imgName = req.user.imgName;
+//     imgPublicId = req.user.imgPublicId;
+//   } else {imgPath = req.file.url;
+//     imgName = req.file.originalname;
+//     imgPublicId = req.file.public_id;}
+
+// console.log(req.user)
+
+//   User.update({
+//       _id: id
+//     }, {
+//       $set: {
+//         name,
+//         street,
+//         houseNumber,
+//         zip,
+//         city,
+//         imgPath,
+//         imgName,
+//         imgPublicId
+//       }
+//     }, {
+//       new: true
+//     })
+//     .then(() => {
+//       res.redirect('/users/:id/edit');
+//     })
+//     .catch((error) => {
+//       res.render('/users/:id/edit');
+//       console.log(error);
+//     })
+// });
 
 module.exports = router;

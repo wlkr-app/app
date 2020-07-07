@@ -54,8 +54,8 @@ router.post("/signup", (req, res, next) => {
           type: type
         })
         .then(dbUser => {
-          req.login(dbUser, err => {
-            if (err) next(err);
+          req.logIn(dbUser, (err) => {
+            if (err) return next(err);
             if (dbUser.type === 'dog-owner') res.redirect('/ownersignup');
             else res.redirect('/walkersignup');
           });
@@ -100,11 +100,6 @@ router.post('/login', function (req, res, next) {
     });
   })(req, res, next);
 });
-
-
-
-
-
 
 // LOGOUT - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
