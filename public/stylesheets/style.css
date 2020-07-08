@@ -151,6 +151,15 @@ nav {
   z-index: 2;
 }
 
+nav span {
+  display: flex;
+  align-items: center;
+}
+
+nav span a {
+  color: white;
+}
+
 nav p {
   font-size: 2rem;
   margin: 1rem 2rem 1rem 2rem;
@@ -237,7 +246,8 @@ p.home {
 .description {
   margin: 3rem 0 2rem 0;
   line-height: 1.5;
-  max-width: 80vw;;
+  max-width: 80vw;
+  ;
 }
 
 .overlay {
@@ -251,7 +261,7 @@ p.home {
 .profileview {
   width: 100vw;
   height: 100vh;
-/* background-color: #FF7D99; STYLE THISSSS LATETRTETETETTETETETETE AAAA  */
+  /* background-color: #FF7D99; STYLE THISSSS LATETRTETETETTETETETETE AAAA  */
 }
 
 span.gender {
@@ -277,7 +287,7 @@ span.gender {
 
 
 .container {
-  margin-top: 3rem;
+  margin-top: 7rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -501,7 +511,7 @@ label span:before {
   border-radius: 10rem;
 }
 
-.small-profilepic.floating{
+.small-profilepic.floating {
   margin: 175px 0 0 60px;
   position: absolute;
 }
@@ -527,9 +537,9 @@ label span:before {
     min-width: 350px;
     /* background-color: red; */
   }
-  
+
   .cardbreed {
     min-width: 350px;
-  }  
+  }
 
 }

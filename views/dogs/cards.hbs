@@ -2,39 +2,33 @@
   {{#with user}}
   <a href="/home">
     <p class="home">wlkr.</p>
-  </a> <a href="/users/{{this._id}}">
-    <p>👨</p>
   </a>
+
+  <span>
+    <a href="/users/{{this._id}}/requests">Requests</a>
+    {{!-- <a href="/logout">Logout</a> --}}
+    <a href="/users/{{this._id}}">
+      <p>👨</p>
+    </a>
+  </span>
   {{/with}}
 </nav>
 
 
 <div class="container">
   <div class="card">
- <h1>DOGS!</h1>
-  <div class="grid">
-    {{#each dogs}}
-    {{!-- <img src="{{this.imgPath}}" class="dog-grid" alt=""> --}}
+    <div class="grid">
+      {{#each dogs}}
+      {{!-- <img src="{{this.imgPath}}" class="dog-grid" alt=""> --}}
       <div style="background-image: url('{{this.imgPath}}')" class="doggrid" />
-   <a href="/dogs/{{this._id}}"> {{this.name}}    </a>
-</div>
+      <a href="/dogs/{{this._id}}"> {{this.name}} </a>
+    </div>
 
     {{!-- <a href="/dogs/delete/{{this._id}}">❌</a> --}}
 
-
-
-
-
-  {{else}}
-  <p>There are no dogs yet! :(</p>
-  {{/each}}
-
-{{!-- <a href="/dogs/add">Add dog</a> --}}
-<p><a href="/logout">Log Out</a>
-</p>
+    {{else}}
+    <p>There are no dogs yet! :(</p>
+    {{/each}}
 
   </div>
 </div>
-
- 
-

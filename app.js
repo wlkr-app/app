@@ -17,7 +17,7 @@ mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
 mongoose
-  .connect('mongodb://localhost/dogwalk', { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost/dogwalk', { useNewUrlParser: true })
   .then(x => {
     console.log(
       `Connected to Mongo! Database name: '${x.connections[0].name}'`

@@ -1,0 +1,45 @@
+<nav>
+  {{#with user}}
+  <a href="/home">
+    <p class="home">wlkr.</p>
+  </a>
+
+  <span>
+    <a href="/users/{{this._id}}/requests">Requests</a>
+    {{!-- <a href="/logout">Logout</a> --}}
+    <a href="/users/{{this._id}}">
+      <p>👨</p>
+    </a>
+  </span>
+  {{/with}}
+</nav>
+
+<p> this is requests for owners</p>
+
+<table>
+  <tr>
+    <th>Dog</th>
+    <th>Timeslot</th>
+    <th>Walker</th>
+    <th>Status</th>
+    <th>Confirmation</th>
+  </tr>
+  {{#each walkArr}}
+  <tr>
+    <td><img src="{{ this.dogPic }}" style="width: 100px;"></td>
+    <td>needs work</td>
+    <td>
+      <img src="{{ this.walkerPic }}" style="width: 100px;">
+      <a href="/users/{{this.walkerId}}">{{ this.walkerName}}</a>
+    </td>
+    <td>{{ this.status }}</td>
+    <td>
+      <form action="{{ this.link }}" method="POST">
+        <input type="text" name="walkerId" value="{{this.walkerId}}"/>
+        <button type='submit'>Confirm</button>
+      </form>
+    </td>
+  </tr>
+  {{/each}}
+</table>
+
