@@ -4,11 +4,11 @@ const dogSchema = new Schema({
     name: String,
     breed: String,
     age: Number,
+    owner: String,
     gender: {
       type: String,
       enum: ['female', 'male']
     },
-    walkers: [String],
     description: String,
     timeslots: [String],
     address: {
@@ -17,6 +17,10 @@ const dogSchema = new Schema({
       zip: Number,
       houseNumber: Number
     },
+    requests: [{
+      walkerId: String,
+      status: String
+    }],
     imgName: String,
     imgPath: String,
     imgPublicId: String

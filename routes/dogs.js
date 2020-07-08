@@ -8,18 +8,70 @@ const {
 
 const Dog = require("../models/Dog");
 const User = require("../models/User");
+const { ensureAuthenticated } = require('./middlewares');
 
-const ensureAuthenticated = () => {
-  return (req, res, next) => {
-    if (req.isAuthenticated()) {
+// EDIT DOGS
+router.get('/dogs/:id/edit', ensureAuthenticated(), (req, res, next) => {
+  axios.get('https://api.thedogapi.com/v1/breeds').then(breeds =>
+  Dog.findById(req.params.id)
+    .then(dog => {
+      res.render('dogs/editProfile', { dog, breeds: breeds.data })
+    })
+    .catch(error => {
+      console.log('Error: ', error);
       next();
-    } else {
-      res.redirect('/login');
-    }
-  };
-};
+    }));
+})
 
+router.post('/dogs/:id/edit', uploader.single("photo"), (req, res, next) => {
+  const {
+    name,
+    breed,
+    age,
+    gender,
+    description,
+    timeslots
+  } = req.body;
 
+  let imgPath;
+  let imgName;
+  let imgPublicId;
+
+  if (req.file == true) {
+     imgPath = req.file.url;
+     imgName = req.file.originalname;
+     imgPublicId = req.file.public_id;
+  } else {
+     imgPath = req.user.imgPath;
+     imgName = req.user.imgName;
+     imgPublicId = req.user.imgPublicId;
+  }
+
+  Dog.update({
+      _id: req.params.id
+    }, {
+      $set: {
+        name,
+        breed,
+        age,
+        gender,
+        description,
+        timeslots,
+        imgPath,
+        imgName,
+        imgPublicId
+      }
+    }, {
+      new: true
+    })
+    .then(() => {
+      res.redirect('/dogs/:id/edit');
+    })
+    .catch((error) => {
+      res.render('/dogs/:id/edit');
+      console.log(error);
+    })
+});
 
 // DOG CARDS VIEW - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -95,7 +147,7 @@ router.post("/dogs/add", ensureAuthenticated(), uploader.single("photo"), (req, 
 
 // DELETE DOG - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-router.get('/dogs/delete/:id', (req, res, next) => {
+router.get('/dogs/delete/:id', ensureAuthenticated(), (req, res, next) => {
   Dog.findByIdAndDelete(req.params.id)
     .then(dog => {
       // if movie has an image then we also want to delete the img on cloudinary
@@ -121,15 +173,24 @@ router.get('/dogs/:id', (req, res, next) => {
 //   res.send('booked')
 // });
 
+// add the walker that can be seen by the owner of the dog
 router.post('/dogs/:id', (req, res, next) => {
+  const walker = {
+    walkerId : req.user.id,
+    status: "requested"
+  };
+  const doggy = {
+    dogId : req.params.id,
+    status: "requested"
+  };
   Dog.findOneAndUpdate(
     { _id: req.params.id }, 
-    { $push: { walkers: req.user.id } }
+    { $push: { requests: walker } }
   ).then(dog => {
       User.findOneAndUpdate(
         { _id: req.user.id }, 
-        { $push: { dogsToWalk: req.params.id } }
-      ).then(user => {
+        { $push: { requests: doggy } }      ).
+      then(user => {
         res.redirect("/dogs/cards")
       })
   })

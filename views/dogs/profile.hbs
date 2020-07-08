@@ -15,6 +15,7 @@
     <p>Age: {{ dog.age }}</p>
     <p>Gender: {{ dog.gender }}</p>
     <p>About: {{ dog.description }}</p>
+    <a href="/users/{{ dog.owner }}">My owner's Info</a>
     {{#each dog.timeslots}}
     <p>I'm available for a walk: {{ this }}</p>
     {{/each}}

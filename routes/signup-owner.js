@@ -94,7 +94,8 @@ router.post("/ownersignup-dog", uploader.single("photo"), (req, res, next) => {
     age,
     gender,
     breed,
-    description
+    description,
+    timeslots
   } = req.body;
   const owner = req.user._id;
   const street = req.user.address.street;
@@ -115,6 +116,7 @@ router.post("/ownersignup-dog", uploader.single("photo"), (req, res, next) => {
       gender,
       breed,
       description,
+      timeslots,
       owner,
       address: {
         street,
