@@ -28,6 +28,32 @@ router.get("/ownersignup", (req, res, next) => {
 
 });
 
+
+// router.get("/ownersignup", (req, res, next) => {
+//   // console.log(req.session)
+//   // console.log(req.user)
+//   console.log('heeee');
+
+//   axios.get('https://api.thedogapi.com/v1/breeds').then(plz => // find a plz api :(
+//       User.findById(req.user.id)
+//       .then(user => {
+//         console.log('dataaaaaaaa' + plz.data)
+//         res.render('auth/owner-signup-info', {
+//           user,
+//           plz: plz.data
+//         })
+//       }))
+//     .catch(error => {
+//       console.log('Error: ', error);
+//       next();
+//     });
+
+// });
+
+
+
+
+
 router.post('/ownersignup/:id', uploader.single("photo"), (req, res, next) => {
   const id = req.user.id;
   const {
@@ -35,8 +61,7 @@ router.post('/ownersignup/:id', uploader.single("photo"), (req, res, next) => {
     street,
     houseNumber,
     zip,
-    city,
-    description
+    city
   } = req.body;
   const imgPath = req.file.url;
   const imgName = req.file.originalname;
@@ -52,7 +77,6 @@ router.post('/ownersignup/:id', uploader.single("photo"), (req, res, next) => {
           zip,
           city
         },
-        description,
         imgPath,
         imgName,
         imgPublicId
@@ -160,9 +184,9 @@ router.post("/ownersignup-dog", uploader.single("photo"), (req, res, next) => {
 router.get("/ownersignup-done", (req, res, next) => {
   // console.log(req.user)
   const id = req.user.id;
-  User.findById(id)
+  User.findById(id).populate('dog')
     .then(user => {
-      res.render("auth/owner-signup-done", user)
+      res.render("users/profile", {user}) 
     })
 
     .catch(error => {

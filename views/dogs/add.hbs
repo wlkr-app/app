@@ -1,10 +1,17 @@
 <nav>
+  {{#with user}}
   <a href="/home">
     <p class="home">wlkr.</p>
   </a>
-  <a href="/users/{{ userId }}">
-    <p>👨</p>
-  </a>
+
+  <span>
+    <a href="/users/{{this._id}}/requests">Requests</a>
+    {{!-- <a href="/logout">Logout</a> --}}
+    <a href="/users/{{this._id}}">
+      <p>👨</p>
+    </a>
+  </span>
+  {{/with}}
 </nav>
 
 
