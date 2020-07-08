@@ -10,45 +10,48 @@
 <div class="container">
 
   <div class="card">
-    <form action="/users/{{this._id}}/edit" method="post" enctype="multipart/form-data" id="form-container">
+    <form action="/users/{{user._id}}/edit" method="post" enctype="multipart/form-data" id="form-container">
 
 
-      <div class="uploadpic" style="background-image: url({{this.imgPath}}); background-size: cover">
+      <div class="uploadpic" style="background-image: url({{user.imgPath}}); background-size: cover">
         <input type="file" name="photo" />
       </div>
 
       <div class="input-container">
-        <input  name="name" required="required" value="{{this.name}}"/>
+        <input  name="name" required="required" value="{{user.name}}"/>
         <label for="name">Name</label>
         <div class="bar"></div>
       </div>
 
+      {{#if addressShow}}
       <div class="input-container">
-        <input  name="street" required="required" value="{{this.address.street}}" />
+        <input  name="street" required="required" value="{{user.address.street}}" />
         <label for="street">Street</label>
         <div class="bar"></div>
       </div>
 
       <div class="input-container">
-        <input  name="houseNumber" required="required" value="{{this.address.houseNumber}}" />
+        <input  name="houseNumber" required="required" value="{{user.address.houseNumber}}" />
         <label for="houseNumber">Number</label>
         <div class="bar"></div>
       </div>
 
       <div class="input-container">
-        <input  name="zip" required="required" value="{{this.address.zip}}" />
+        <input  name="zip" required="required" value="{{user.address.zip}}" />
         <label for="zip">PLZ</label>
         <div class="bar"></div>
       </div>
 
       <div class="input-container">
-        <input  name="city" required="required" value="{{this.address.city}}" />
+        <input  name="city" required="required" value="{{user.address.city}}" />
         <label for="city">City</label>
         <div class="bar"></div>
       </div>
 
+    {{/if}}
+
       <div class="input-container">
-        <input  name="description" value="{{this.description}}"/>
+        <input  name="description" value="{{user.description}}"/>
         <label for="description">About</label>
         <div class="bar"></div>
       </div>

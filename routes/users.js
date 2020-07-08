@@ -15,9 +15,11 @@ router.get('/users/:id/edit', (req, res, next) => {
   if(id !== req.params.id) res.redirect("/login");
   User.findById(id).populate('dog')
     .then(user => {
-      console.log('user is' + req.user);
+      let addressShow = true;
+      if(user.type === 'dog-walker') addressShow = false;
+      // console.log('user is' + req.user);
       // console.log('user is' + user)
-      res.render('users/editProfile', user)
+      res.render('users/editProfile', {user, addressShow})
     })
     .catch(error => {
       console.log('Error: ', error);
@@ -71,11 +73,11 @@ router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
     }, {
       new: true
     })
-    .then(() => {
+    .then((user) => {
       res.redirect('/users/' + req.user.id);
     })
     .catch((error) => {
-      res.render('/users/:id/edit');
+      res.render('/users/' + req.user.id + '/edit');
       console.log(error);
     })
 });
