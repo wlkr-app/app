@@ -33,6 +33,12 @@ const userSchema = new Schema({
   description: {
     type: String,
   },
+  requests: {
+    dogId: String,
+    dogPic: String,
+    timeslot: String,
+    status: String
+  },
   imgName: String,
   imgPath: String,
   imgPublicId: String
