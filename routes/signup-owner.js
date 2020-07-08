@@ -97,6 +97,12 @@ router.post("/ownersignup-dog", uploader.single("photo"), (req, res, next) => {
     description
   } = req.body;
   const owner = req.user._id;
+  const street = req.user.address.street;
+  const city = req.user.address.city;
+  const zip = req.user.address.zip;
+  const houseNumber = req.user.address.houseNumber;
+
+
   const imgPath = req.file.url;
   const imgName = req.file.originalname;
   const imgPublicId = req.file.public_id;
@@ -110,6 +116,12 @@ router.post("/ownersignup-dog", uploader.single("photo"), (req, res, next) => {
       breed,
       description,
       owner,
+      address: {
+        street,
+        city,
+        zip,
+        houseNumber
+      },
       imgPath,
       imgName,
       imgPublicId

@@ -13,8 +13,7 @@ const storage = cloudinaryStorage({
   folder: 'walkr-app',
   allowedFormats: ['jpg', 'png'],
   transformation: [
-    {width: 400, height: 400, gravity: "face", radius: "max", crop: "crop"},
-    {width: 200}
+    {width: 800}
   ],
   filename: function (req, res, cb) {
     cb(null, res.originalname);

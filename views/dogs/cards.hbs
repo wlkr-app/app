@@ -14,7 +14,7 @@
  <h1>DOGS!</h1>
   <div class="grid">
     {{#each dogs}}
-    
+    {{!-- <img src="{{this.imgPath}}" class="dog-grid" alt=""> --}}
       <div style="background-image: url('{{this.imgPath}}')" class="doggrid" />
    <a href="/dogs/{{this._id}}"> {{this.name}}    </a>
 </div>
@@ -30,7 +30,8 @@
   {{/each}}
 
 {{!-- <a href="/dogs/add">Add dog</a> --}}
-<a href="/logout">Log Out</a>
+<p><a href="/logout">Log Out</a>
+</p>
 
   </div>
 </div>

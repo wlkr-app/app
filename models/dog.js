@@ -11,6 +11,12 @@ const dogSchema = new Schema({
     walkers: [String],
     description: String,
     timeslots: [String],
+    address: {
+      street: String,
+      city: String,
+      zip: Number,
+      houseNumber: Number
+    },
     imgName: String,
     imgPath: String,
     imgPublicId: String

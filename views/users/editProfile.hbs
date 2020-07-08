@@ -2,9 +2,8 @@
   const preview_image = event => {
     const reader = new FileReader();
     reader.onload = function () {
-      const output = document.getElementById('output_image');
+      const output = document.getElementById('outputimage');
       output.src = reader.result;
-      console.log('outputsrc' + output.src)
 
     }
     reader.readAsDataURL(event.target.files[0]);
@@ -16,20 +15,21 @@
   <a href="/">
     <p class="home">wlkr.</p>
   </a>
-<a href="/users/{{this._id}}">
+  <a href="/users/{{this._id}}">
     <p>👨</p>
   </a>
 </nav>
 
 <div class="container">
 
+  <form action="/users/{{this._id}}/edit" method="post" enctype="multipart/form-data" id="form-container">
 
-  <div class="card">
-    <h4>Your profile</h4>
+    <div class="card">
+      <h4>Your profile</h4>
 
-    <form action="/users/{{this._id}}/edit" method="post" enctype="multipart/form-data" id="form-container">
 
-      <div class="uploadpic" style="background-image: url({{this.imgPath}}); background-size: cover">
+      <img src="" alt="" id="outputimage" />
+      <div class="uploadpic" style="background-image: url({{this.imgPath}});">
         <input type="file" name="photo" onchange="preview_image(event)" />
       </div>
 
@@ -71,14 +71,13 @@
 
       <h4>Your dogs</h4>
 
-
-
       {{#each this.dog}}
-      <img src="{{imgPath}}" class="dogprofilepic" alt="">
-      {{/each}}
+      <div class="uploadedpic-dog" style="background-image: url({{imgPath}});">
+        {{/each}}
 
-      <div class="button-container">
-        <button class="bt-signup" type="submit"><span>Save</span></button>
+
       </div>
-    </form>
-  </div>
+      <button class="bt-signup" type="submit"><span>Save</span></button>
+  </form>
+
+</div>
