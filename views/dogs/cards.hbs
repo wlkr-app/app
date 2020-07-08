@@ -2,7 +2,14 @@
   {{#with user}}
   <a href="/home">
     <p class="home">wlkr.</p>
-  </a> <a href="/users/{{this._id}}">
+  </a> 
+  <div class = "controls">
+    <ul>
+      <li><a href="/users/{{this._id}}/requests" style="color:white">Requests</a></li>
+      <li><a href="/logout" style="color:white">Logout</a></li>
+    </ul>
+  </div>
+  <a href="/users/{{this._id}}">
     <p>👨</p>
   </a>
   {{/with}}
@@ -28,10 +35,6 @@
   {{else}}
   <p>There are no dogs yet! :(</p>
   {{/each}}
-
-{{!-- <a href="/dogs/add">Add dog</a> --}}
-<p><a href="/logout">Log Out</a>
-</p>
 
   </div>
 </div>
