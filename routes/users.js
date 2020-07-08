@@ -135,30 +135,29 @@ router.get('/users/:id/requests', (req, res, next) => {
   })
 })
 
-// router.post('/users/:id/requests', (req, res, next) => {
-//   let newReq = [];
-//   let e = {};
-//   Dog.findOne({ owner: req.user.id }).then(dog => {
-//     // console.log(dog.requests)
-//     dog.requests.forEach(r => {
-//       // console.log(r.walkerId, req.body.walkerId)
-//       if(r.walkerId === req.body.walkerId) e = {
-//         walkerId: r.walkerId,
-//         status: "confirmed"
-//       } 
-//       else e = {
-//         walkerId: r.walkerId,
-//         status: "requested"
-//       } 
-//       newReq.push(e)
-//     }).then(upt => {
-//       Dog.findOneAndUpdate({ owner: req.user.id }, { requests: newReq}).then(b => {
-//         console.log(b)
-//         // res.redirect('/users/'+ req.user.id + '/requests');
-//       })
-//     })
-//   })
-// })
+router.post('/users/:id/requests', (req, res, next) => {
+  let newReq = [];
+  let e = {};
+  Dog.findOne({ owner: req.user.id }).then(dog => {
+    // console.log(dog.requests)
+    dog.requests.forEach(r => {
+      // console.log(r.walkerId, req.body.walkerId)
+      if(r.walkerId === req.body.walkerId || r.status === 'confirmed') e = {
+        walkerId: r.walkerId,
+        status: "confirmed"
+      }
+      else e = {
+        walkerId: r.walkerId,
+        status: "requested"
+      } 
+      newReq.push(e)
+    })
+      Dog.findOneAndUpdate({ owner: req.user.id }, { requests: newReq}, { new: true }).then(b => {
+        console.log(b)
+        // res.redirect('/users/'+ req.user.id + '/requests');
+      })
+  })
+})
 
 
 // router.get('/dash', ensureAuthenticated(), (req, res, next) => {
