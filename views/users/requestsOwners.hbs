@@ -34,12 +34,37 @@
     </td>
     <td>{{ this.status }}</td>
     <td>
-      <form action="{{ this.link }}" method="POST">
+      {{!-- <form action="{{ this.link }}" method="POST">
         <input type="text" name="walkerId" value="{{this.walkerId}}"/>
         <button type='submit'>Confirm</button>
-      </form>
+      </form> --}}
+      <button class ="btn-confirm" id="{{this.walkerId}}">Confirm</button>
+      <button class ="btn-deny" id="{{this.walkerId}}">Deny</button>
     </td>
   </tr>
   {{/each}}
 </table>
 
+
+<script>
+  const confirmBtn = document.getElementsByClassName('btn-confirm');
+  const denyBtn = document.getElementsByClassName('btn-deny');
+
+  const confirm = [...confirmBtn]
+  const deny = [...denyBtn]
+
+  confirm.forEach(btn => {
+    btn.onclick = () => {
+      axios.post(`/users/requests/${event.target.id}/confirm`).then(response => {
+      }).then(window.location.reload(true))
+    }
+  });
+
+  deny.forEach(btn => {
+    btn.onclick = () => {
+      axios.post(`/users/requests/${event.target.id}/denied`).then(response => {
+      }).then(window.location.reload(true))
+    }
+  })
+
+</script>
