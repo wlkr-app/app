@@ -173,17 +173,24 @@ router.get('/dogs/:id', (req, res, next) => {
 //   res.send('booked')
 // });
 
-
 // add the walker that can be seen by the owner of the dog
 router.post('/dogs/:id', (req, res, next) => {
+  const walker = {
+    walkerId : req.user.id,
+    status: "requested"
+  };
+  const doggy = {
+    dogId : req.params.id,
+    status: "requested"
+  };
   Dog.findOneAndUpdate(
     { _id: req.params.id }, 
-    { $push: { walkers: req.user.id } }
+    { $push: { requests: walker } }
   ).then(dog => {
       User.findOneAndUpdate(
         { _id: req.user.id }, 
-        { $push: { dogsToWalk: req.params.id } }
-      ).then(user => {
+        { $push: { requests: doggy } }      ).
+      then(user => {
         res.redirect("/dogs/cards")
       })
   })

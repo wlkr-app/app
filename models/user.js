@@ -29,16 +29,13 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Dog'
   }],
-  dogsToWalk: [String],
   description: {
     type: String,
   },
-  requests: {
+  requests: [{
     dogId: String,
-    dogPic: String,
-    timeslot: String,
     status: String
-  },
+  }],
   imgName: String,
   imgPath: String,
   imgPublicId: String
