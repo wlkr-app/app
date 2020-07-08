@@ -64,6 +64,17 @@ div.index {
   background-color: #1E1C4B;
 }
 
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* button {
+  max-width: 300px;
+} */
+
 .bt-index-login,
 .bt-index-signup {
   font-family: 'Nunito', sans-serif;
@@ -256,6 +267,15 @@ p.home {
   min-width: 70vw;
 }
 
+.cardbreed {
+  /* margin-top: 3rem; */
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+  position: relative;
+  min-width: 70vw;
+  background-color: transparent;
+}
+
 .card .input-container {
   z-index: 1;
   position: relative;
@@ -406,7 +426,7 @@ label span:before {
 #outputimage {
   position: absolute;
   z-index: 1;
-  left: 30%;
+  left: 25vw;
   width: 100px;
   height: 100px;
   background-position: center;
@@ -419,7 +439,7 @@ label span:before {
 
 .uploadpic {
   position: relative;
-  left: 30%;
+  left: 25vw;
   width: 100px;
   height: 100px;
   background-image: url(../images/cameraadd.svg);
@@ -453,4 +473,22 @@ label span:before {
   background-size: cover;
   background-color: #C4C4C4;
   border-radius: 50rem;
+}
+
+
+
+
+@media (min-width: 768px) {
+
+
+  
+  .card {
+    min-width: 500px;
+    /* background-color: red; */
+  }
+  
+  .cardbreed {
+    min-width: 500px;
+  }  
+
 }

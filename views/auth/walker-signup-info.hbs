@@ -1,12 +1,25 @@
+<script type='text/javascript'>
+  const preview_image = event => {
+    const reader = new FileReader();
+    reader.onload = function () {
+      const output = document.getElementById('outputimage');
+      output.src = reader.result;
+
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+</script>
+
 <div class="container">
 
   <div class="card">
     <h3>Your (walker) Infos</h3>
     <form action="/walkersignup/{{this._id}}" method="post" enctype="multipart/form-data" id="form-container">
 
+      <img src="" alt="" id="outputimage" />
 
       <div class="uploadpic">
-        <input type="file" accept="image/*" name="photo" required="required" />
+        <input type="file" accept="image/*" name="photo" onchange="preview_image(event)" required="required" />
       </div>
 
       <div class="input-container">

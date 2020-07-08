@@ -37,9 +37,11 @@ router.post('/walkersignup/:id', uploader.single("photo"), (req, res, next) => {
     zip,
     city
   } = req.body;
+
   const imgPath = req.file.url;
   const imgName = req.file.originalname;
   const imgPublicId = req.file.public_id;
+  
   User.update({
       _id: id
     }, {

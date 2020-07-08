@@ -1,12 +1,25 @@
+<script type='text/javascript'>
+  const preview_image = event => {
+    const reader = new FileReader();
+    reader.onload = function () {
+      const output = document.getElementById('outputimage');
+      output.src = reader.result;
+
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+</script>
+
+
 <div class="container">
 
   <div class="card">
     <h3>Your Dog</h3>
     <form action="/ownersignup-dog" method="post" enctype="multipart/form-data" id="form-container">
 
-
+      <img src="" alt="" id="outputimage" />
       <div class="uploadpic">
-        <input type="file" accept="image/*" name="photo" required="required" />
+        <input type="file" accept="image/*" name="photo" onchange="preview_image(event)" required="required" />
       </div>
 
       <div class="input-container">
@@ -34,7 +47,7 @@
 
 
       <div class="input-container">
-        <select name="breed">
+        <select name="breed" class="cardbreed">
           <option value="" disabled selected hidden id="breed">Breed</option>
           {{#each list}}
           <option value="{{this.name}}">{{this.name}}</option>

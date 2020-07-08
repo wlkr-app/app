@@ -14,6 +14,16 @@
         <div class="bar"></div>
       </div>
 
+
+
+      <div class="errormsg">
+        {{#if errorMessage}}
+        {{ errorMessage }}
+        {{/if}}
+      </div>
+
+      <div class="button-container">
+
       <div class="radio vertical">
         <label>
           <input type="radio" name="type" value="dog-owner" checked />
@@ -25,13 +35,6 @@
         </label>
       </div>
 
-      <div class="errormsg">
-        {{#if errorMessage}}
-        {{ errorMessage }}
-        {{/if}}
-      </div>
-
-      <div class="button-container">
         <button class="bt-signup"><span>Create account</span></button>
         <p class="account">
           Have an account?
