@@ -35,7 +35,8 @@ router.post('/ownersignup/:id', uploader.single("photo"), (req, res, next) => {
     street,
     houseNumber,
     zip,
-    city
+    city,
+    description
   } = req.body;
   const imgPath = req.file.url;
   const imgName = req.file.originalname;
@@ -51,6 +52,7 @@ router.post('/ownersignup/:id', uploader.single("photo"), (req, res, next) => {
           zip,
           city
         },
+        description,
         imgPath,
         imgName,
         imgPublicId

@@ -7,7 +7,6 @@
   </a>
 </nav>
 
-<<<<<<< HEAD
 
 <div class="container">
   <div class="card">
@@ -21,30 +20,6 @@
     <p class='description'>{{ user.description}}</p>
 
 
-=======
-<br>
-<div class = 'default'>
-  <img src="{{ user.imgPath}}" class = "dog-profile-pic">
-  <div>
-    <h3>{{ user.name }}</h3>
-    <p>{{ user.type }}</p>
-    {{#if addressShow}}
-    <p>Address Info</p>
-    <p>Street: {{ user.address.street}}</p>
-    <p>City: {{ user.address.city}}</p>
-    <p>ZIP: {{ user.address.zip}}</p>
-    <p>House No: {{ user.address.houseNumber}}</p>
-    <p>Phone No: {{ user.phoneNumber}}</p>
-    <p>My dogs: </p>
-    {{#each user.dog.[0]}}
-      <img src="{{ this.imgPath}}" class = "dog-profile-pic">
-      {{!-- show one edit link that takes you to edit dog's page --}}
-      {{!-- <a href="/dogs/{{this._id}}">edit</a> --}}
-    {{/each}}
-    {{/if}}
-    <p>About: {{ user.description}}</p>
-  </div>
->>>>>>> ievaka
 
 
     {{#each this.dog}}
