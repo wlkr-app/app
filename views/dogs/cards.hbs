@@ -2,42 +2,33 @@
   {{#with user}}
   <a href="/home">
     <p class="home">wlkr.</p>
-  </a> 
-  <div class = "controls">
-    <ul>
-      <li><a href="/users/{{this._id}}/requests" style="color:white">Requests</a></li>
-      <li><a href="/logout" style="color:white">Logout</a></li>
-    </ul>
-  </div>
-  <a href="/users/{{this._id}}">
-    <p>👨</p>
   </a>
+
+  <span>
+    <a href="/users/{{this._id}}/requests">Requests</a>
+    {{!-- <a href="/logout">Logout</a> --}}
+    <a href="/users/{{this._id}}">
+      <p>👨</p>
+    </a>
+  </span>
   {{/with}}
 </nav>
 
 
 <div class="container">
   <div class="card">
- <h1>DOGS!</h1>
-  <div class="grid">
-    {{#each dogs}}
-    {{!-- <img src="{{this.imgPath}}" class="dog-grid" alt=""> --}}
+    <div class="grid">
+      {{#each dogs}}
+      {{!-- <img src="{{this.imgPath}}" class="dog-grid" alt=""> --}}
       <div style="background-image: url('{{this.imgPath}}')" class="doggrid" />
-   <a href="/dogs/{{this._id}}"> {{this.name}}    </a>
-</div>
+      <a href="/dogs/{{this._id}}"> {{this.name}} </a>
+    </div>
 
     {{!-- <a href="/dogs/delete/{{this._id}}">❌</a> --}}
 
-
-
-
-
-  {{else}}
-  <p>There are no dogs yet! :(</p>
-  {{/each}}
+    {{else}}
+    <p>There are no dogs yet! :(</p>
+    {{/each}}
 
   </div>
 </div>
-
- 
-

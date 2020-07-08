@@ -1,5 +1,3 @@
-import flatpickr from "flatpickr";
-
 $(document).ready(() => {
 
 
@@ -17,20 +15,6 @@ $(document).ready(() => {
     $('.container').stop().removeClass('active');
   });
 
-  document.querySelector('.uploadpic').addEventListener('click', () => {
-    console.log('test')
-  })
-
-  function preview_image(event) 
-  {
-   var reader = new FileReader();
-   reader.onload = function()
-   {
-    var output = document.getElementById('output_image');
-    output.src = reader.result;
-   }
-   reader.readAsDataURL(event.target.files[0]);
-  }
 
 
 

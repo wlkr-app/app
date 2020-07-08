@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&display=swap');
 
 :root {
-  font-size: 16px;
+  font-size: 14px;
   font-family: 'Nunito', sans-serif;
 
 }
@@ -151,6 +151,15 @@ nav {
   z-index: 2;
 }
 
+nav span {
+  display: flex;
+  align-items: center;
+}
+
+nav span a {
+  color: white;
+}
+
 nav p {
   font-size: 2rem;
   margin: 1rem 2rem 1rem 2rem;
@@ -195,7 +204,7 @@ div.errormsg {
   font-size: 0.9rem;
   color: #FF7D99;
   margin: 0 0 1rem 0;
-  max-width: 10rem;
+  max-width: 300px;
 }
 
 p.home {
@@ -237,12 +246,38 @@ p.home {
 .description {
   margin: 3rem 0 2rem 0;
   line-height: 1.5;
-  max-width: 80vw;;
+  max-width: 80vw;
+  ;
 }
 
+.overlay {
+  z-index: 2;
+  margin: -3rem 0;
+  position: absolute;
+  background-color: rgba(116, 71, 250, 0.9);
+  display: none;
+}
 
+.profileview {
+  width: 100vw;
+  height: 100vh;
+  /* background-color: #FF7D99; STYLE THISSSS LATETRTETETETTETETETETE AAAA  */
+}
 
+span.gender {
+  margin: 0 0 0 5px;
+}
 
+.dogdetails {
+  color: #FF7D99;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.profile-content {
+  max-width: 500px;
+  margin: 0;
+}
 
 
 
@@ -252,14 +287,19 @@ p.home {
 
 
 .container {
-  margin-top: 3rem;
+  margin-top: 7rem;
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 
 .card {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
   /* margin-top: 3rem; */
   -webkit-transition: .3s ease;
   transition: .3s ease;
@@ -275,6 +315,7 @@ p.home {
   min-width: 70vw;
   background-color: transparent;
 }
+
 
 .card .input-container {
   z-index: 1;
@@ -356,7 +397,7 @@ p.home {
 }
 
 .card select {
-  font-size: 16px;
+  font-size: 1rem;
   font-family: 'Nunito', sans-serif;
   width: 15rem;
   padding: 12px 0 0;
@@ -432,7 +473,7 @@ label span:before {
 #outputimage {
   position: absolute;
   z-index: 1;
-  left: 25vw;
+  left: calc(50% - 50px);
   width: 100px;
   height: 100px;
   background-position: center;
@@ -440,12 +481,13 @@ label span:before {
   background-size: cover;
   border-radius: 50rem;
   pointer-events: none;
+  object-fit: cover;
 }
 
 
 .uploadpic {
   position: relative;
-  left: 25vw;
+  left: calc(50% - 50px);
   width: 100px;
   height: 100px;
   background-image: url(../images/cameraadd.svg);
@@ -463,10 +505,15 @@ label span:before {
   opacity: 0;
 }
 
-.dogprofilepic {
+.small-profilepic {
   margin: 0rem 0 1rem 0;
   width: 70px;
   border-radius: 10rem;
+}
+
+.small-profilepic.floating {
+  margin: 175px 0 0 60px;
+  position: absolute;
 }
 
 .uploadedpic-dog {
@@ -486,15 +533,13 @@ label span:before {
 
 @media (min-width: 768px) {
 
-
-  
   .card {
-    min-width: 500px;
+    min-width: 350px;
     /* background-color: red; */
   }
-  
+
   .cardbreed {
-    min-width: 500px;
-  }  
+    min-width: 350px;
+  }
 
 }

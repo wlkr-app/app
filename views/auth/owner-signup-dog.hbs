@@ -1,14 +1,26 @@
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
 <script type='text/javascript'>
   const preview_image = event => {
     const reader = new FileReader();
     reader.onload = function () {
       const output = document.getElementById('outputimage');
       output.src = reader.result;
-
     }
     reader.readAsDataURL(event.target.files[0]);
-  }
+  };
+
 </script>
+
+<div class="overlay">
+  <div class="default">
+
+    <h3 style="font-size: 2rem; text-align: center; margin: 0 0 -150px 0; color: white">Thanks {{name}}.<br>
+      Profile updated!</h3>
+    <lottie-player src="/images/done.json" id="done" background="transparent" speed="1"
+      style="width: 400px; height: 400px;" autoplay></lottie-player>
+  </div>
+</div>
 
 
 <div class="container">
@@ -82,3 +94,18 @@
     </form>
 
   </div>
+
+  <script type='text/javascript'>
+
+    document.querySelector('.bt-signup').addEventListener('click', () => {
+      if ($('form')[0].checkValidity() == true) {
+        document.querySelector('.overlay').style.display = "block"
+
+        setTimeout(function () {
+          window.location('/ownersignup-done');
+        }, 5000);
+      }
+
+    });
+
+  </script>
