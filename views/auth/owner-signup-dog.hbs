@@ -15,8 +15,8 @@
 <div class="overlay">
   <div class="default">
 
-  <h3 style="font-size: 2rem; text-align: center; margin: 0 0 -150px 0; color: white">Thanks {{name}}.<br>
-Profile updated!</h3>
+    <h3 style="font-size: 2rem; text-align: center; margin: 0 0 -150px 0; color: white">Thanks {{name}}.<br>
+      Profile updated!</h3>
     <lottie-player src="/images/done.json" id="done" background="transparent" speed="1"
       style="width: 400px; height: 400px;" autoplay></lottie-player>
   </div>
@@ -97,14 +97,15 @@ Profile updated!</h3>
 
   <script type='text/javascript'>
 
-  document.querySelector('.bt-signup').addEventListener('click', () => {
-    console.log('heyyyy');
-    document.querySelector('.overlay').style.display = "block"
+    document.querySelector('.bt-signup').addEventListener('click', () => {
+      if ($('form')[0].checkValidity() == true) {
+        document.querySelector('.overlay').style.display = "block"
 
-  setTimeout(function() {
-    window.location('/users/{{this._id}}/edit');
-}, 5000);
+        setTimeout(function () {
+          window.location('/ownersignup-done');
+        }, 5000);
+      }
 
-  });
+    });
 
-</script>
+  </script>

@@ -8,14 +8,19 @@ const {
 
 const Dog = require("../models/Dog");
 const User = require("../models/User");
-const { ensureAuthenticated } = require('./middlewares');
+const {
+  ensureAuthenticated
+} = require('./middlewares');
 
 // EDIT DOGS
 router.get('/dogs/:id/edit', ensureAuthenticated(), (req, res, next) => {
   axios.get('https://api.thedogapi.com/v1/breeds').then(breeds =>
-  Dog.findById(req.params.id)
+    Dog.findById(req.params.id)
     .then(dog => {
-      res.render('dogs/editProfile', { dog, breeds: breeds.data })
+      res.render('dogs/editProfile', {
+        dog,
+        breeds: breeds.data
+      })
     })
     .catch(error => {
       console.log('Error: ', error);
@@ -38,13 +43,13 @@ router.post('/dogs/:id/edit', uploader.single("photo"), (req, res, next) => {
   let imgPublicId;
 
   if (req.file == true) {
-     imgPath = req.file.url;
-     imgName = req.file.originalname;
-     imgPublicId = req.file.public_id;
+    imgPath = req.file.url;
+    imgName = req.file.originalname;
+    imgPublicId = req.file.public_id;
   } else {
-     imgPath = req.user.imgPath;
-     imgName = req.user.imgName;
-     imgPublicId = req.user.imgPublicId;
+    imgPath = req.user.imgPath;
+    imgName = req.user.imgName;
+    imgPublicId = req.user.imgPublicId;
   }
 
   Dog.update({
@@ -99,7 +104,8 @@ router.get('/dogs/add', ensureAuthenticated(), (req, res, next) => {
       // console.log(response.data);
       const list = response.data;
       res.render('dogs/add', {
-        list, userId
+        list,
+        userId
       });
     })
     .catch(err => {
@@ -165,7 +171,13 @@ router.get('/dogs/delete/:id', ensureAuthenticated(), (req, res, next) => {
 router.get('/dogs/:id', (req, res, next) => {
   let userId = req.user.id;
   Dog.findById(req.params.id).then(dog => {
-    res.render("dogs/profile", { dog, userId })
+    User.findById(dog.owner).then(user => {
+      res.render("dogs/profile", {
+        dog,
+        userId,
+        user
+      })
+    })
   })
 })
 
@@ -176,25 +188,37 @@ router.get('/dogs/:id', (req, res, next) => {
 // add the walker that can be seen by the owner of the dog
 router.post('/dogs/:id', (req, res, next) => {
   const walker = {
-    walkerId : req.user.id,
+    walkerId: req.user.id,
     status: "requested"
   };
   const doggy = {
-    dogId : req.params.id,
+    dogId: req.params.id,
     status: "requested"
   };
-  Dog.findOneAndUpdate(
-    { _id: req.params.id }, 
-    { $push: { requests: walker } }
-  ).then(dog => {
-      User.findOneAndUpdate(
-        { _id: req.user.id }, 
-        { $push: { requests: doggy } }      ).
-      then(user => {
+  Dog.findOneAndUpdate({
+    _id: req.params.id
+  }, {
+    $push: {
+      requests: walker
+    }
+  }).then(dog => {
+    User.findOneAndUpdate({
+      _id: req.user.id
+    }, {
+      $push: {
+        requests: doggy
+      }
+    })
+    .
+    then(user => {
+      setTimeout(() => {
         res.redirect("/dogs/cards")
-      })
+      }, 2000)
+    })
   })
 })
+
+
 
 
 module.exports = router;

@@ -7,29 +7,37 @@
   </a>
 </nav>
 
+<div class="profileview">
+  <div class="container">
+    <div class="card">
+      <div class="profhead">
+        <img src="{{user.imgPath}}" class="profilepic main">
+        <h5>{{ user.name}}</h5>
+        <p class='address'> <img src="/images/pin.svg" alt=""> {{ user.address.street}} {{ user.address.houseNumber}},
+          {{ user.address.zip}} {{ user.address.city}}</p>
 
-<div class="container">
-  <div class="card">
-    <div class="profhead">
-      <img src="{{user.imgPath}}" class="profilepic main">
-      <h5>{{ user.name}}</h5>
-      <p class='address'> <img src="/images/pin.svg" alt=""> {{ user.address.street}} {{ user.address.houseNumber}},
-        {{ user.address.zip}} {{ user.address.city}}</p>
-   
+        <div class="profile-content">
+          <p class='description'>{{ user.description}}</p>
+        </div>
 
-    <p class='description'>{{ user.description}}</p>
+        {{#if user.dog}}
 
+        <h4>Dogs</h4>
 
+        {{#each user.dog}}
+        <a href="/dogs/{{_id}}">
+          <img src="{{imgPath}}" class="small-profilepic" alt="">
+        </a>
+        {{/each}}
 
+        {{/if}}
 
-    {{#each this.dog}}
-    <img src="{{imgPath}}" class="dogprofilepic" alt="">
-    {{/each}}
+        <div class="button-container">
+          <a href="/users/{{ user._id }}/edit"> <button class="bt-edit"><span>Edit</span></button></a>
+        </div>
 
-    <div class="button-container">
-     <a href="/users/{{ user._id }}/edit"> <button class="bt-edit"><span>Edit</span></button></a> 
+      </div>
     </div>
-
- </div>
   </div>
+
 </div>

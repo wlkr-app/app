@@ -195,7 +195,7 @@ div.errormsg {
   font-size: 0.9rem;
   color: #FF7D99;
   margin: 0 0 1rem 0;
-  max-width: 10rem;
+  max-width: 300px;
 }
 
 p.home {
@@ -248,9 +248,26 @@ p.home {
   display: none;
 }
 
+.profileview {
+  width: 100vw;
+  height: 100vh;
+/* background-color: #FF7D99; STYLE THISSSS LATETRTETETETTETETETETE AAAA  */
+}
 
+span.gender {
+  margin: 0 0 0 5px;
+}
 
+.dogdetails {
+  color: #FF7D99;
+  text-align: center;
+  line-height: 1.5;
+}
 
+.profile-content {
+  max-width: 500px;
+  margin: 0;
+}
 
 
 
@@ -478,10 +495,15 @@ label span:before {
   opacity: 0;
 }
 
-.dogprofilepic {
+.small-profilepic {
   margin: 0rem 0 1rem 0;
   width: 70px;
   border-radius: 10rem;
+}
+
+.small-profilepic.floating{
+  margin: 175px 0 0 60px;
+  position: absolute;
 }
 
 .uploadedpic-dog {
