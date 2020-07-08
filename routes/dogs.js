@@ -17,6 +17,7 @@ router.get('/dogs/:id/edit', ensureAuthenticated(), (req, res, next) => {
   axios.get('https://api.thedogapi.com/v1/breeds').then(breeds =>
     Dog.findById(req.params.id)
     .then(dog => {
+      
       res.render('dogs/editProfile', {
         dog,
         breeds: breeds.data
@@ -38,19 +39,15 @@ router.post('/dogs/:id/edit', uploader.single("photo"), (req, res, next) => {
     timeslots
   } = req.body;
 
-  let imgPath;
-  let imgName;
-  let imgPublicId;
+  let imgPath = req.user.imgPath;
+  let imgName = req.user.imgName;
+  let imgPublicId = req.user.imgPublicId;
 
-  if (req.file == true) {
-    imgPath = req.file.url;
-    imgName = req.file.originalname;
-    imgPublicId = req.file.public_id;
-  } else {
-    imgPath = req.user.imgPath;
-    imgName = req.user.imgName;
-    imgPublicId = req.user.imgPublicId;
-  }
+  if (req.file) {
+     imgPath = req.file.url;
+     imgName = req.file.originalname;
+     imgPublicId = req.file.public_id;
+  } 
 
   Dog.update({
       _id: req.params.id
@@ -101,11 +98,18 @@ router.get('/dogs/add', ensureAuthenticated(), (req, res, next) => {
   let userId = req.user.id;
   axios.get('https://api.thedogapi.com/v1/breeds')
     .then(response => {
+      let isOwner = true;
+      if(user.type === 'dog-walker') isOwner = false;
+      let isWalker = true;
+      if(user.type === 'dog-owner') isWalker = false;
+
       // console.log(response.data);
       const list = response.data;
       res.render('dogs/add', {
         list,
-        userId
+        userId,
+        isOwner,
+        isWalker
       });
     })
     .catch(err => {
@@ -156,9 +160,7 @@ router.post("/dogs/add", ensureAuthenticated(), uploader.single("photo"), (req, 
 router.get('/dogs/delete/:id', ensureAuthenticated(), (req, res, next) => {
   Dog.findByIdAndDelete(req.params.id)
     .then(dog => {
-      // if movie has an image then we also want to delete the img on cloudinary
       if (dog.imgPath) {
-        // delete the img on cloudinary - we need the so called public id
         cloudinary.uploader.destroy(dog.imgPublicId);
       }
       res.redirect('/dogs/cards');
@@ -172,10 +174,17 @@ router.get('/dogs/:id', (req, res, next) => {
   let userId = req.user.id;
   Dog.findById(req.params.id).then(dog => {
     User.findById(dog.owner).then(user => {
+      let isOwner = true;
+      if(user.type === 'dog-walker') isOwner = false;
+      let isWalker = true;
+      if(user.type === 'dog-owner') isWalker = false;
+
       res.render("dogs/profile", {
         dog,
         userId,
-        user
+        user,
+        isOwner,
+        isWalker
       })
     })
   })
@@ -209,8 +218,7 @@ router.post('/dogs/:id', (req, res, next) => {
         requests: doggy
       }
     })
-    .
-    then(user => {
+    .then(user => {
       setTimeout(() => {
         res.redirect("/dogs/cards")
       }, 2000)

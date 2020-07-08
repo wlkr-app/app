@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/home', (req, res, next) => {
   User.findById(req.user._id).then(dbUser => {
-    if (dbUser.type === 'dog-owner') res.redirect('/users/:this/requests'); ////// TDB!!!!!!!!!!
+    if (dbUser.type === 'dog-owner') res.redirect('/users/:id/requests'); ////// TDB!!!!!!!!!!
     else res.redirect('/dogs/cards/');
   })
 });

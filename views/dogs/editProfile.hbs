@@ -1,3 +1,15 @@
+<script type='text/javascript'>
+  const preview_image = event => {
+    const reader = new FileReader();
+    reader.onload = function () {
+      const output = document.getElementById('outputimage');
+      output.src = reader.result;
+
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+</script>
+
 <nav>
   {{#with user}}
   <a href="/home">
@@ -20,9 +32,9 @@
     <h3>Edit {{ dog.name }}'s Info </h3>
     <form action="/ownersignup-dog" method="post" enctype="multipart/form-data" id="form-container">
 
-
-      <div class="uploadpic">
-        <input type="file" name="photo" required="required"  value="{{dog.imgPath}}"/>
+      <img src="" alt="" id="outputimage" />
+      <div class="uploadpic" style="background-image: url({{dog.imgPath}});">
+        <input type="file" name="photo" required="required"  value="{{dog.imgPath}}" onchange="preview_image(event)"/>
       </div>
 
       <div class="input-container">
@@ -50,14 +62,16 @@
 
 
       <div class="input-container">
-        <select name="breed">
-          <option value="" disabled selected hidden id="breed">{{dog.breed}}</option>
-          {{#each breeds }}
+        <select name="breed" class="cardbreed">
+          <option value="" disabled selected hidden id="breed">Breed</option>
+          {{#each breeds}}
           <option value="{{this.name}}">{{this.name}}</option>
           {{/each}}
           <option value="Other">Other / Mixed / Mutt</option>
         </select>
         <div class="bar"></div>
+
+
 
       </div>
 

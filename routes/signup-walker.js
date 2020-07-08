@@ -41,7 +41,7 @@ router.post('/walkersignup/:id', uploader.single("photo"), (req, res, next) => {
   const imgPath = req.file.url;
   const imgName = req.file.originalname;
   const imgPublicId = req.file.public_id;
-  
+
   User.update({
       _id: id
     }, {
@@ -73,18 +73,23 @@ router.post('/walkersignup/:id', uploader.single("photo"), (req, res, next) => {
 // WALKER SIGNUP [second page] - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get("/walkersignup-done", (req, res, next) => {
-  console.log(req.user)
+  // console.log(req.user)
   const id = req.user.id;
-  User.findById(id)
-  .then(user => {
-    res.render("auth/walker-signup-done", user)
-  })
-
-  .catch(error => {
-    console.log('Error: ', error);
-    next();
-  });
+  Dog.find().then(dogs => {
+      User.findById(id)
+        .then(user => {
+          res.render("dogs/cards", {
+            user,
+            dogs
+          })
+        })
+    })
+    .catch(error => {
+      console.log('Error: ', error);
+      next();
+    });
 });
+
 
 
 module.exports = router;

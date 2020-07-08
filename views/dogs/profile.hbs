@@ -47,15 +47,16 @@
           <p class='description'>{{ dog.description}}</p>
         </div>
 
+        {{#if isWalker}}
+
         {{#each dog.timeslots}}
         <p>I'm available for a walk: {{ this }}</p>
         {{/each}}
 
-
-
         <form action="/dogs/{{dog._id}}" method="POST">
           <button type="submit" class="bt-edit">Book a walk</button>
         </form>
+        {{/if}}
 
       </div>
     </div>

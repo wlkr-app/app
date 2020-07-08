@@ -101,6 +101,50 @@ router.post('/login', function (req, res, next) {
   })(req, res, next);
 });
 
+
+// router.post("/login", (req, res, next) => {
+//   const { username, password } = req.body;
+
+// if (username === "" || password === "") {
+//   res.render("/auth/login", {
+//     errorMessage: "Please enter both username and password."
+//   });
+//   return;
+// }
+
+// User.findOne({ username: username })
+// .then(user => {
+//     if (!user) {
+//       res.render("/auth/login", {
+//         errorMessage: "The username doesn't exist."
+//       });
+//       return;
+//     }
+//     if (bcrypt.compareSync(password, user.password) && user.type === 'dog-walker') {
+//       req.session.user = user;  
+//       res.redirect("/dogs/cards/");
+//     } 
+//     if (bcrypt.compareSync(password, user.password) && user.type === 'dog-owner') {
+//       req.session.user = user;  
+//       res.redirect('/users/' + user._id);
+//     } 
+//     else {
+//       res.render("/auth/login", {
+//         errorMessage: "Incorrect password."
+//       });
+//     }
+// })
+// .catch(error => {
+//   next(error);
+// })
+// });
+
+
+
+
+
+
+
 // LOGOUT - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get("/logout", (req, res) => {

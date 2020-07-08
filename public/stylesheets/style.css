@@ -221,6 +221,8 @@ p.home {
 .profilepic.main {
   margin: 3rem 0 0rem 0;
   width: 200px;
+  height: 200px;
+  object-fit: cover;
   border-radius: 10rem;
 }
 
@@ -279,6 +281,10 @@ span.gender {
   margin: 0;
 }
 
+.dogedit {
+  
+}
+
 
 
 
@@ -287,7 +293,7 @@ span.gender {
 
 
 .container {
-  margin-top: 7rem;
+  margin-top: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -508,6 +514,9 @@ label span:before {
 .small-profilepic {
   margin: 0rem 0 1rem 0;
   width: 70px;
+  height: 70px;
+
+  object-fit: cover;
   border-radius: 10rem;
 }
 

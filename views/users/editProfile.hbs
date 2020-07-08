@@ -71,10 +71,10 @@
         <div class="bar"></div>
       </div>
 
-    {{/if}}
+      {{/if}}
 
       <div class="input-container">
-        <input  name="description" value="{{user.description}}"/>
+        <input name="description" value="{{user.description}}" />
         <label for="description">About</label>
         <div class="bar"></div>
       </div>
@@ -86,14 +86,17 @@
       </div>
 
       <h4>Your dogs</h4>
-
       {{#each user.dog}}
-      <div class="uploadedpic-dog" style="background-image: url({{imgPath}});">
-        {{/each}}
+      <a href="/dogs/{{_id}}/edit" >
+        <img src="{{imgPath}}" class="small-profilepic" alt="">
+      </a>
 
+      {{/each}}
 
-      </div>
-      <button class="bt-signup" type="submit"><span>Save</span></button>
+    </div>
+    <button class="bt-signup" type="submit"><span>Save</span></button>
   </form>
 
-</div>
+</div>      
+
+  {{!-- <div class="uploadedpic-dog" style="background-image: url({{imgPath}});"> --}}

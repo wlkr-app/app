@@ -127,7 +127,7 @@ router.get('/users/:id/requests', (req, res, next) => {
                 status: r.status
               }
               walkArr.push(obj)
-              res.render('users/requestsWalkers', { walkArr })
+              res.render('users/requestsWalkers', { walkArr, owner })
             })
           })
         })
