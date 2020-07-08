@@ -303,6 +303,12 @@ p.home {
   width: 50%;
 }
 
+.card .input-container input:invalid~label {
+  color: #7447FA;
+  -webkit-transform: translate(-12%, -50%) scale(0.75);
+  transform: translate(-12%, -50%) scale(0.75);
+}
+
 .card .input-container input:valid~label {
   color: #7447FA;
   -webkit-transform: translate(-12%, -50%) scale(0.75);
