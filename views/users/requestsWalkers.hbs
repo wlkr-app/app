@@ -1,0 +1,21 @@
+<p> this is requests for walkers</p>
+
+<table>
+  <tr>
+    <th>Dog</th>
+    <th>Timeslot</th>
+    <th>Owner</th>
+    <th>Status</th>
+  </tr>
+  {{#each walkArr}}
+  <tr>
+    <td><img src="{{ this.dogPic }}" style="width: 100px;"></td>
+    <td>needs work</td>
+    <td>
+      <img src="{{ this.ownerPic }}" style="width: 100px;">
+      <a href="/users/{{this.ownerId}}">{{ this.ownerName}}</a>
+    </td>
+    <td>{{ this.status }}</td>
+  </tr>
+  {{/each}}
+</table>
