@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&display=swap');
 
 :root {
-  font-size: 14px;
+  font-size: 16px;
   font-family: 'Nunito', sans-serif;
 
 }
@@ -22,7 +22,7 @@ h1 {
 }
 
 h2 {
-  color: #FF7D99;
+  color: #7447FA;
   font-size: 1.2rem;
   font-weight: 700;
   margin: 0;
@@ -30,7 +30,7 @@ h2 {
 
 h3 {
   text-transform: uppercase;
-  color: #FF7D99;
+  color: #FF93AA;
   font-size: 1.2rem;
   font-weight: 700;
   margin: 0 0 2rem 0;
@@ -38,7 +38,7 @@ h3 {
 
 h4 {
   text-transform: uppercase;
-  color: #FF7D99;
+  color: #FF93AA;
   font-size: 1rem;
   font-weight: 700;
   margin: 3rem 0 2rem 0;
@@ -46,7 +46,7 @@ h4 {
 
 h5 {
   text-transform: uppercase;
-  color: #FF7D99;
+  color: #FF93AA;
   font-size: 1.5rem;
   font-weight: 800;
   margin: 1rem 0 0.5rem 0;
@@ -61,7 +61,7 @@ lottie-player {
 }
 
 div.index {
-  background-color: #1E1C4B;
+  background-color: #FF93AA;
 }
 
 .button-container {
@@ -85,13 +85,14 @@ div.index {
   border-radius: 3rem;
   border: none;
   text-transform: uppercase;
-  background-color: #41DDFF;
+  background-color: #7447FA;
   outline: none;
 }
 
 .bt-index-signup {
   border: none;
-  background-color: #41DDFF;
+  color: #fff;
+  background-color: #7447FA;
 }
 
 .bt-index-signup:hover {
@@ -99,8 +100,8 @@ div.index {
 }
 
 .bt-index-login {
-  color: #41DDFF;
-  border: 2px solid #41DDFF;
+  color: #7447FA;
+  border: 2px solid #7447FA;
   background-color: transparent;
 }
 
@@ -127,8 +128,8 @@ div.index {
   padding: 1rem 3rem 1rem 3rem;
   margin: 0.5rem;
   border-radius: 3rem;
-  color: #FF7D99;
-  border: 2px solid #FF7D99;
+  color: #FF93AA;
+  border: 2px solid #FF93AA;
   background-color: transparent;
   text-transform: uppercase;
   outline: none;
@@ -181,9 +182,19 @@ div.grid {
   align-items: center;
 }
 
+.divlink {
+  position: absolute;
+  width: 20vw;
+  height: 20vw;
+  text-decoration: none;
+  z-index: 2;
+  /* background-color: yellow; */
+}
+
 div.doggrid {
+  content: '';
   border-radius: 1rem;
-  margin: 0.5rem;
+  margin: 0.8rem;
   width: 20vw;
   height: 20vw;
   min-width: 150px;
@@ -191,6 +202,31 @@ div.doggrid {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  /* background-color: red; */
+}
+
+
+div.doggrid:hover {
+  border-radius: 3rem;
+  margin: 0.8rem;
+  width: 20vw;
+  height: 20vw;
+
+  transition: .5s ease-in-out;
+
+
+  /* background-color: red; */
+}
+
+.dognames {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  position: absolute;
+  border-radius: 20px;
+  margin: -0.5rem 0 0 -0.5rem;
+  background-color: #1E1C4B;
+  padding: 0.3rem 0.7rem 0.3rem 0.7rem;
 }
 
 p.account {
@@ -202,7 +238,7 @@ p.account {
 
 div.errormsg {
   font-size: 0.9rem;
-  color: #FF7D99;
+  color: #FF93AA;
   margin: 0 0 1rem 0;
   max-width: 300px;
 }
@@ -263,7 +299,7 @@ p.home {
 .profileview {
   width: 100vw;
   height: 100vh;
-  /* background-color: #FF7D99; STYLE THISSSS LATETRTETETETTETETETETE AAAA  */
+  /* background-color: #FF93AA; STYLE THISSSS LATETRTETETETTETETETETE AAAA  */
 }
 
 span.gender {
@@ -271,7 +307,7 @@ span.gender {
 }
 
 .dogdetails {
-  color: #FF7D99;
+  color: #FF93AA;
   text-align: center;
   line-height: 1.5;
 }
@@ -281,8 +317,21 @@ span.gender {
   margin: 0;
 }
 
-.dogedit {
-  
+.doggrids {
+  position: relative;
+  background-image: url('/images/bg.png');
+  background-size: cover;
+  padding: 3rem 0 0 0;
+  background-color: #7447FA;
+  height: 99vh;
+}
+
+.break {
+  margin: 6rem 0 0 0;
+}
+
+.icon {
+  margin: 0.7rem 2rem 0 0;
 }
 
 
@@ -297,6 +346,7 @@ span.gender {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 
 }
 
@@ -523,6 +573,15 @@ label span:before {
 .small-profilepic.floating {
   margin: 175px 0 0 60px;
   position: absolute;
+  transition: all .2s ease-in-out;
+}
+
+.small-profilepic.floating:hover {
+  margin: 165px 0 0 50px;
+  position: absolute;
+  width:80px;
+  height: 80px;
+
 }
 
 .uploadedpic-dog {

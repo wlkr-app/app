@@ -7,21 +7,30 @@ const {
   uploader,
   cloudinary
 } = require("../config/cloudinary.js");
-const { ensureAuthenticated } = require('./middlewares');
+const {
+  ensureAuthenticated
+} = require('./middlewares');
 const Dog = require('../models/Dog');
 
 // EDIT USER - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get('/users/:id/edit', (req, res, next) => {
   const id = req.user.id;
-  if(id !== req.params.id) res.redirect("/login");
+  if (id !== req.params.id) res.redirect("/login");
   User.findById(id).populate('dog')
     .then(user => {
-      let addressShow = true;
-      if(user.type === 'dog-walker') addressShow = false;
+      let isWalker = false;
+      if (user.type === 'dog-walker') isWalker = true;
+      let isOwner = false;
+      if (user.type === 'dog-owner') isOwner = true;
+
       // console.log('user is' + req.user);
       // console.log('user is' + user)
-      res.render('users/editProfile', {user, addressShow})
+      res.render('users/editProfile', {
+        user,
+        isOwner,
+        isWalker
+      })
     })
     .catch(error => {
       console.log('Error: ', error);
@@ -49,10 +58,10 @@ router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
   let imgPublicId = req.user.imgPublicId;
 
   if (req.file) {
-     imgPath = req.file.url;
-     imgName = req.file.originalname;
-     imgPublicId = req.file.public_id;
-  } 
+    imgPath = req.file.url;
+    imgName = req.file.originalname;
+    imgPublicId = req.file.public_id;
+  }
 
   User.update({
       _id: id
@@ -85,9 +94,19 @@ router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
 router.get('/users/:id', (req, res, next) => {
   User.findById(req.params.id).populate('dog').then(user => {
     // let dogs = user.dog[0];
-    let addressShow = true;
-    if(user.type === 'dog-walker') addressShow = false;
-    res.render("users/profile", { user, addressShow })
+    let isSameUser = false;
+    if (req.user.id == req.params.id) isSameUser = true;
+    let isWalker = false;
+    if (user.type === 'dog-walker') isWalker = true;
+    let isOwner = false;
+    if (user.type === 'dog-owner') isOwner = true;
+
+    res.render("users/profile", {
+      user,
+      isSameUser,
+      isOwner,
+      isWalker
+    })
   })
 })
 
@@ -95,39 +114,50 @@ router.get('/users/:id/requests', (req, res, next) => {
   let walkArr = [];
   let obj = {};
   User.findById(req.user.id).then(user => {
-    if(user.type === 'dog-owner') {
-      Dog.findOne({ owner: req.user.id }).then(dog =>
+    if (user.type === 'dog-owner') {
+      Dog.findOne({
+        owner: req.user.id
+      }).then(dog =>
         dog.requests.forEach(request => {
           User.findById(request.walkerId).then(walker => {
-            obj = { 
+            obj = {
               walkerId: walker._id,
               walkerName: walker.name,
-              userId: req.user.id, 
-              dogPic: dog.imgPath, 
-              walkerPic: walker.imgPath, 
+              userId: req.user.id,
+              dogPic: dog.imgPath,
+              walkerPic: walker.imgPath,
               status: request.status,
               link: "/users/" + req.user.id + "/requests"
             }
             walkArr.push(obj)
-            res.render('users/requestsOwners', { walkArr })
+            res.render('users/requestsOwners', {
+              walkArr
+            })
           })
         })
       )
     } else {
       User.findById(req.user.id).then(user => {
         user.requests.forEach(r => {
-          Dog.findOne({ _id: r.dogId}).then(dog => {
-            User.findOne({ _id: dog.owner }).then(owner => {
-              obj = { 
+          Dog.findOne({
+            _id: r.dogId
+          }).then(dog => {
+            User.findOne({
+              _id: dog.owner
+            }).then(owner => {
+              obj = {
                 ownerId: owner._id,
                 ownerName: owner.name,
-                userId: req.user.id, 
-                dogPic: dog.imgPath, 
+                userId: req.user.id,
+                dogPic: dog.imgPath,
                 ownerPic: owner.imgPath,
                 status: r.status
               }
               walkArr.push(obj)
-              res.render('users/requestsWalkers', { walkArr, owner })
+              res.render('users/requestsWalkers', {
+                walkArr,
+                owner
+              })
             })
           })
         })
@@ -165,10 +195,10 @@ router.get('/users/:id/requests', (req, res, next) => {
 // router.get('/dash', ensureAuthenticated(), (req, res, next) => {
 
 //   Dog.findById(id)
-  
-  
-  
-  
+
+
+
+
 //   Dog.find().then(allDogs => {
 //     const id = req.user.id;
 //     User.findById(id)

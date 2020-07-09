@@ -7,15 +7,25 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>wlkr - dog walks in your area</title>
   <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
 
   {{{body}}}
 
+
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
     crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="/javascripts/script.js"></script>
+  <script>
+    document.getElementById('timeslot').flatpickr({
+      enableTime: true,
+      dateFormat: "Y-m-d H:i",
+    });
+  </script>
 </body>
 
 </html>
