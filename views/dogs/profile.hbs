@@ -6,7 +6,7 @@
   </a>
 
   <span>
-    {{#with user}}
+    {{#with currentUser}}
     <a href="/users/{{this._id}}/requests">
       <p class='icon'> <img src="/images/requests.svg" style="width: 30px; margin: 0 -10px 0 0" alt=""> </p>
     </a>
@@ -54,7 +54,7 @@
         {{#if isWalker}}
 
         {{#each dog.timeslots}}
-        <p>I'm available for a walk: {{ this }}</p>
+        <p>I'm available for a walk on {{ this }}! 🦴</p>
         {{/each}}
 
         <form action="/dogs/{{dog._id}}" method="POST">
