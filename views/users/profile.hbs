@@ -1,47 +1,49 @@
 <nav>
-  {{#with user}}
   <a href="/home">
     <p class="home">wlkr.</p>
   </a>
 
   <span>
-    <a href="/users/{{this._id}}/requests">Requests</a>
+    {{#with user}}
+    <a href="/users/{{this._id}}/requests">
+      <p class='icon'> <img src="/images/requests.svg" style="width: 30px; margin: 0 -10px 0 0" alt=""> </p>
+    </a>
     {{!-- <a href="/logout">Logout</a> --}}
     <a href="/users/{{this._id}}">
-      <p>👨</p>
+      <p class='icon'> <img src="/images/user.svg" style="width: 35px" alt=""> </p>
     </a>
+    {{/with}}
   </span>
-  {{/with}}
 </nav>
 
 <div class="profileview">
   <div class="container">
     <div class="card">
       <div class="profhead">
+        {{#each user.dog}}
+        <a href="/dogs/{{_id}}">
+          <img src="{{imgPath}}" class="small-profilepic floating" alt="" /> {{/each}}
+        </a>
+
         <img src="{{user.imgPath}}" class="profilepic main">
         <h5>{{ user.name}}</h5>
+        {{#if isOwner}}
         <p class='address'> <img src="/images/pin.svg" alt=""> {{ user.address.street}} {{ user.address.houseNumber}},
           {{ user.address.zip}} {{ user.address.city}}</p>
+        {{/if}}
 
         <div class="profile-content">
           <p class='description'>{{ user.description}}</p>
         </div>
 
-        {{#if user.dog}}
-
-        <h4>Dogs</h4>
-
-        {{#each user.dog}}
-        <a href="/dogs/{{_id}}">
-          <img src="{{imgPath}}" class="small-profilepic" alt="">
-        </a>
-        {{/each}}
-
-        {{/if}}
-
+        {{#if isSameUser}}
         <div class="button-container">
           <a href="/users/{{ user._id }}/edit"> <button class="bt-edit"><span>Edit</span></button></a>
+          <a href="/logout"><p class='logout'>Logout</p> </a>
+
         </div>
+
+        {{/if}}
 
       </div>
     </div>

@@ -1,27 +1,35 @@
 <nav>
-  {{#with user}}
   <a href="/home">
     <p class="home">wlkr.</p>
   </a>
 
   <span>
-    <a href="/users/{{this._id}}/requests">Requests</a>
+    {{#with user}}
+    <a href="/users/{{this._id}}/requests">
+      <p class='icon'> <img src="/images/requests.svg" style="width: 30px; margin: 0 -10px 0 0" alt=""> </p>
+    </a>
     {{!-- <a href="/logout">Logout</a> --}}
     <a href="/users/{{this._id}}">
-      <p>👨</p>
+      <p class='icon'> <img src="/images/user.svg" style="width: 35px" alt=""> </p>
     </a>
+    {{/with}}
   </span>
-  {{/with}}
 </nav>
 
 
-<div class="container">
-  <div class="card">
+<div class="doggrids">
+  <div class="container">
+            <h2>Available dogs to walk</h2><br>
+
     <div class="grid">
+
       {{#each dogs}}
       {{!-- <img src="{{this.imgPath}}" class="dog-grid" alt=""> --}}
+      
       <div style="background-image: url('{{this.imgPath}}')" class="doggrid" />
-      <a href="/dogs/{{this._id}}"> {{this.name}} </a>
+      <p class="dognames">{{this.name}} </p>
+      <a href="/dogs/{{this._id}}" class="divlink"> </a>
+
     </div>
 
     {{!-- <a href="/dogs/delete/{{this._id}}">❌</a> --}}

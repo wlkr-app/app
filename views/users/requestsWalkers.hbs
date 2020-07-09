@@ -1,17 +1,19 @@
 <nav>
-  {{#with user}}
   <a href="/home">
     <p class="home">wlkr.</p>
   </a>
 
   <span>
-    <a href="/users/{{this._id}}/requests">Requests</a>
+    {{#with user}}
+    <a href="/users/{{this._id}}/requests">
+      <p class='icon'> <img src="/images/requests.svg" style="width: 30px; margin: 0 -10px 0 0" alt=""> </p>
+    </a>
     {{!-- <a href="/logout">Logout</a> --}}
     <a href="/users/{{this._id}}">
-      <p>👨</p>
+      <p class='icon'> <img src="/images/user.svg" style="width: 35px" alt=""> </p>
     </a>
+    {{/with}}
   </span>
-  {{/with}}
 </nav>
 
 <p> this is requests for walkers</p>

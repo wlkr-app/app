@@ -12,19 +12,21 @@
 
 
 <nav>
-  {{#with user}}
   <a href="/home">
     <p class="home">wlkr.</p>
   </a>
 
   <span>
-    <a href="/users/{{this._id}}/requests">Requests</a>
+    {{#with user}}
+    <a href="/users/{{this._id}}/requests">
+      <p class='icon'> <img src="/images/requests.svg" style="width: 30px; margin: 0 -10px 0 0" alt=""> </p>
+    </a>
     {{!-- <a href="/logout">Logout</a> --}}
     <a href="/users/{{this._id}}">
-      <p>👨</p>
+      <p class='icon'> <img src="/images/user.svg" style="width: 35px" alt=""> </p>
     </a>
+    {{/with}}
   </span>
-  {{/with}}
 </nav>
 
 <div class="container">
@@ -84,19 +86,19 @@
         {{ errorMessage }}
         {{/if}}
       </div>
-
+      {{#if isOwner}}
       <h4>Your dogs</h4>
       {{#each user.dog}}
-      <a href="/dogs/{{_id}}/edit" >
+      <a href="/dogs/{{_id}}/edit">
         <img src="{{imgPath}}" class="small-profilepic" alt="">
       </a>
-
       {{/each}}
+      {{/if}}
 
     </div>
     <button class="bt-signup" type="submit"><span>Save</span></button>
   </form>
 
-</div>      
+</div>
 
-  {{!-- <div class="uploadedpic-dog" style="background-image: url({{imgPath}});"> --}}
+{{!-- <div class="uploadedpic-dog" style="background-image: url({{imgPath}});"> --}}
