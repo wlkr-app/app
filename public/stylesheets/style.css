@@ -11,6 +11,7 @@ body {
   padding: 0;
   line-height: 1.25;
   background-color: #fff;
+  color: #3B387D;
 }
 
 h1 {
@@ -393,6 +394,34 @@ span.gender {
   margin: -10px 0 0 220px;
 }
 
+.bubbletwo {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #7447FA;
+  border-radius: 20px;
+  /* background-image: url(../images/bubble2.svg);
+  background-size: cover; */
+}
+
+.doggy {
+  margin: 1rem;
+}
+
+.statuswalker {
+  color: #FF93AA;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  margin: -20px 0 20px -10px;
+  border-radius: 10px;
+  padding: 5px;
+  width: 100px;
+  background-color: #7447FA;
+}
+
 .btn-confirm {
   color: rgba(255, 255, 255, 0.0);
   background-image: url(../images/confirm.png);
@@ -661,7 +690,7 @@ label span:before {
 }
 
 .small-profilepic {
-  margin: 0rem 0 1rem 0;
+  margin: 0rem 0 5px 0;
   width: 70px;
   height: 70px;
 

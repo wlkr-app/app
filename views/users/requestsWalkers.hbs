@@ -21,27 +21,21 @@
   <div class="container">
     <div class="card">
 
-<p> this is requests for walkers</p>
+      <h4>sent requests</h4>
+      {{#each walkArr}}
 
-<table>
-  <tr>
-    <th>Dog</th>
-    <th>Timeslot</th>
-    <th>Owner</th>
-    <th>Status</th>
-  </tr>
-  {{#each walkArr}}
-  <tr>
-    <td><img src="{{ this.dogPic }}" style="width: 100px;"></td>
-    <td>{{ this.timeslot }}</td>
-    <td>
-      <img src="{{ this.ownerPic }}" style="width: 100px;">
-      <a href="/users/{{this.ownerId}}">{{ this.ownerName}}</a>
-    </td>
-    <td>{{ this.status }}</td>
-  </tr>
-  {{/each}}
-</table>
+      <div class="bubbletwo">
+        <p class="doggy"> <img src="{{ this.dogPic }}" class="small-profilepic doggy"></p>
+        <p class="doggy"> Walk <b>{{ this.dogName }}</b> <br>
+          on {{ this.timeslot }}</p>
+
+        <p class="doggy"> Request sent to <a href="/users/{{this.ownerId}}"><br>{{ this.ownerName}}</a></p>
+      </div>
+      <p class="statuswalker">Status: {{ this.status }}</p>
+
+
+
+      {{/each}}
 
 
     </div>
@@ -49,3 +43,17 @@
 </div>
 
 
+
+{{!-- <script>
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+
+if (document.querySelector('.statuswalker').innerText == 'Status: confirmed') {
+        alert('asass')
+        document.querySelector('.statuswalker').innerHTML = "aaaaa"}
+
+  }, false);
+
+
+</script> --}}

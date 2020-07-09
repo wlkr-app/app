@@ -153,6 +153,7 @@ router.get('/users/:id/requests', (req, res, next) => {
                 ownerId: owner._id,
                 ownerName: owner.name,
                 userId: req.user.id,
+                dogName: dog.name,
                 dogPic: dog.imgPath,
                 ownerPic: owner.imgPath,
                 timeslot: dog.timeslots,
