@@ -457,6 +457,15 @@ span.gender {
   margin: 0 30px 5px 0;
 }
 
+.trash {
+  position: absolute;
+  margin: -33px 0 0 60px;
+}
+
+
+
+
+
 
 
 
@@ -654,7 +663,7 @@ label span:before {
 /* PICTURE - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #outputimage {
-  position: absolute;
+  position: fixed;
   z-index: 1;
   left: calc(50% - 50px);
   width: 100px;

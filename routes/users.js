@@ -175,10 +175,10 @@ router.get('/users/:id/requests', (req, res, next) => {
  })
 
 router.post('/users/requests/:walkerId/:choice', (req, res, next) => {
-  let statusChange = "denied";
+  let statusChange = "denied :(";
   let redirect = "/users/" + req.user.id + "/requests";
   let dogId;
-  if(req.params.choice === 'confirm') statusChange = "confirmed";
+  if(req.params.choice === 'confirm') statusChange = "confirmed :)";
   Dog.update(
     { owner: req.user.id, "requests.walkerId": req.params.walkerId },
     { $set: { "requests.$.status" : statusChange } }

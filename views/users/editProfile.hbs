@@ -36,9 +36,9 @@
     <div class="card">
       <h4>Your profile</h4>
 
-
       <img src="" alt="" id="outputimage" />
       <div class="uploadpic" style="background-image: url({{user.imgPath}});">
+
         <input type="file" name="photo" onchange="preview_image(event)" />
       </div>
 
@@ -91,14 +91,16 @@
       {{#each user.dog}}
       <a href="/dogs/{{_id}}/edit">
         <img src="{{imgPath}}" class="small-profilepic" alt="">
+        <a href="/dogs/delete/{{_id}}"> <img src="/images/trash2.png" class="trash" alt=""></a>
       </a>
       {{/each}}
       {{/if}}
 
     </div>
-    <button class="bt-signup" type="submit"><span>Save</span></button>
+    <div class="button-container">
+      <button class="bt-signup" type="submit"><span>Save</span></button>
+    </div>
   </form>
 
 </div>
 
-{{!-- <div class="uploadedpic-dog" style="background-image: url({{imgPath}});"> --}}
