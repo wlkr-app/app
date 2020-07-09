@@ -313,10 +313,10 @@ p.home {
 
 .overlay {
   z-index: 2;
-  margin: -3rem 0;
+  margin: -4rem 0;
   position: absolute;
   background-color: rgba(116, 71, 250, 0.9);
-  display: none;
+  display: hidden;
   width: 100vw;
   height: 100vh;
 }

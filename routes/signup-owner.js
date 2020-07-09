@@ -57,7 +57,7 @@ router.get("/ownersignup", (req, res, next) => {
 router.post('/ownersignup/:id', uploader.single("photo"), (req, res, next) => {
   const id = req.user.id;
   const {
-    name, 
+    name,
     street,
     houseNumber,
     zip,
@@ -186,7 +186,9 @@ router.get("/ownersignup-done", (req, res, next) => {
   const id = req.user.id;
   User.findById(id).populate('dog')
     .then(user => {
-      res.render("users/profile", {user}) 
+      res.render("users/profile", {
+        user
+      })
     })
 
     .catch(error => {
