@@ -14,7 +14,7 @@ const Dog = require('../models/Dog');
 //comment
 // EDIT USER - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-router.get('/users/:id/edit', (req, res, next) => {
+router.get('/users/:id/edit', ensureAuthenticated(), (req, res, next) => {
   const id = req.user.id;
   if (id !== req.params.id) res.redirect("/login");
   User.findById(id).populate('dog')
@@ -36,7 +36,7 @@ router.get('/users/:id/edit', (req, res, next) => {
     });
 })
 
-router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
+router.post('/users/:id/edit', ensureAuthenticated(), uploader.single("photo"), (req, res, next) => {
   const id = req.user.id;
   // console.log('file' + req.file.url);
   console.log('user' + req.user);
@@ -91,7 +91,7 @@ router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
     })
 });
 
-router.get('/users/:id', (req, res, next) => {
+router.get('/users/:id', ensureAuthenticated(), (req, res, next) => {
   User.findById(req.params.id).populate('dog').then(user => {
     // let dogs = user.dog[0];
     let isSameUser = false;
@@ -102,6 +102,7 @@ router.get('/users/:id', (req, res, next) => {
     if (user.type === 'dog-owner') isOwner = true;
 
     res.render("users/profile", {
+      loggedIn: req.user.id,
       user,
       isSameUser,
       isOwner,
@@ -110,19 +111,21 @@ router.get('/users/:id', (req, res, next) => {
   })
 })
 
-router.get('/users/:id/requests', (req, res, next) => {
-  let currentUser = req.user;
-  console.log(currentUser);
-
+router.get('/users/:id/requests', ensureAuthenticated(), (req, res, next) => {
   let walkArr = [];
   let obj = {};
   User.findById(req.user.id).then(user => {
     if (user.type === 'dog-owner') {
-      Dog.findOne({
-        owner: req.user.id
-      }).then(dog => {
+      Dog.findOne({ owner: req.user.id }).then(dog => {
+        if(dog.requests.length === 0) {
+          res.render('users/noBookings', 
+          { message: "Sorry, no one likes your dog :("});
+          } else {
         dog.requests.forEach(request => {
           User.findById(request.walkerId).then(walker => {
+            if(!walker) { 
+              res.render('users/noBookings', { message: "User doesn't exists anymore"});
+            } else {
             obj = {
               walkerId: walker._id,
               walkerName: walker.name,
@@ -135,20 +138,25 @@ router.get('/users/:id/requests', (req, res, next) => {
               link: "/users/" + req.user.id + "/requests"
             }
             walkArr.push(obj)
-            res.render('users/requestsOwners', {
-              walkArr,
-              currentUser
-            })
+            res.render('users/requestsOwners', { walkArr })
+          }
           })
+          
         })
+      }
       })
       
     } else {
-      User.findById(req.user.id).then(user => {
+        if(user.requests.length === 0) {
+          res.render('users/noBookings', { message: "Request some dogs :) "});
+        } else {
         user.requests.forEach(r => {
           Dog.findOne({
             _id: r.dogId
           }).then(dog => {
+            if(!dog) { 
+              res.render('users/noBookings', { message: "User doesn't exists anymore"});
+            } else {
             User.findOne({ _id: dog.owner
             }).then(owner => {
               obj = {
@@ -164,21 +172,19 @@ router.get('/users/:id/requests', (req, res, next) => {
               }
               walkArr.push(obj)
             }).then(() => {
-              res.render('users/requestsWalkers', {
-                walkArr              
-              })
+              res.render('users/requestsWalkers', { walkArr })
             })
+          }
           })
-
-
+        
         })
-      })
+      }
     }
   })
  })
 
-router.post('/users/requests/:walkerId/:choice', (req, res, next) => {
-  let statusChange = "denied :(";
+router.post('/users/requests/:walkerId/:choice', ensureAuthenticated(), (req, res, next) => {
+  let statusChange = "denied";
   let redirect = "/users/" + req.user.id + "/requests";
   let dogId;
   if(req.params.choice === 'confirm') statusChange = "confirmed :)";

@@ -65,7 +65,7 @@
 
       <div class="input-container">
         <select name="breed" class="cardbreed">
-          <option value="" disabled selected hidden id="breed">Breed</option>
+          <option value="" disabled selected hidden id="breed">{{dog.breed}}</option>
           {{#each breeds}}
           <option value="{{this.name}}">{{this.name}}</option>
           {{/each}}

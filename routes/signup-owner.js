@@ -165,7 +165,7 @@ router.post("/ownersignup-dog", uploader.single("photo"), (req, res, next) => {
           new: true
         })
         .then(() => {
-          res.redirect("/ownersignup-done");
+          res.redirect("/users/" + req.user.id);
         })
         .catch((error) => {
           res.render('/users/:id/edit');
