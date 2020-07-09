@@ -1,1 +1,32 @@
-<h1 style="color:black">{{ message }}</h1>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+<nav>
+  <a href="/home">
+    <p class="home">wlkr.</p>
+  </a>
+
+  <span>
+    {{#with currentUser}}
+    <a href="/users/{{_id}}/requests">
+      <p class='icon'> <img src="/images/requests.svg" style="width: 30px; margin: 0 -10px 0 0" alt=""> </p>
+    </a>
+    {{!-- <a href="/logout">Logout</a> --}}
+    <a href="/users/{{_id}}">
+      <p class='icon'> <img src="/images/user.svg" style="width: 35px" alt=""> </p>
+    </a>
+    {{/with}}
+  </span>
+</nav>
+
+
+
+
+<div class="profileview">
+  <div class="container">
+    <div class="card">
+      <div class="empty">
+      <h4 style="color: #C4C4C4; text-align: center; margin-bottom: 0">No bookings yet!</h4>
+
+      <lottie-player src="/images/x.json" id="done" background="transparent" speed="1"
+        style="width: 100px; height: 100px;" loop autoplay></lottie-player>
+      </div>

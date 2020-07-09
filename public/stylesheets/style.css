@@ -53,6 +53,15 @@ h5 {
   margin: 1rem 0 0.5rem 0;
 }
 
+h6 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #FF93AA;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 3rem 0 2rem 0;
+}
+
 a {
   text-decoration: none;
 }
@@ -313,7 +322,7 @@ p.home {
 
 .overlay {
   z-index: 2;
-  margin: -3rem 0;
+  margin: -4rem 0;
   position: absolute;
   background-color: rgba(116, 71, 250, 0.9);
   display: none;
@@ -455,6 +464,12 @@ span.gender {
   font-size: 10px;
   text-align: right;
   margin: 0 30px 5px 0;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 
