@@ -22,7 +22,7 @@ h1 {
 }
 
 h2 {
-  color: #7447FA;
+  color: #FF93AA;
   font-size: 1.2rem;
   font-weight: 700;
   margin: 0;
@@ -61,7 +61,7 @@ lottie-player {
 }
 
 div.index {
-  background-color: #FF93AA;
+  background-color: #1E1C4B;
 }
 
 .button-container {
@@ -71,9 +71,9 @@ div.index {
   flex-direction: column;
 }
 
-/* button {
-  max-width: 300px;
-} */
+button {
+  cursor: pointer;
+}
 
 .bt-index-login,
 .bt-index-signup {
@@ -93,19 +93,29 @@ div.index {
   border: none;
   color: #fff;
   background-color: #7447FA;
+  transition: all .2s ease;
 }
 
 .bt-index-signup:hover {
-  background-color: #7CD8FF;
+  background-color: #B4B6FF;
 }
 
 .bt-index-login {
-  color: #7447FA;
+  color: #fff;
   border: 2px solid #7447FA;
   background-color: transparent;
+  transition: all .2s ease;
+}
+
+.bt-index-login:hover {
+  color: #fff;
+  border: 2px solid #B4B6FF;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: all .2s ease;
 }
 
 .bt-signup {
+  transition: all .2s ease;
   font-family: 'Nunito', sans-serif;
   font-size: 1rem;
   font-weight: 800;
@@ -121,7 +131,13 @@ div.index {
   margin: 2rem 0 3rem 0;
 }
 
+.bt-signup:hover {
+  background-color: #B4B6FF;
+  border-radius: 1rem;
+}
+
 .bt-edit {
+  transition: all .2s ease;
   font-family: 'Nunito', sans-serif;
   font-size: 1rem;
   font-weight: 800;
@@ -135,6 +151,13 @@ div.index {
   outline: none;
   min-width: 15rem;
   margin: 2rem 0 3rem 0;
+}
+
+.logout {
+  color: #C4C4C4;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: -1rem 0 0 0;
 }
 
 
@@ -205,14 +228,13 @@ div.doggrid {
   /* background-color: red; */
 }
 
-
 div.doggrid:hover {
-  border-radius: 3rem;
+  border-radius: 2rem;
   margin: 0.8rem;
   width: 20vw;
   height: 20vw;
 
-  transition: .5s ease-in-out;
+  transition: .2s ease-in-out;
 
 
   /* background-color: red; */
@@ -265,7 +287,7 @@ p.home {
 .address {
   margin: 0;
   color: #C4C4C4;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .address img {
@@ -307,9 +329,27 @@ span.gender {
 }
 
 .dogdetails {
-  color: #FF93AA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.square {
+  border-radius: 1rem;
+  border: 1px solid #FF93AA;
+  width: 70px;
+  height: 70px;
+  padding: 5px;
+  margin: 20px 10px 0 10px;
   text-align: center;
-  line-height: 1.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.square span {
+  color: #FF93AA;
 }
 
 .profile-content {
@@ -319,10 +359,9 @@ span.gender {
 
 .doggrids {
   position: relative;
-  background-image: url('/images/bg.png');
   background-size: cover;
   padding: 3rem 0 0 0;
-  background-color: #7447FA;
+  background-color: #fff;
   height: 99vh;
 }
 
@@ -542,6 +581,7 @@ label span:before {
 
 
 .uploadpic {
+  cursor: pointer;
   position: relative;
   left: calc(50% - 50px);
   width: 100px;
@@ -579,7 +619,7 @@ label span:before {
 .small-profilepic.floating:hover {
   margin: 165px 0 0 50px;
   position: absolute;
-  width:80px;
+  width: 80px;
   height: 80px;
 
 }

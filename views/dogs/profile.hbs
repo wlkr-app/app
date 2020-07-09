@@ -36,13 +36,16 @@
 
         <img src="{{dog.imgPath}}" class="profilepic main">
 
-        <h5>{{ dog.name}}<span class='gender'></span></h5>
+        <h5>{{ dog.name}}</h5>
         <p class='address'> <img src="/images/pin.svg" alt=""> {{ user.address.street}}
           {{ user.address.houseNumber}},
           {{ user.address.zip}} {{ user.address.city}}</p>
 
-        <p class="dogdetails"> <b>{{ dog.breed }}</b>,  <b>{{ dog.age }}</b> year(s) old. 🦴</p>
-
+        <div class="dogdetails">
+          <p class="square gender"></p>
+          <p class="square"> <span>{{ dog.breed }}</span></p>
+          <p class="square"> <span>{{ dog.age }}<br> year(s). </span> </p>
+        </div>
 
         <div class="profile-content">
           <p class='description'>{{ dog.description}}</p>
@@ -70,9 +73,9 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     if ('{{ dog.gender }}' == 'male') {
-      document.querySelector('span.gender').innerHTML = "<img src='/images/male.svg'>"
+      document.querySelector('.square.gender').innerHTML = "<span><img src='/images/male.svg'></span>"
     } else {
-      document.querySelector('span.gender').innerHTML = "<img src='/images/female.svg'>"
+      document.querySelector('.square.gender').innerHTML = "<span><img src='/images/female.svg'></span>"
     }
   });
 

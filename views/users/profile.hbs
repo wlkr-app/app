@@ -21,8 +21,8 @@
     <div class="card">
       <div class="profhead">
         {{#each user.dog}}
-         <a href="/dogs/{{_id}}"> 
-        <img src="{{imgPath}}" class="small-profilepic floating" alt="" /> {{/each}}
+        <a href="/dogs/{{_id}}">
+          <img src="{{imgPath}}" class="small-profilepic floating" alt="" /> {{/each}}
         </a>
 
         <img src="{{user.imgPath}}" class="profilepic main">
@@ -39,7 +39,10 @@
         {{#if isSameUser}}
         <div class="button-container">
           <a href="/users/{{ user._id }}/edit"> <button class="bt-edit"><span>Edit</span></button></a>
+          <a href="/logout"><p class='logout'>Logout</p> </a>
+
         </div>
+
         {{/if}}
 
       </div>

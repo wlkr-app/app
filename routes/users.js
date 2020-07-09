@@ -24,8 +24,6 @@ router.get('/users/:id/edit', (req, res, next) => {
       let isOwner = false;
       if (user.type === 'dog-owner') isOwner = true;
 
-      // console.log('user is' + req.user);
-      // console.log('user is' + user)
       res.render('users/editProfile', {
         user,
         isOwner,
