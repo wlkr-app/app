@@ -31,11 +31,8 @@ router.get("/walkersignup", (req, res, next) => {
 router.post('/walkersignup/:id', uploader.single("photo"), (req, res, next) => {
   const id = req.user.id;
   const {
-    name, // address is not working, doesn't register on database
-    street,
-    houseNumber,
-    zip,
-    city
+    name, 
+    description
   } = req.body;
 
   const imgPath = req.file.url;
@@ -47,12 +44,7 @@ router.post('/walkersignup/:id', uploader.single("photo"), (req, res, next) => {
     }, {
       $set: {
         name,
-        adress: {
-          street,
-          houseNumber,
-          zip,
-          city
-        },
+        description,
         imgPath,
         imgName,
         imgPublicId

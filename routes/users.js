@@ -47,7 +47,8 @@ router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
     houseNumber,
     zip,
     city,
-    description
+    description,
+    phoneNumber
   } = req.body;
 
 
@@ -75,7 +76,8 @@ router.post('/users/:id/edit', uploader.single("photo"), (req, res, next) => {
         description,
         imgPath,
         imgName,
-        imgPublicId
+        imgPublicId,
+        phoneNumber
       }
     }, {
       new: true
@@ -152,6 +154,7 @@ router.get('/users/:id/requests', (req, res, next) => {
               obj = {
                 ownerId: owner._id,
                 ownerName: owner.name,
+                ownerNr: owner.phoneNumber,
                 userId: req.user.id,
                 dogName: dog.name,
                 dogPic: dog.imgPath,
