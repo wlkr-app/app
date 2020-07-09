@@ -213,7 +213,7 @@ router.post('/dogs/:id', (req, res, next) => {
     $push: {
       requests: walker
     }
-  }).then(dog => {
+  }, { new: true }).then(dog => {
     User.findOneAndUpdate({
         _id: req.user.id
       }, {

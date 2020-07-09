@@ -11,6 +11,7 @@ const {
 } = require('./middlewares');
 const Dog = require('../models/Dog');
 
+//comment
 // EDIT USER - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 router.get('/users/:id/edit', (req, res, next) => {
@@ -115,7 +116,7 @@ router.get('/users/:id/requests', (req, res, next) => {
     if (user.type === 'dog-owner') {
       Dog.findOne({
         owner: req.user.id
-      }).then(dog =>
+      }).then(dog => {
         dog.requests.forEach(request => {
           User.findById(request.walkerId).then(walker => {
             obj = {
@@ -125,6 +126,7 @@ router.get('/users/:id/requests', (req, res, next) => {
               dogPic: dog.imgPath,
               walkerPic: walker.imgPath,
               status: request.status,
+              timeslot: dog.timeslots,
               link: "/users/" + req.user.id + "/requests"
             }
             walkArr.push(obj)
@@ -134,15 +136,15 @@ router.get('/users/:id/requests', (req, res, next) => {
             })
           })
         })
-      )
+      })
+      
     } else {
       User.findById(req.user.id).then(user => {
         user.requests.forEach(r => {
           Dog.findOne({
             _id: r.dogId
           }).then(dog => {
-            User.findOne({
-              _id: dog.owner
+            User.findOne({ _id: dog.owner
             }).then(owner => {
               obj = {
                 ownerId: owner._id,
@@ -150,20 +152,23 @@ router.get('/users/:id/requests', (req, res, next) => {
                 userId: req.user.id,
                 dogPic: dog.imgPath,
                 ownerPic: owner.imgPath,
+                timeslot: dog.timeslots,
                 status: r.status
               }
               walkArr.push(obj)
+            }).then(() => {
               res.render('users/requestsWalkers', {
-                walkArr,
-                owner
+                walkArr              
               })
             })
           })
+
+
         })
       })
     }
   })
-})
+ })
 
 router.post('/users/requests/:walkerId/:choice', (req, res, next) => {
   let statusChange = "denied";
