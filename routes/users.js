@@ -100,6 +100,7 @@ router.get('/users/:id', (req, res, next) => {
     if (user.type === 'dog-owner') isOwner = true;
 
     res.render("users/profile", {
+      loggedIn: req.user.id,
       user,
       isSameUser,
       isOwner,
