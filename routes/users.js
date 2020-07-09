@@ -108,13 +108,14 @@ router.get('/users/:id', (req, res, next) => {
 })
 
 router.get('/users/:id/requests', (req, res, next) => {
+  // res.send(req.user.id)
   let walkArr = [];
   let obj = {};
   User.findById(req.user.id).then(user => {
     if (user.type === 'dog-owner') {
       Dog.findOne({
         owner: req.user.id
-      }).then(dog =>
+      }).then(dog => {
         dog.requests.forEach(request => {
           User.findById(request.walkerId).then(walker => {
             obj = {
@@ -127,20 +128,19 @@ router.get('/users/:id/requests', (req, res, next) => {
               link: "/users/" + req.user.id + "/requests"
             }
             walkArr.push(obj)
-            res.render('users/requestsOwners', {
-              walkArr
-            })
+          }).then(() => {
+            res.render('users/requestsOwners', { walkArr })
           })
         })
-      )
+      })
+      
     } else {
       User.findById(req.user.id).then(user => {
         user.requests.forEach(r => {
           Dog.findOne({
             _id: r.dogId
           }).then(dog => {
-            User.findOne({
-              _id: dog.owner
+            User.findOne({ _id: dog.owner
             }).then(owner => {
               obj = {
                 ownerId: owner._id,
@@ -151,17 +151,19 @@ router.get('/users/:id/requests', (req, res, next) => {
                 status: r.status
               }
               walkArr.push(obj)
+            }).then(() => {
               res.render('users/requestsWalkers', {
-                walkArr,
-                owner
+                walkArr              
               })
             })
           })
+
+
         })
       })
     }
   })
-})
+ })
 
 router.post('/users/requests/:walkerId/:choice', (req, res, next) => {
   let statusChange = "denied";
