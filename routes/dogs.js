@@ -82,9 +82,11 @@ router.get('/dogs/cards', ensureAuthenticated(), (req, res, next) => {
     const id = req.user.id;
     User.findById(id)
       .then(user => {
+        console.log(req.user.id)
         res.render('dogs/cards', {
           dogs: allDogs,
-          user: req.user
+          user: user,
+          requests: ("/users/" + req.user.id + "/requests")
         })
       })
   })
