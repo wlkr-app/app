@@ -316,6 +316,8 @@ p.home {
   position: absolute;
   background-color: rgba(116, 71, 250, 0.9);
   display: none;
+  width: 100vw;
+  height: 100vh;
 }
 
 .profileview {
@@ -437,6 +439,11 @@ span.gender {
 .card .input-container input:focus~.bar:before,
 .card .input-container input:focus~.bar:after {
   width: 50%;
+}
+
+#timeslotlabel {
+  -webkit-transform: translate(-12%, -50%) scale(0.75);
+  transform: translate(-12%, -50%) scale(0.75);
 }
 
 /* .card .input-container input:invalid~label {

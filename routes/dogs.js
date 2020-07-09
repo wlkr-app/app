@@ -17,7 +17,7 @@ router.get('/dogs/:id/edit', ensureAuthenticated(), (req, res, next) => {
   axios.get('https://api.thedogapi.com/v1/breeds').then(breeds =>
     Dog.findById(req.params.id)
     .then(dog => {
-      
+
       res.render('dogs/editProfile', {
         dog,
         breeds: breeds.data
@@ -44,10 +44,10 @@ router.post('/dogs/:id/edit', uploader.single("photo"), (req, res, next) => {
   let imgPublicId = req.user.imgPublicId;
 
   if (req.file) {
-     imgPath = req.file.url;
-     imgName = req.file.originalname;
-     imgPublicId = req.file.public_id;
-  } 
+    imgPath = req.file.url;
+    imgName = req.file.originalname;
+    imgPublicId = req.file.public_id;
+  }
 
   Dog.update({
       _id: req.params.id
@@ -101,9 +101,9 @@ router.get('/dogs/add', ensureAuthenticated(), (req, res, next) => {
   axios.get('https://api.thedogapi.com/v1/breeds')
     .then(response => {
       let isOwner = true;
-      if(user.type === 'dog-walker') isOwner = false;
+      if (user.type === 'dog-walker') isOwner = false;
       let isWalker = true;
-      if(user.type === 'dog-owner') isWalker = false;
+      if (user.type === 'dog-owner') isWalker = false;
 
       // console.log(response.data);
       const list = response.data;
@@ -173,17 +173,18 @@ router.get('/dogs/delete/:id', ensureAuthenticated(), (req, res, next) => {
 });
 
 router.get('/dogs/:id', (req, res, next) => {
-  let userId = req.user.id;
+  let currentUser = req.user;
+  let isOwner = false;
+  if (currentUser.type === 'dog-owner') isOwner = true;
+  let isWalker = false;
+  if (currentUser.type === 'dog-walker') isWalker = true;
   Dog.findById(req.params.id).then(dog => {
     User.findById(dog.owner).then(user => {
-      let isOwner = true;
-      if(user.type === 'dog-walker') isOwner = false;
-      let isWalker = true;
-      if(user.type === 'dog-owner') isWalker = false;
+
 
       res.render("dogs/profile", {
         dog,
-        userId,
+        currentUser,
         user,
         isOwner,
         isWalker
@@ -214,17 +215,17 @@ router.post('/dogs/:id', (req, res, next) => {
     }
   }, { new: true }).then(dog => {
     User.findOneAndUpdate({
-      _id: req.user.id
-    }, {
-      $push: {
-        requests: doggy
-      }
-    })
-    .then(user => {
-      setTimeout(() => {
-        res.redirect("/dogs/cards")
-      }, 2000)
-    })
+        _id: req.user.id
+      }, {
+        $push: {
+          requests: doggy
+        }
+      })
+      .then(user => {
+        setTimeout(() => {
+          res.redirect("/dogs/cards")
+        }, 2000)
+      })
   })
 })
 
