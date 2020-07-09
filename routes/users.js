@@ -108,6 +108,7 @@ router.get('/users/:id', (req, res, next) => {
 })
 
 router.get('/users/:id/requests', (req, res, next) => {
+  let currentUser = req.user;
   let walkArr = [];
   let obj = {};
   User.findById(req.user.id).then(user => {
@@ -128,7 +129,8 @@ router.get('/users/:id/requests', (req, res, next) => {
             }
             walkArr.push(obj)
             res.render('users/requestsOwners', {
-              walkArr
+              walkArr,
+              currentUser
             })
           })
         })

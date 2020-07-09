@@ -4,7 +4,7 @@
   </a>
 
   <span>
-    {{#with user}}
+    {{#with currentUser}}
     <a href="/users/{{this._id}}/requests">
       <p class='icon'> <img src="/images/requests.svg" style="width: 30px; margin: 0 -10px 0 0" alt=""> </p>
     </a>
@@ -15,6 +15,13 @@
     {{/with}}
   </span>
 </nav>
+
+
+
+
+<div class="profileview">
+  <div class="container">
+    <div class="card">
 
 <p> this is requests for owners</p>
 
@@ -45,7 +52,18 @@
     </td>
   </tr>
   {{/each}}
-</table>
+</table>      
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
 
 
 <script>
