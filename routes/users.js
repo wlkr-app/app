@@ -138,8 +138,13 @@ router.get('/users/:id/requests', ensureAuthenticated(), (req, res, next) => {
               link: "/users/" + req.user.id + "/requests"
             }
             walkArr.push(obj)
-            res.render('users/requestsOwners', { walkArr })
+            // res.render('users/requestsOwners', { walkArr })
           }
+          }).then(() => {
+            if(walkArr.length === dog.requests.length) {
+              console.log(walkArr)
+              res.render('users/requestsOwners', { walkArr , logIn : req.user.id})
+            }
           })
           
         })
@@ -171,8 +176,10 @@ router.get('/users/:id/requests', ensureAuthenticated(), (req, res, next) => {
               }
               walkArr.push(obj)
             }, { new: true }).then(() => {
-              console.log('good point', walkArr)
-              res.render('users/requestsWalkers', { walkArr })
+              if(walkArr.length === user.requests.length) {
+                console.log(walkArr)
+                res.render('users/requestsWalkers', { walkArr , logIn : req.user.id})
+              }
             })
           }
           })

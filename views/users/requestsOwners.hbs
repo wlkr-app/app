@@ -4,15 +4,13 @@
   </a>
 
   <span>
-    {{#with currentUser}}
-    <a href="/users/{{_id}}/requests">
+    <a href="/users/{{logIn}}/requests">
       <p class='icon'> <img src="/images/requests.svg" style="width: 30px; margin: 0 -10px 0 0" alt=""> </p>
     </a>
     {{!-- <a href="/logout">Logout</a> --}}
-    <a href="/users/{{_id}}">
+    <a href="/users/{{logIn}}">
       <p class='icon'> <img src="/images/user.svg" style="width: 35px" alt=""> </p>
     </a>
-    {{/with}}
   </span>
 </nav>
 
