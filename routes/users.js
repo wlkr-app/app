@@ -170,13 +170,14 @@ router.get('/users/:id/requests', ensureAuthenticated(), (req, res, next) => {
                 status: r.status
               }
               walkArr.push(obj)
-            }).then(() => {
+            }, { new: true }).then(() => {
+              console.log('good point', walkArr)
               res.render('users/requestsWalkers', { walkArr })
             })
           }
           })
-        
         })
+
       }
     }
   })
