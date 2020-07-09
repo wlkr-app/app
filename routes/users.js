@@ -144,8 +144,7 @@ router.get('/users/:id/requests', ensureAuthenticated(), (req, res, next) => {
           
         })
       }
-      })
-      
+      })     
     } else {
         if(user.requests.length === 0) {
           res.render('users/noBookings', { message: "Request some dogs :) "});
