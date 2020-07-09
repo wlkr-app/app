@@ -139,14 +139,18 @@ router.get('/users/:id/requests', ensureAuthenticated(), (req, res, next) => {
               link: "/users/" + req.user.id + "/requests"
             }
             walkArr.push(obj)
-            res.render('users/requestsOwners', { currentUser, walkArr })
+            // res.render('users/requestsOwners', { walkArr })
           }
+          }).then(() => {
+            if(walkArr.length === dog.requests.length) {
+              console.log(walkArr)
+              res.render('users/requestsOwners', { walkArr , logIn : req.user.id})
+            }
           })
           
         })
       }
-      })
-      
+      })     
     } else {
         if(user.requests.length === 0) {
           res.render('users/noBookings', { currentUser, message: "Request some dogs :) "});
@@ -172,13 +176,16 @@ router.get('/users/:id/requests', ensureAuthenticated(), (req, res, next) => {
                 status: r.status
               }
               walkArr.push(obj)
-            }).then(() => {
-              res.render('users/requestsWalkers', { currentUser, walkArr })
+            }, { new: true }).then(() => {
+              if(walkArr.length === user.requests.length) {
+                console.log(walkArr)
+                res.render('users/requestsWalkers', { walkArr , logIn : req.user.id})
+              }
             })
           }
           })
-        
         })
+
       }
     }
   })
