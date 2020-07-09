@@ -125,6 +125,7 @@ router.get('/users/:id/requests', (req, res, next) => {
               dogPic: dog.imgPath,
               walkerPic: walker.imgPath,
               status: request.status,
+              timeslot: dog.timeslots,
               link: "/users/" + req.user.id + "/requests"
             }
             walkArr.push(obj)
@@ -148,6 +149,7 @@ router.get('/users/:id/requests', (req, res, next) => {
                 userId: req.user.id,
                 dogPic: dog.imgPath,
                 ownerPic: owner.imgPath,
+                timeslot: dog.timeslots,
                 status: r.status
               }
               walkArr.push(obj)
