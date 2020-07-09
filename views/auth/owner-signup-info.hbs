@@ -17,10 +17,10 @@
     <form action="/ownersignup/{{this._id}}" method="post" enctype="multipart/form-data" id="form-container"
       autocomplete="off">
 
-        <img src="" alt="" id="outputimage" />
-        <div class="uploadpic">
-          <input type="file" accept="image/*" name="photo" onchange="preview_image(event)" required="required" />
-        </div>
+      <img src="" alt="" id="outputimage" />
+      <div class="uploadpic">
+        <input type="file" accept="image/*" name="photo" onchange="preview_image(event)" required="required" />
+      </div>
 
       <div class="input-container">
         <input type="#{type}" id="#{label}" name="name" required="required" />
@@ -28,7 +28,7 @@
         <div class="bar"></div>
       </div>
 
-    {{!-- 
+      {{!-- 
       <div class="input-container">
         <input type="#{type}" id="#{label}" name="description" required="required"/>
         <label for="description">About you</label>

@@ -47,7 +47,8 @@ router.post('/users/:id/edit', ensureAuthenticated(), uploader.single("photo"), 
     houseNumber,
     zip,
     city,
-    description
+    description,
+    phoneNumber
   } = req.body;
 
 
@@ -75,7 +76,8 @@ router.post('/users/:id/edit', ensureAuthenticated(), uploader.single("photo"), 
         description,
         imgPath,
         imgName,
-        imgPublicId
+        imgPublicId,
+        phoneNumber
       }
     }, {
       new: true
@@ -161,6 +163,7 @@ router.get('/users/:id/requests', ensureAuthenticated(), (req, res, next) => {
               obj = {
                 ownerId: owner._id,
                 ownerName: owner.name,
+                ownerNr: owner.phoneNumber,
                 userId: req.user.id,
                 dogName: dog.name,
                 dogPic: dog.imgPath,
@@ -185,7 +188,7 @@ router.post('/users/requests/:walkerId/:choice', ensureAuthenticated(), (req, re
   let statusChange = "denied";
   let redirect = "/users/" + req.user.id + "/requests";
   let dogId;
-  if(req.params.choice === 'confirm') statusChange = "confirmed";
+  if(req.params.choice === 'confirm') statusChange = "confirmed :)";
   Dog.update(
     { owner: req.user.id, "requests.walkerId": req.params.walkerId },
     { $set: { "requests.$.status" : statusChange } }

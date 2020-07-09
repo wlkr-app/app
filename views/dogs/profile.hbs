@@ -51,7 +51,7 @@
           <p class='description'>{{ dog.description}}</p>
         </div>
 
-        {{!-- {{#if isWalker}} --}}
+        {{#if isWalker}}
 
         {{#each dog.timeslots}}
         <p>I'm available for a walk on {{ this }}! 🦴</p>
@@ -60,7 +60,7 @@
         <form action="/dogs/{{dog._id}}" method="POST">
           <button type="submit" class="bt-edit">Book a walk</button>
         </form>
-        {{!-- {{/if}} --}}
+        {{/if}}
 
       </div>
     </div>

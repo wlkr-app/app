@@ -472,6 +472,25 @@ span.gender {
   align-items: center;
 }
 
+.trash {
+  position: absolute;
+  margin: -33px 0 0 60px;
+}
+
+.phone {
+  line-height: 2;
+  color: #C4C4C4;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 600;
+  margin: -40px 0 0 350px;
+}
+
+
+
+
+
 
 
 
@@ -669,7 +688,7 @@ label span:before {
 /* PICTURE - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #outputimage {
-  position: absolute;
+  position: fixed;
   z-index: 1;
   left: calc(50% - 50px);
   width: 100px;

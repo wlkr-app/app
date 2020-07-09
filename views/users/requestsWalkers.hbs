@@ -29,9 +29,12 @@
         <p class="doggy"> Walk <b>{{ this.dogName }}</b> <br>
           on {{ this.timeslot }}</p>
 
-        <p class="doggy"> Request sent to <a href="/users/{{this.ownerId}}"><br>{{ this.ownerName}}</a></p>
+        <p class="doggy"> Request sent to <a href="/users/{{this.ownerId}}"><br>{{ this.ownerName}}.</a>
+        <br></p>
+       
       </div>
       <p class="statuswalker">Status: {{ this.status }}</p>
+       <span class="phone"><img src="/images/phone.svg">  {{this.ownerNr }} </span>
 
 
 
