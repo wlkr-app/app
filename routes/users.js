@@ -110,6 +110,8 @@ router.get('/users/:id', (req, res, next) => {
 
 router.get('/users/:id/requests', (req, res, next) => {
   let currentUser = req.user;
+  console.log(currentUser);
+
   let walkArr = [];
   let obj = {};
   User.findById(req.user.id).then(user => {
@@ -124,6 +126,7 @@ router.get('/users/:id/requests', (req, res, next) => {
               walkerName: walker.name,
               userId: req.user.id,
               dogPic: dog.imgPath,
+              dogName: dog.name,
               walkerPic: walker.imgPath,
               status: request.status,
               timeslot: dog.timeslots,

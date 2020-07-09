@@ -375,6 +375,58 @@ span.gender {
   margin: 0.7rem 2rem 0 0;
 }
 
+.bubble {
+  width: 342px;
+  height: 146px;
+  background-image: url(../images/bubble.svg);
+  background-size: cover;
+  margin: 0 0 10px 0;
+}
+
+.bubble p {
+  padding: 20px 20px 20px 20px;
+}
+
+.confirmdeny {
+  /* background-color: red; */
+  position: absolute;
+  margin: -10px 0 0 220px;
+}
+
+.btn-confirm {
+  color: rgba(255, 255, 255, 0.0);
+  background-image: url(../images/confirm.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 100px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  margin: 0 1px 0;
+  background-color: #41DDFF;
+
+}
+
+.btn-deny {
+  background-color: #FF93AA;
+  color: rgba(255, 255, 255, 0.0);
+  background-image: url(../images/deny.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 100px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  margin: 0 1px 0;
+}
+
+.status {
+  color: #7447FA;
+  text-transform: uppercase;
+  font-size: 10px;
+  text-align: right;
+  margin: 0 30px 5px 0;
+}
 
 
 

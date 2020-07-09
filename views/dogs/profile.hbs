@@ -20,9 +20,9 @@
 
 <div class="overlay">
   <div class="default">
-
-    <h3 style="font-size: 2rem; text-align: center; margin: 0 0 -150px 0; color: white">Thanks {{user.name}}.<br>
-      Request sent!</h3>
+    {{#with currentUser}}
+    <h3 style="font-size: 2rem; text-align: center; margin: 0 0 -150px 0; color: white">Thanks {{this.name}}.<br>
+      Request sent!</h3>{{/with}}
     <lottie-player src="/images/done.json" id="done" background="transparent" speed="1"
       style="width: 400px; height: 400px;" autoplay></lottie-player>
   </div>

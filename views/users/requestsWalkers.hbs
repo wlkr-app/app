@@ -4,17 +4,22 @@
   </a>
 
   <span>
-    {{#with currentUser}}
-    <a href="/users/{{this._id}}/requests">
+    {{!-- {{#with currentUser}} --}}
+    <a href="/users/{{_id}}/requests">
       <p class='icon'> <img src="/images/requests.svg" style="width: 30px; margin: 0 -10px 0 0" alt=""> </p>
     </a>
     {{!-- <a href="/logout">Logout</a> --}}
-    <a href="/users/{{this._id}}">
+    <a href="/users/{{_id}}">
       <p class='icon'> <img src="/images/user.svg" style="width: 35px" alt=""> </p>
     </a>
-    {{/with}}
+    {{!-- {{/with}} --}}
   </span>
 </nav>
+
+
+<div class="profileview">
+  <div class="container">
+    <div class="card">
 
 <p> this is requests for walkers</p>
 
@@ -37,3 +42,10 @@
   </tr>
   {{/each}}
 </table>
+
+
+    </div>
+  </div>
+</div>
+
+
