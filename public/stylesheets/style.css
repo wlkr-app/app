@@ -316,7 +316,7 @@ p.home {
   margin: -4rem 0;
   position: absolute;
   background-color: rgba(116, 71, 250, 0.9);
-  display: hidden;
+  display: none;
   width: 100vw;
   height: 100vh;
 }
