@@ -36,17 +36,17 @@
 
       <img src="" alt="" id="outputimage" />
       <div class="uploadpic" style="background-image: url({{dog.imgPath}});">
-        <input type="file" name="photo" required="required"  value="{{dog.imgPath}}" onchange="preview_image(event)"/>
+        <input type="file" name="photo" required="required" value="{{dog.imgPath}}" onchange="preview_image(event)" />
       </div>
 
       <div class="input-container">
-        <input type="#{type}" id="#{label}" name="name" required="required" value="{{dog.name}}"/>
+        <input type="#{type}" id="#{label}" name="name" required="required" value="{{dog.name}}" />
         <label for="name">Name</label>
         <div class="bar"></div>
       </div>
 
       <div class="input-container">
-        <input type="#{type}" id="#{label}" name="age" required="required" value="{{dog.age}}"/>
+        <input type="#{type}" id="#{label}" name="age" required="required" value="{{dog.age}}" />
         <label for="age">Age</label>
         <div class="bar"></div>
       </div>
@@ -78,13 +78,13 @@
       </div>
 
       <div class="input-container">
-        <input type="#{type}" id="#{label}" name="description" required="required" value="{{dog.description}}"/>
+        <input type="#{type}" id="#{label}" name="description" required="required" value="{{dog.description}}" />
         <label for="description">Description</label>
         <div class="bar"></div>
       </div>
 
       <div class="input-container">
-        <input type="#{type}" id="timeslot" name="timeslots" required="required" value="{{dog.timeslots}}"/>
+        <input type="#{type}" id="timeslot" name="timeslots" required="required" value="{{dog.timeslots}}" />
         <label for="timeslots" id="timeslotlabel">Time Slot</label>
         <div class="bar"></div>
       </div>
@@ -101,3 +101,16 @@
     </form>
 
   </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <script>
+    document.getElementById('timeslot').flatpickr({
+      enableTime: true,
+      time_24hr: true,
+      dateFormat: "d.m at H:i",
+      altInput: true,
+      minDate: "today"
+    });
+  </script>

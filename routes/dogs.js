@@ -39,6 +39,8 @@ router.post('/dogs/:id/edit', uploader.single("photo"), (req, res, next) => {
     timeslots
   } = req.body;
 
+  console.log('file is' + req.file)
+
   let imgPath = req.user.imgPath;
   let imgName = req.user.imgName;
   let imgPublicId = req.user.imgPublicId;
