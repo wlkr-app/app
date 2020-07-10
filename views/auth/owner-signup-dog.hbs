@@ -107,3 +107,16 @@
 
     });
 </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <script>
+    document.getElementById('timeslot').flatpickr({
+      enableTime: true,
+      time_24hr: true,
+      dateFormat: "d.m at H:i",
+      altInput: true,
+      minDate: "today"
+    });
+  </script>

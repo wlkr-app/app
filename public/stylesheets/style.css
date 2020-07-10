@@ -1,5 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&display=swap');
 
+
+@keyframes slidefade {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-10px);
+    opacity: 100;
+  }
+}
+
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0.7);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
 :root {
   font-size: 16px;
   font-family: 'Nunito', sans-serif;
@@ -15,6 +50,7 @@ body {
 }
 
 h1 {
+  animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
   color: white;
   font-size: 5rem;
   font-weight: 800;
@@ -53,6 +89,15 @@ h5 {
   margin: 1rem 0 0.5rem 0;
 }
 
+h6 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #FF93AA;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 3rem 0 2rem 0;
+}
+
 a {
   text-decoration: none;
 }
@@ -73,6 +118,7 @@ div.index {
 }
 
 button {
+  animation: scale 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   cursor: pointer;
 }
 
@@ -152,6 +198,12 @@ button {
   outline: none;
   min-width: 15rem;
   margin: 2rem 0 3rem 0;
+}
+
+.bt-edit:hover {
+  background-color: rgba(255, 147, 170, 0.2);
+  color: #FF93AA;
+  border: 2px solid #FF93AA;
 }
 
 .logout {
@@ -401,6 +453,7 @@ span.gender {
   align-items: center;
   border: 1px solid #7447FA;
   border-radius: 20px;
+  margin: 10px 0 0 0;
   /* background-image: url(../images/bubble2.svg);
   background-size: cover; */
 }
@@ -457,6 +510,12 @@ span.gender {
   margin: 0 30px 5px 0;
 }
 
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .trash {
   position: absolute;
   margin: -33px 0 0 60px;
@@ -477,8 +536,6 @@ span.gender {
 
 
 
-
-
 /* FORM - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
@@ -493,6 +550,7 @@ span.gender {
 
 
 .card {
+	animation: slidefade 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   display: flex;
   justify-content: center;
   flex-direction: column;

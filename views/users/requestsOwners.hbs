@@ -22,24 +22,26 @@
     <div class="card">
 
       <h4>received requests</h4>
-        {{#each walkArr}}
-      <span class="status"> Status: <b>{{ this.status }} </b></span>
+      {{#each walkArr}}
 
-      <div class="bubble">
-        <p> Hey! I'm <a href="/users/{{this.walkerId}}">{{ this.walkerName}}</a>. I would love to walk {{this.dogName}}
-          on {{ this.timeslot }}.</p>
+        <span class="status"> Status: <b>{{ this.status }} </b></span>
+
+        <div class="bubble">
+          
+          <p> Hey! I'm <a href="/users/{{this.walkerId}}">{{ this.walkerName}}</a>. I would love to walk
+            {{this.dogName}}
+            on {{ this.timeslot }}.</p>
           <div class="confirmdeny">
-             <button class="btn-confirm" id="{{this.walkerId}}">
-               Confirm
-             </button>
-             <button class="btn-deny" id="{{this.walkerId}}">
-               Deny
-             </button>
+            <button class="btn-confirm" id="{{this.walkerId}}">
+              Confirm
+            </button>
+            <button class="btn-deny" id="{{this.walkerId}}">
+              Deny
+            </button>
           </div>
-      </div>
-       <a href="/users/{{this.walkerId}}"><img src="{{ this.walkerPic }}" class="small-profilepic"></a>
-
-        {{!-- <td><img src="{{ this.dogPic }}" style="width: 100px;"></td> --}}
+        </div>
+        <a href="/users/{{this.walkerId}}"><img src="{{ this.walkerPic }}" class="small-profilepic"></a>
+      {{!-- <td><img src="{{ this.dogPic }}" style="width: 100px;"></td> --}}
 
       {{/each}}
 
@@ -51,25 +53,25 @@
 
 
 
-<script>
-  const confirmBtn = document.getElementsByClassName('btn-confirm');
-  const denyBtn = document.getElementsByClassName('btn-deny');
+      <script>
+        const confirmBtn = document.getElementsByClassName('btn-confirm');
+        const denyBtn = document.getElementsByClassName('btn-deny');
 
-  const confirm = [...confirmBtn]
-  const deny = [...denyBtn]
+        const confirm = [...confirmBtn]
+        const deny = [...denyBtn]
 
-  confirm.forEach(btn => {
-    btn.onclick = () => {
-      axios.post(`/users/requests/${event.target.id}/confirm`).then(response => {
-      }).then(window.location.reload(true))
-    }
-  });
+        confirm.forEach(btn => {
+          btn.onclick = () => {
+            axios.post(`/users/requests/${event.target.id}/confirm`).then(response => {
+            }).then(window.location.reload(true))
+          }
+        });
 
-  deny.forEach(btn => {
-    btn.onclick = () => {
-      axios.post(`/users/requests/${event.target.id}/denied`).then(response => {
-      }).then(window.location.reload(true))
-    }
-  })
+        deny.forEach(btn => {
+          btn.onclick = () => {
+            axios.post(`/users/requests/${event.target.id}/denied`).then(response => {
+            }).then(window.location.reload(true))
+          }
+        })
 
-</script>
+      </script>

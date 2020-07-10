@@ -111,6 +111,7 @@ router.get('/users/:id', ensureAuthenticated(), (req, res, next) => {
 })
 
 router.get('/users/:id/requests', ensureAuthenticated(), (req, res, next) => {
+  let currentUser = req.user;
   let walkArr = [];
   let obj = {};
   User.findById(req.user.id).then(user => {
@@ -118,12 +119,12 @@ router.get('/users/:id/requests', ensureAuthenticated(), (req, res, next) => {
       Dog.findOne({ owner: req.user.id }).then(dog => {
         if(dog.requests.length === 0) {
           res.render('users/noBookings', 
-          { message: "Sorry, no one likes your dog :("});
+          { currentUser, message: "Sorry, no one likes your dog :("});
           } else {
         dog.requests.forEach(request => {
           User.findById(request.walkerId).then(walker => {
             if(!walker) { 
-              res.render('users/noBookings', { message: "User doesn't exists anymore"});
+              res.render('users/noBookings', { currentUser, message: "User doesn't exists anymore"});
             } else {
             obj = {
               walkerId: walker._id,
@@ -151,14 +152,14 @@ router.get('/users/:id/requests', ensureAuthenticated(), (req, res, next) => {
       })     
     } else {
         if(user.requests.length === 0) {
-          res.render('users/noBookings', { message: "Request some dogs :) "});
+          res.render('users/noBookings', { currentUser, message: "Request some dogs :) "});
         } else {
         user.requests.forEach(r => {
           Dog.findOne({
             _id: r.dogId
           }).then(dog => {
             if(!dog) { 
-              res.render('users/noBookings', { message: "User doesn't exists anymore"});
+              res.render('users/noBookings', { currentUser, message: "User doesn't exists anymore"});
             } else {
             User.findOne({ _id: dog.owner
             }).then(owner => {
