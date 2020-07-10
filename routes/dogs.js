@@ -14,13 +14,15 @@ const {
 
 // EDIT DOGS
 router.get('/dogs/:id/edit', ensureAuthenticated(), (req, res, next) => {
+  let userId = req.user.id;
   axios.get('https://api.thedogapi.com/v1/breeds').then(breeds =>
     Dog.findById(req.params.id)
     .then(dog => {
 
       res.render('dogs/editProfile', {
         dog,
-        breeds: breeds.data
+        breeds: breeds.data,
+        userId
       })
     })
     .catch(error => {

@@ -16,15 +16,12 @@
   </a>
 
   <span>
-    {{#with user}}
-    <a href="/users/{{this._id}}/requests">
+    <a href="/users/{{userId}}/requests">
       <p class='icon'> <img src="/images/requests.svg" style="width: 30px; margin: 0 -10px 0 0" alt=""> </p>
     </a>
-    {{!-- <a href="/logout">Logout</a> --}}
-    <a href="/users/{{this._id}}">
+    <a href="/users/{{userId}}">
       <p class='icon'> <img src="/images/user.svg" style="width: 35px" alt=""> </p>
     </a>
-    {{/with}}
   </span>
 </nav>
 
@@ -32,7 +29,7 @@
 
   <div class="card">
     <h6>Edit {{ dog.name }}'s Info </h6>
-    <form action="/ownersignup-dog" method="post" enctype="multipart/form-data" id="form-container">
+    <form action="/dogs/{{dog._id}}/edit" method="post" enctype="multipart/form-data" id="form-container">
 
       <img src="" alt="" id="outputimage" />
       <div class="uploadpic" style="background-image: url({{dog.imgPath}});">
