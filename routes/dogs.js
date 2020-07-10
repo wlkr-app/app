@@ -71,10 +71,10 @@ router.post('/dogs/:id/edit', uploader.single("photo"), (req, res, next) => {
       new: true
     })
     .then(() => {
-      res.redirect('/dogs/:id/edit');
+      res.redirect('/dogs/' + req.params.id);
     })
     .catch((error) => {
-      res.render('/dogs/:id/edit');
+      res.render('/dogs/' + req.params.id + '/edit');
       console.log(error);
     })
 });
